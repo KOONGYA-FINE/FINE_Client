@@ -1,6 +1,6 @@
 // import React from 'react'
-import { styled } from 'styled-components'
-import { Article, Container, Header, Wrapper } from '../common/commonstyle'
+import { styled } from "styled-components";
+import { Article, Container, Header, Wrapper } from "../common/commonstyle";
 
 const Signup = () => {
   return (
@@ -16,10 +16,10 @@ const Signup = () => {
         </Article>
       </Wrapper>
     </Container>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
 
 // 테스트용 input box
 const TestInputBox = styled.div`
@@ -28,4 +28,4 @@ const TestInputBox = styled.div`
   width: 80%;
   background-color: whitesmoke;
   margin: 5%;
-`
+`;
