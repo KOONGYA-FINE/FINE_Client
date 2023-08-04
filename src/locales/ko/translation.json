@@ -7,6 +7,10 @@
     "language": "언어설정",
     "help": "고객센터"
   },
+  "login": {
+    "emailMsg": "학교이메일을 입력하세요",
+    "passwordMsg": "비밀번호는 최소 8자 이상 입력해야 합니다"
+  },
   "signup": {
     "create": "계정 생성",
     "emailAdress": "이메일",

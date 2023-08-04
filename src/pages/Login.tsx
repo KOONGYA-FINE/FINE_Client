@@ -1,38 +1,30 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { TranslationAtom } from "../store/atom";
 import { Link } from "react-router-dom";
+import { Article, Container, Wrapper } from "../common/commonstyle";
+import { HeaderCompo } from "../components/utils/HeaderCompo";
 
 const Login = () => {
-  const [currentlang, setLang] = useRecoilState(TranslationAtom);
+  const currentlang = useRecoilValue(TranslationAtom);
   const { t, i18n } = useTranslation();
-  const languageRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
     i18n.changeLanguage(currentlang);
-  }, []);
-
-  const handleChangeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
-    setLang(i18n.language);
-    console.log(currentlang);
-  };
+  }, [currentlang]);
 
   return (
-    <div>
-      <header>
-        {t(`header.login`)}
-        <div ref={languageRef}>
-          {t(`header.language`)}
-          <ul>
-            <li onClick={() => handleChangeLanguage("ko")}>한국어</li>
-            <li onClick={() => handleChangeLanguage("en")}>English</li>
-          </ul>
-        </div>
-      </header>
-      <Link to="/signup">회원가입</Link>
-    </div>
+    <Container>
+      <HeaderCompo />
+      <Wrapper>
+        <Article>여기에 메인 사진</Article>
+        <Article>
+          여기에 로그인 컴포넌트
+          <Link to="/signup">{t(`header.register`)}</Link>
+        </Article>
+      </Wrapper>
+    </Container>
   );
 };
 

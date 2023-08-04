@@ -7,6 +7,10 @@
     "language": "Languages",
     "help": "Help"
   },
+  "login": {
+    "emailMsg": "Enter your school email",
+    "passwordMsg": "Passwords must be at least 8 characters"
+  },
   "signup": {
     "create": "Create your account",
     "emailAdress": "Your Email Adress",
