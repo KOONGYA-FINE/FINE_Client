@@ -11,7 +11,7 @@ const Login = () => {
         <Article>여기에 메인 사진</Article>
         <Article>
           <Loginlogo src="/FineLogo.png" />
-          <KatahdinFont style={{ fontSize: "30px" }}>
+          <KatahdinFont style={{ fontSize: "30px", marginBottom: "41px" }}>
             WELCOME TO FINE!
           </KatahdinFont>
           <Loginform />

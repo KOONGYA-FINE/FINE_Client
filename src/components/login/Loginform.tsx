@@ -14,12 +14,12 @@ const Loginform = () => {
   return (
     <>
       <LoginInputWrapper>
-        <div>Email Adress</div>
-        <input />
+        <PoppinsFont>Email Adress</PoppinsFont>
+        <LoginInput />
       </LoginInputWrapper>
       <LoginInputWrapper>
-        <div>Password</div>
-        <input />
+        <PoppinsFont>Password</PoppinsFont>
+        <LoginInput />
       </LoginInputWrapper>
       <LoginButtonWrapper>
         <LoginButton>{t(`header.login`)}</LoginButton>
@@ -79,4 +79,23 @@ const LoginButton = styled.button`
   gap: 8px;
   border-radius: 5px;
   background: rgba(34, 170, 85, 0.98);
+  color: white;
+`;
+
+export const PoppinsFont = styled.div`
+  color: #000;
+  font-family: "Poppins";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+const LoginInput = styled.input`
+  display: flex;
+  align-items: flex-start;
+  width: 434px;
+  padding: 15px 0px;
+  border-radius: 5px;
+  border: 1px solid #000;
 `;
