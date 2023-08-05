@@ -1,8 +1,8 @@
 {
   "header": {
     "mypage": "My page",
-    "logout": "Sign Out",
-    "login": "Sign In",
+    "logout": "Logout",
+    "login": "Login",
     "register": "Sign Up",
     "language": "Languages",
     "help": "Help"

@@ -64,7 +64,7 @@ const LogoImage = styled.img`
   height: 66px;
 `;
 
-const KatahdinFont = styled.div`
+export const KatahdinFont = styled.div`
   color: #000;
   font-family: "Katahdin Round";
   font-size: 20px;
