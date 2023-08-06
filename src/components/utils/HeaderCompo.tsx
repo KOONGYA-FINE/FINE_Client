@@ -38,7 +38,7 @@ export const HeaderCompo = () => {
         <ChangeLanguageBtn onClick={() => handleChangeLanguage()}>
           {langInfo === "ko" ? "KOR" : "ENG"}
         </ChangeLanguageBtn>
-        <LoginButton onClick={useRoutePageFunc("signup")}>Login</LoginButton>
+        <LoginButton onClick={useRoutePageFunc("")}>Login</LoginButton>
       </CommonFlex>
     </Header>
   );

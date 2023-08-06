@@ -24,6 +24,7 @@ const Loginform = () => {
     formState: { errors, isValid },
   } = useForm<{ email: string; password: string }>({ mode: "onChange" });
   const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
+  const navigate = useRoutePageFunc;
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const result = await LoginApi(watch("email"), watch("password"));
@@ -36,6 +37,7 @@ const Loginform = () => {
           token: result.data.token,
         });
         alert("로그인 성공!");
+        navigate("main");
       }
       console.log(userInfo);
     }
@@ -88,7 +90,7 @@ const Loginform = () => {
           <OrText>or</OrText>
           <OrLine></OrLine>
         </OrPart>
-        <LoginButton onClick={useRoutePageFunc("signup")}>
+        <LoginButton onClick={navigate("signup")}>
           {t(`header.register`)}
         </LoginButton>
       </LoginButtonWrapper>
