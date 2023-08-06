@@ -4,3 +4,21 @@ export const TranslationAtom = atom<string>({
   key: "translationAtom",
   default: "en",
 });
+
+interface KeyPair<V> {
+  [key: string]: V;
+}
+
+export const UserInfoAtom = atom<KeyPair<object>>({
+  key: "userInfo",
+  default: {
+    member: {
+      id: 0,
+      email: "",
+    },
+    token: {
+      access_token: "",
+      refresh_token: "",
+    },
+  },
+});

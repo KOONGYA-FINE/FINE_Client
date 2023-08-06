@@ -1,7 +1,8 @@
 import { Article, Container, Wrapper } from "../common/commonstyle";
-import { HeaderCompo, KatahdinFont } from "../components/utils/HeaderCompo";
+import { HeaderCompo } from "../components/utils/HeaderCompo";
 import { styled } from "styled-components";
 import Loginform from "../components/login/Loginform";
+import { KatahdinFont } from "../styles/loginFontStyle";
 
 const Login = () => {
   return (

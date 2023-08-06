@@ -1,29 +1,45 @@
 import { styled } from "styled-components";
 import "../../common/font.css";
 import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
-import { TranslationAtom } from "../../store/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { TranslationAtom, UserInfoAtom } from "../../store/atom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { LoginApi } from "../../apis/loginapi";
+import { useRoutePageFunc } from "../../hooks/useRoutePageFunc";
+import { regExgPassword, regExpEmail } from "../../store/regExp";
+import { PoppinsFont } from "../../styles/loginFontStyle";
 const Loginform = () => {
   const currentlang = useRecoilValue(TranslationAtom);
   const { t, i18n } = useTranslation();
   const [show, setShow] = useState<boolean>(false);
-  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    alert("아직 안되지롱!");
-  };
   useEffect(() => {
     i18n.changeLanguage(currentlang);
   }, [currentlang]);
-  const regExpEm =
-    /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}ac\.kr$/;
-  const regExgPw = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+  const regExpEm = regExpEmail;
+  const regExgPw = regExgPassword;
   const {
     register,
+    watch,
     formState: { errors, isValid },
   } = useForm<{ email: string; password: string }>({ mode: "onChange" });
+  const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
+  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const result = await LoginApi(watch("email"), watch("password"));
+    if (result === false) {
+      alert("에러가 일어났습니다");
+    } else {
+      if (result.status === 200) {
+        setUserInfo({
+          member: result.data.member,
+          token: result.data.token,
+        });
+        alert("로그인 성공!");
+      }
+      console.log(userInfo);
+    }
+  };
   return (
     <>
       <LoginInputDiv>
@@ -72,9 +88,9 @@ const Loginform = () => {
           <OrText>or</OrText>
           <OrLine></OrLine>
         </OrPart>
-        <Link to="/signup">
-          <LoginButton>{t(`header.register`)}</LoginButton>
-        </Link>
+        <LoginButton onClick={useRoutePageFunc("signup")}>
+          {t(`header.register`)}
+        </LoginButton>
       </LoginButtonWrapper>
     </>
   );
@@ -127,15 +143,6 @@ const LoginButton = styled.button`
   &.unvalid {
     background: rgba(151, 151, 151, 1);
   }
-`;
-
-export const PoppinsFont = styled.div`
-  color: #000;
-  font-family: "Poppins";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 `;
 
 const LoginInputWrapper = styled.div`

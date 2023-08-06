@@ -6,10 +6,10 @@ import { useRef } from "react";
 import "../../common/font.css";
 import { styled } from "styled-components";
 import icons from "../../common/icons";
-import { useNavigate } from "react-router-dom";
+import { useRoutePageFunc } from "../../hooks/useRoutePageFunc";
+import { KatahdinFont } from "../../styles/loginFontStyle";
 
 export const HeaderCompo = () => {
-  const router = useNavigate();
   const languageRef = useRef<null | HTMLDivElement>(null);
   const [langInfo, setLangInfo] = useRecoilState(TranslationAtom);
   const { i18n } = useTranslation();
@@ -22,9 +22,6 @@ export const HeaderCompo = () => {
       setLangInfo("en");
     }
   };
-  const routePageFunc = (page: string) => {
-    router(`/${page}`);
-  };
   return (
     <Header>
       <CommonFlex>
@@ -32,13 +29,7 @@ export const HeaderCompo = () => {
         <KatahdinFont>FINE</KatahdinFont>
       </CommonFlex>
       <CommonFlex>
-        <PoppinsFont
-          onClick={() => {
-            routePageFunc("signup");
-          }}
-        >
-          Home
-        </PoppinsFont>
+        <PoppinsFont onClick={useRoutePageFunc("signup")}>Home</PoppinsFont>
         <PoppinsFont>Friend Matching</PoppinsFont>
         <PoppinsFont>Restaurant review</PoppinsFont>
       </CommonFlex>
@@ -47,13 +38,7 @@ export const HeaderCompo = () => {
         <ChangeLanguageBtn onClick={() => handleChangeLanguage()}>
           {langInfo === "ko" ? "KOR" : "ENG"}
         </ChangeLanguageBtn>
-        <LoginButton
-          onClick={() => {
-            routePageFunc("");
-          }}
-        >
-          Login
-        </LoginButton>
+        <LoginButton onClick={useRoutePageFunc("signup")}>Login</LoginButton>
       </CommonFlex>
     </Header>
   );
@@ -62,15 +47,6 @@ export const HeaderCompo = () => {
 const LogoImage = styled.img`
   width: 79px;
   height: 66px;
-`;
-
-export const KatahdinFont = styled.div`
-  color: #000;
-  font-family: "Katahdin Round";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
 `;
 
 const PoppinsFont = styled.button`
