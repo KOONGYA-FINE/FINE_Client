@@ -1,21 +1,19 @@
 import { styled } from "styled-components";
 import "../../common/font.css";
 import { useTranslation } from "react-i18next";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { TranslationAtom, UserInfoAtom } from "../../store/atom";
-import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { UserInfoAtom } from "../../store/atom";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LoginApi } from "../../apis/loginapi";
 import { useRoutePageFunc } from "../../hooks/useRoutePageFunc";
 import { regExgPassword, regExpEmail } from "../../store/regExp";
 import { PoppinsFont } from "../../styles/loginFontStyle";
+import { useGetLanguage } from "../../hooks/useGetLanguage";
 const Loginform = () => {
-  const currentlang = useRecoilValue(TranslationAtom);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [show, setShow] = useState<boolean>(false);
-  useEffect(() => {
-    i18n.changeLanguage(currentlang);
-  }, [currentlang]);
+  useGetLanguage();
   const regExpEm = regExpEmail;
   const regExgPw = regExgPassword;
   const {
@@ -29,7 +27,7 @@ const Loginform = () => {
     e.preventDefault();
     const result = await LoginApi(watch("email"), watch("password"));
     if (result === false) {
-      alert("에러가 일어났습니다");
+      alert("이메일이나 비밀번호가 틀렸습니다. 다시 확인해주세요");
     } else {
       if (result.status === 200) {
         setUserInfo({
