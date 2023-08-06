@@ -1,18 +1,16 @@
 // import React from 'react'
 import { styled } from "styled-components";
 import { Article, Container, Header, Wrapper } from "../common/commonstyle";
+import SignUpAccount from "../components/signup/SignUpAccount";
 
 const Signup = () => {
   return (
     <Container>
-      <Header>여기는 헤더</Header>
+      <Header>헤더</Header>
       <Wrapper>
         <Article>여기에 이미지</Article>
         <Article>
-          <TestInputBox />
-          <TestInputBox />
-          <TestInputBox />
-          <TestInputBox />
+          <SignUpAccount />
         </Article>
       </Wrapper>
     </Container>
