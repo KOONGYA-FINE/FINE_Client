@@ -5,7 +5,7 @@ export const LoginApi = async (email: string, password: string) => {
   try {
     const response = await axios.post(`${SERVER_URL}/accounts/signin/`, {
       email: email,
-      passwrod: password,
+      password: password,
     });
     return response;
   } catch (error) {
