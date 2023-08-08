@@ -23,6 +23,9 @@ export const Wrapper = styled.div`
   flex-basis: 88%;
   width: 90%;
   border: 1px solid white;
+  &.matching {
+    flex-direction: column;
+  }
 `;
 
 export const Article = styled.div`

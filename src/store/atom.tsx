@@ -22,3 +22,31 @@ export const UserInfoAtom = atom<KeyPair<object>>({
     },
   },
 });
+
+export const matchingReadingAtom = atom<KeyPair<object>>({
+  key: "matchingReading",
+  default: {
+    post_en: {
+      post_id: 0,
+      username: "",
+      school: "",
+      gender: "",
+      nation: 0,
+      created_at: "",
+      updated_at: "",
+      title: "",
+      content: "",
+      image: "",
+      interest: "",
+      user_id: 0,
+    },
+    post_kr: {
+      id: 0,
+      created_at: "",
+      updated_at: "",
+      title: "",
+      content: "",
+      post: 0,
+    },
+  },
+});
