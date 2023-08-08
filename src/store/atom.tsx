@@ -12,7 +12,7 @@ interface KeyPair<V> {
 export const UserInfoAtom = atom<KeyPair<object>>({
   key: "userInfo",
   default: {
-    member: {
+    user: {
       id: 0,
       email: "",
     },

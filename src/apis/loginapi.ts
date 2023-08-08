@@ -9,8 +9,17 @@ export const LoginApi = async (email: string, password: string) => {
     });
     return response;
   } catch (error) {
-    console.log(error);
-    return false;
+    if (axios.isAxiosError(error)) {
+      const result = error.response;
+      if (result?.status === 400) {
+        const errorMessage = result?.data?.non_field_errors?.[0];
+        return errorMessage;
+      } else {
+        return result;
+      }
+    } else {
+      return false;
+    }
   }
 };
 

@@ -6,7 +6,10 @@ import { UserInfoAtom } from "../../store/atom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LoginApi } from "../../apis/loginapi";
-import { useRoutePageFunc } from "../../hooks/useRoutePageFunc";
+import {
+  useRoutePageFunc,
+  useWithRoutePageFunc,
+} from "../../hooks/useRoutePageFunc";
 import { regExgPassword, regExpEmail } from "../../store/regExp";
 import { PoppinsFont } from "../../styles/loginFontStyle";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
@@ -22,23 +25,31 @@ const Loginform = () => {
     formState: { errors, isValid },
   } = useForm<{ email: string; password: string }>({ mode: "onChange" });
   const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
-  const navigate = useRoutePageFunc;
+  const navigate = useWithRoutePageFunc();
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const result = await LoginApi(watch("email"), watch("password"));
-    if (result === false) {
-      alert("이메일이나 비밀번호가 틀렸습니다. 다시 확인해주세요");
+    if (result.status === 200) {
+      setUserInfo({
+        user: result.data.user,
+        token: result.data.token,
+      });
+      alert("로그인 성공!");
+      // navigate("main");
+    } else if (result.status === 403) {
+      setUserInfo({
+        user: result.data.user,
+        token: result.data.token,
+      });
+      alert(`${result.data.message}`);
+      navigate("userinfo");
     } else {
-      if (result.status === 200) {
-        setUserInfo({
-          member: result.data.member,
-          token: result.data.token,
-        });
-        alert("로그인 성공!");
-        navigate("main");
-      }
-      console.log(userInfo);
+      alert(`${result}`);
+      () => {
+        navigate("signup");
+      };
     }
+    console.log(userInfo);
   };
   return (
     <>
@@ -88,7 +99,7 @@ const Loginform = () => {
           <OrText>or</OrText>
           <OrLine></OrLine>
         </OrPart>
-        <LoginButton onClick={navigate("signup")}>
+        <LoginButton onClick={useRoutePageFunc("signup")}>
           {t(`header.register`)}
         </LoginButton>
       </LoginButtonWrapper>
