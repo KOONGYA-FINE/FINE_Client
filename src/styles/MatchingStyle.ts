@@ -21,6 +21,15 @@ export const MatchingWrapper = styled.div`
     height: 20%;
     background-color: green;
   }
+  &.editcontent {
+    height: 60%;
+    background-color: purple;
+  }
+  &.select {
+    height: 22%;
+    background-color: blue;
+    flex-wrap: wrap;
+  }
 `;
 
 export const MatchingWrapperBox = styled.div`
@@ -34,4 +43,7 @@ export const MatchingWrapperBox = styled.div`
   align-items: flex-start;
   flex-direction: column;
   margin: 10% auto 0px;
+  &.edit {
+    height: 78%;
+  }
 `;
