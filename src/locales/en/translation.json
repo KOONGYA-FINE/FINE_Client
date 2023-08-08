@@ -30,5 +30,36 @@
     "male": "male",
     "female": "female",
     "complete": "complete"
+  },
+  "interest": {
+    "travel": "travel",
+    "music": "music",
+    "game": "game",
+    "reading": "reading",
+    "movies": "movies",
+    "cooking": "cooking",
+    "pets": "pets",
+    "sports": "sports",
+    "camping": "camping",
+    "running": "running",
+    "hiking": "hiking",
+    "photography": "photography",
+    "drama": "drama",
+    "studying": "studying",
+    "food exploration": "food exploration",
+    "idol": "idol"
+  },
+  "matching": {
+    "edit": "edit",
+    "delete": "delete",
+    "register": "register",
+    "select": "Select the interest",
+    "mainTitle": "Recommended friends",
+    "writing": "writing",
+    "search": "Search",
+    "Gender": "Gender",
+    "Filters": "Filters",
+    "nationality": "Nationality",
+    "interest": "Interest"
   }
 }
