@@ -5,11 +5,24 @@ export const TranslationAtom = atom<string>({
   default: "en",
 });
 
-interface KeyPair<V> {
-  [key: string]: V;
-}
+// interface KeyPair<V> {
+//   [key: string]: V;
+// }
 
-export const UserInfoAtom = atom<KeyPair<object>>({
+// export const UserInfoAtom = atom<KeyPair<object>>({
+//   key: "userInfo",
+//   default: {
+//     user: {
+//       id: 0,
+//       email: "",
+//     },
+//     token: {
+//       access_token: "",
+//       refresh_token: "",
+//     },
+//   },
+// });
+export const UserInfoAtom = atom({
   key: "userInfo",
   default: {
     user: {
