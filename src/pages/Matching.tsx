@@ -1,7 +1,44 @@
+import { useTranslation } from "react-i18next";
 import { CommonFlex } from "../common/commonstyle";
-import { MatchingWrapper, MatchingWrapperBox } from "../styles/MatchingStyle";
+import {
+  MatchingButton,
+  MatchingWrapper,
+  MatchingWrapperBox,
+} from "../styles/MatchingStyle";
+import { useGetLanguage } from "../hooks/useGetLanguage";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useRoutePageFunc } from "../hooks/useRoutePageFunc";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { KeyPairs, UserInfoAtom, matchingReadingAtom } from "../store/atom";
+import { getPostMatchingApi } from "../apis/matchingWriting";
 
 const Matching = () => {
+  const { t } = useTranslation();
+  useGetLanguage();
+  const { idx } = useParams();
+  const numberIdx: number = parseInt(idx!);
+  const userInfo = useRecoilValue(UserInfoAtom);
+  const [props, setProps] = useRecoilState(matchingReadingAtom);
+  const Engproperties = props.post_en as KeyPairs<string, number>;
+  const KRproperties = props.post_kr as KeyPairs<string, number>;
+  const navigate = useNavigate();
+  const getMatchingProps = async (postId: number, token: string) => {
+    const result = await getPostMatchingApi(postId, token);
+    if (result === false) {
+      alert("로그인 하세요");
+      navigate(-1);
+    } else {
+      setProps({
+        post_en: result?.data.post_en,
+        post_kr: result?.data.post_kr,
+      });
+    }
+  };
+  useEffect(() => {
+    getMatchingProps(numberIdx, userInfo.token.access_token);
+    console.log(props);
+  }, [idx]);
   return (
     <>
       <MatchingWrapperBox>
@@ -9,7 +46,11 @@ const Matching = () => {
         <MatchingWrapper className="interest">
           아래로 내려가려나?
         </MatchingWrapper>
-        <MatchingWrapper className="content">내용</MatchingWrapper>
+        <MatchingWrapper className="content">
+          {t(`signup.previous`) === "Previous step"
+            ? Engproperties.content
+            : KRproperties.content}
+        </MatchingWrapper>
         <MatchingWrapper className="img">이미지</MatchingWrapper>
       </MatchingWrapperBox>
       <CommonFlex>
@@ -17,8 +58,12 @@ const Matching = () => {
         <button>버튼</button>
       </CommonFlex>
       <CommonFlex>
-        <button>버튼</button>
-        <button>버튼</button>
+        <MatchingButton onClick={useRoutePageFunc(`matching/${numberIdx - 1}`)}>
+          {t(`signup.previous`)}
+        </MatchingButton>
+        <MatchingButton onClick={useRoutePageFunc(`matching/${numberIdx + 1}`)}>
+          {t(`signup.next`)}
+        </MatchingButton>
       </CommonFlex>
     </>
   );

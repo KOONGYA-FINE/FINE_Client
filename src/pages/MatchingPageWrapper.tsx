@@ -1,13 +1,8 @@
-import { useRecoilValue } from "recoil";
 import { Container, Wrapper } from "../common/commonstyle";
 import { HeaderCompo } from "../components/utils/HeaderCompo";
-import { Outlet, useParams } from "react-router-dom";
-import { UserInfoAtom } from "../store/atom";
+import { Outlet } from "react-router-dom";
 
 const MatchingPageWrapper = () => {
-  const { idx } = useParams();
-  const numberIdx: number = parseInt(idx!);
-  const userInfo = useRecoilValue(UserInfoAtom);
   return (
     <Container>
       <HeaderCompo />
