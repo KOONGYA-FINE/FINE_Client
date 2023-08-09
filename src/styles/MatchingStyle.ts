@@ -47,3 +47,16 @@ export const MatchingWrapperBox = styled.div`
     height: 78%;
   }
 `;
+
+export const MatchingButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 144px;
+  height: 40px;
+  padding: 15px;
+  gap: 8px;
+  border-radius: 5px;
+  background: rgba(34, 170, 85, 0.98);
+  color: white;
+`;
