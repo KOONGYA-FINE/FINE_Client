@@ -10,12 +10,12 @@ import useGetMatchingProps from "../hooks/useGetMatchingProps";
 const EditMatching = () => {
   const { t } = useTranslation();
   useGetLanguage();
+  useGetMatchingProps();
   const { idx } = useParams();
   const numberIdx: number = parseInt(idx!);
   const props = useRecoilValue(matchingReadingAtom);
   const Engproperties = props.post_en as KeyPairs<string, number>;
   const KRproperties = props.post_kr as KeyPairs<string, number>;
-  useGetMatchingProps();
 
   return (
     <>

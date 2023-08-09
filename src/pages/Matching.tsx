@@ -6,9 +6,12 @@ import {
   MatchingWrapperBox,
 } from "../styles/MatchingStyle";
 import { useGetLanguage } from "../hooks/useGetLanguage";
-import { useRoutePageFunc } from "../hooks/useRoutePageFunc";
+import {
+  useRoutePageFunc,
+  useWithRoutePageFunc,
+} from "../hooks/useRoutePageFunc";
 import { useRecoilValue } from "recoil";
-import { KeyPairs, matchingReadingAtom } from "../store/atom";
+import { KeyPairs, UserInfoAtom, matchingReadingAtom } from "../store/atom";
 import useGetMatchingProps from "../hooks/useGetMatchingProps";
 import { useParams } from "react-router-dom";
 
@@ -18,9 +21,11 @@ const Matching = () => {
   const { t } = useTranslation();
   useGetLanguage();
   const props = useRecoilValue(matchingReadingAtom);
+  const userInfo = useRecoilValue(UserInfoAtom);
   useGetMatchingProps();
   const Engproperties = props.post_en as KeyPairs<string, number>;
   const KRproperties = props.post_kr as KeyPairs<string, number>;
+  const navigate = useWithRoutePageFunc();
   return (
     <>
       <MatchingWrapperBox>
@@ -35,12 +40,14 @@ const Matching = () => {
         </MatchingWrapper>
         <MatchingWrapper className="img">이미지</MatchingWrapper>
       </MatchingWrapperBox>
-      <CommonFlex>
-        <button onClick={useRoutePageFunc(`matching/main/${numberIdx}/edit`)}>
-          수정
-        </button>
-        <button>버튼</button>
-      </CommonFlex>
+      {userInfo.user.id === Engproperties.user_id ? (
+        <CommonFlex>
+          <button onClick={() => navigate(`matching/main/${numberIdx}/edit`)}>
+            수정
+          </button>
+          <button>버튼</button>
+        </CommonFlex>
+      ) : null}
       <CommonFlex>
         <MatchingButton
           onClick={useRoutePageFunc(`matching/main/${numberIdx - 1}`)}
