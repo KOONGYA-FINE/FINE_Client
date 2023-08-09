@@ -9,7 +9,8 @@ export const getPostMatchingApi = async (postId: number, token: string) => {
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      return false;
+      const result = error.response?.data?.detail;
+      return result;
     }
   }
 };

@@ -5,6 +5,7 @@ import SignupAccount from "./pages/SignupAccount";
 import Matching from "./pages/Matching";
 import EditMatching from "./pages/EditMatching";
 import MatchingPageWrapper from "./pages/MatchingPageWrapper";
+import MatchingMain from "./pages/MatchingMain";
 
 const router = createBrowserRouter([
   {
@@ -24,11 +25,15 @@ const router = createBrowserRouter([
     element: <MatchingPageWrapper />,
     children: [
       {
-        path: ":idx",
+        path: "main",
+        element: <MatchingMain />,
+      },
+      {
+        path: "main/:idx",
         element: <Matching />,
       },
       {
-        path: ":idx/edit",
+        path: "main/:idx/edit",
         element: <EditMatching />,
       },
     ],
