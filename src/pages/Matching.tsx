@@ -26,8 +26,13 @@ const Matching = () => {
   const Engproperties = props.post_en as KeyPairs<string, number>;
   const KRproperties = props.post_kr as KeyPairs<string, number>;
   const interest = Engproperties.interest as string;
-  const interestArray = interest.split(" ");
+  let interestArray: string[] = [];
   const navigate = useWithRoutePageFunc();
+  {
+    Engproperties && Engproperties!.interest
+      ? (interestArray = interest.split(" "))
+      : [interest];
+  }
   return (
     <>
       <MatchingWrapperBox>
