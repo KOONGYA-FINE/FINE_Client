@@ -20,18 +20,27 @@ const Matching = () => {
   const numberIdx: number = parseInt(idx!);
   const { t } = useTranslation();
   useGetLanguage();
+  useGetMatchingProps();
   const props = useRecoilValue(matchingReadingAtom);
   const userInfo = useRecoilValue(UserInfoAtom);
-  useGetMatchingProps();
   const Engproperties = props.post_en as KeyPairs<string, number>;
   const KRproperties = props.post_kr as KeyPairs<string, number>;
+  const interest = Engproperties.interest as string;
+  const interestArray = interest.split(" ");
   const navigate = useWithRoutePageFunc();
   return (
     <>
       <MatchingWrapperBox>
-        <MatchingWrapper className="title">매칭</MatchingWrapper>
+        <MatchingWrapper className="title">
+          {" "}
+          {t(`signup.previous`) === "Previous step"
+            ? Engproperties.title
+            : KRproperties.title}
+        </MatchingWrapper>
         <MatchingWrapper className="interest">
-          아래로 내려가려나?
+          {interestArray.map((e) => {
+            return <button>{e}</button>;
+          })}
         </MatchingWrapper>
         <MatchingWrapper className="content">
           {t(`signup.previous`) === "Previous step"
@@ -43,9 +52,9 @@ const Matching = () => {
       {userInfo.user.id === Engproperties.user_id ? (
         <CommonFlex>
           <button onClick={() => navigate(`matching/main/${numberIdx}/edit`)}>
-            수정
+            {t(`matching.edit`)}
           </button>
-          <button>버튼</button>
+          <button>{t(`matching.delete`)}</button>
         </CommonFlex>
       ) : null}
       <CommonFlex>

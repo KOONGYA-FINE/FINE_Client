@@ -35,7 +35,7 @@ const Loginform = () => {
         token: result.data.token,
       });
       alert("로그인 성공!");
-      navigate("matching/main/1");
+      navigate("matching/main/");
     } else if (result.status === 403) {
       setUserInfo({
         user: result.data.user,

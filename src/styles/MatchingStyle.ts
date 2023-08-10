@@ -6,7 +6,7 @@ export const MatchingWrapper = styled.div`
   display: flex;
   &.title {
     height: 18%;
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.2);
   }
   &.interest {
     height: 12%;
@@ -23,12 +23,19 @@ export const MatchingWrapper = styled.div`
   }
   &.editcontent {
     height: 60%;
-    background-color: purple;
+    background-color: rgba(95, 0, 255, 0.2);
+    flex-direction: column;
+    align-items: flex-end;
   }
   &.select {
     height: 22%;
-    background-color: blue;
+    background-color: rgba(1, 0, 255, 0.2);
     flex-wrap: wrap;
+    overflow: scroll;
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
@@ -59,4 +66,9 @@ export const MatchingButton = styled.button`
   border-radius: 5px;
   background: rgba(34, 170, 85, 0.98);
   color: white;
+`;
+
+export const MatchingTextArea = styled.textarea`
+  width: 98.5%;
+  height: 90%;
 `;

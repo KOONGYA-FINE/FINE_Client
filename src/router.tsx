@@ -6,6 +6,7 @@ import Matching from "./pages/Matching";
 import EditMatching from "./pages/EditMatching";
 import MatchingPageWrapper from "./pages/MatchingPageWrapper";
 import MatchingMain from "./pages/MatchingMain";
+import RegisterMatching from "./pages/RegisterMatching";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "main/:idx/edit",
         element: <EditMatching />,
+      },
+      {
+        path: "register",
+        element: <RegisterMatching />,
       },
     ],
   },

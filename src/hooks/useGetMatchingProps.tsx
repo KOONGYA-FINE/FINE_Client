@@ -16,10 +16,16 @@ const useGetMatchingProps = () => {
     if (result === "Not found.") {
       alert("This is not exist paper");
       navigate(-1);
-    } else if (result === "Given token not valid for any token type") {
+    } else if (
+      result === "Given token not valid for any token type" ||
+      result === "Authorization header must contain two space-delimited values"
+    ) {
       alert("Please login first");
       resetUserInfo();
       navigate("/");
+    } else if (result === "This post is deleted") {
+      alert("This post is deleted");
+      navigate(`/matching/main/${numberIdx + 1}`);
     } else {
       setProps({
         post_en: result?.data.post_en,

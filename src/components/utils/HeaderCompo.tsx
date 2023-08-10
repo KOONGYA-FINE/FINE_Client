@@ -29,8 +29,10 @@ export const HeaderCompo = () => {
         <KatahdinFont>FINE</KatahdinFont>
       </CommonFlex>
       <CommonFlex>
-        <PoppinsFont onClick={useRoutePageFunc("signup")}>Home</PoppinsFont>
-        <PoppinsFont>Friend Matching</PoppinsFont>
+        <PoppinsFont>Home</PoppinsFont>
+        <PoppinsFont onClick={useRoutePageFunc("matching/main")}>
+          Friend Matching
+        </PoppinsFont>
         <PoppinsFont>Restaurant review</PoppinsFont>
       </CommonFlex>
       <CommonFlex ref={languageRef}>

@@ -12,7 +12,6 @@ const EditMatching = () => {
   useGetLanguage();
   useGetMatchingProps();
   const { idx } = useParams();
-  const numberIdx: number = parseInt(idx!);
   const props = useRecoilValue(matchingReadingAtom);
   const Engproperties = props.post_en as KeyPairs<string, number>;
   const KRproperties = props.post_kr as KeyPairs<string, number>;
