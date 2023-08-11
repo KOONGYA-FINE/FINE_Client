@@ -8,8 +8,14 @@ import { styled } from "styled-components";
 import icons from "../../common/icons";
 import { useRoutePageFunc } from "../../hooks/useRoutePageFunc";
 import { KatahdinFont } from "../../styles/loginFontStyle";
+import { useLocation } from "react-router-dom";
 
 export const HeaderCompo = () => {
+  const location = useLocation().pathname;
+  const displayLanguageButton =
+    location === "/matching/register" || location.includes("edit")
+      ? false
+      : true;
   const languageRef = useRef<null | HTMLDivElement>(null);
   const [langInfo, setLangInfo] = useRecoilState(TranslationAtom);
   const { i18n } = useTranslation();
@@ -36,10 +42,14 @@ export const HeaderCompo = () => {
         <PoppinsFont>Restaurant review</PoppinsFont>
       </CommonFlex>
       <CommonFlex ref={languageRef}>
-        {icons.globe}
-        <ChangeLanguageBtn onClick={() => handleChangeLanguage()}>
-          {langInfo === "ko" ? "KOR" : "ENG"}
-        </ChangeLanguageBtn>
+        {displayLanguageButton && (
+          <>
+            {icons.globe}
+            <ChangeLanguageBtn onClick={() => handleChangeLanguage()}>
+              {langInfo === "ko" ? "KOR" : "ENG"}
+            </ChangeLanguageBtn>
+          </>
+        )}
         <LoginButton onClick={useRoutePageFunc("")}>Login</LoginButton>
       </CommonFlex>
     </Header>
