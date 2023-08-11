@@ -13,7 +13,11 @@ const MatchingInterestRegister = () => {
   const registerProp = useSetRecoilState(registerMatchingAtom);
   const handleSingleCheck = (checked: boolean, id: string) => {
     if (checked) {
-      setCheckItems((prev) => [...prev, id]);
+      if (checkItems.length > 4) {
+        alert("don't check over 5 interests");
+      } else {
+        setCheckItems((prev) => [...prev, id]);
+      }
     } else {
       setCheckItems(checkItems.filter((el) => el !== id));
     }

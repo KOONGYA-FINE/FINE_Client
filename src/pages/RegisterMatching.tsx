@@ -42,9 +42,17 @@ const RegisterMatching = () => {
         <MatchingInterestRegister />
       </MatchingWrapperBox>
       <CommonFlex>
-        <MatchingButton onClick={matchingRegister}>
-          {t(`matching.register`)}
-        </MatchingButton>
+        {registerProp.title.length > 2 &&
+        registerProp.content.length > 10 &&
+        registerProp.interest.length > 2 ? (
+          <MatchingButton onClick={matchingRegister}>
+            {t(`matching.register`)}
+          </MatchingButton>
+        ) : (
+          <MatchingButton className="unvalid">
+            {t(`matching.register`)}
+          </MatchingButton>
+        )}
       </CommonFlex>
     </>
   );

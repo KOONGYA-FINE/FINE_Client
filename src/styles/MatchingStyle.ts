@@ -66,6 +66,9 @@ export const MatchingButton = styled.button`
   border-radius: 5px;
   background: rgba(34, 170, 85, 0.98);
   color: white;
+  &.unvalid {
+    background: rgba(151, 151, 151, 1);
+  }
 `;
 
 export const MatchingTextArea = styled.textarea`
