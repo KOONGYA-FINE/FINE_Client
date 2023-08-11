@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { UserInfoAtom, matchingReadingAtom } from "../store/atom";
 import { getPostMatchingApi } from "../apis/matchingWriting";
 import { useEffect } from "react";
@@ -7,10 +7,10 @@ import { useEffect } from "react";
 const useGetMatchingProps = () => {
   const { idx } = useParams();
   const numberIdx: number = parseInt(idx!);
-  const userInfo = useRecoilValue(UserInfoAtom);
   const resetUserInfo = useResetRecoilState(UserInfoAtom);
   const setProps = useSetRecoilState(matchingReadingAtom);
   const navigate = useNavigate();
+  const token = localStorage.getItem("access_token") as string;
   const getMatchingProps = async (postId: number, token: string) => {
     const result = await getPostMatchingApi(postId, token);
     if (result === "Not found.") {
@@ -22,6 +22,7 @@ const useGetMatchingProps = () => {
     ) {
       alert("Please login first");
       resetUserInfo();
+      localStorage.clear();
       navigate("/");
     } else if (result === "This post is deleted") {
       alert("This post is deleted");
@@ -34,8 +35,7 @@ const useGetMatchingProps = () => {
     }
   };
   useEffect(() => {
-    getMatchingProps(numberIdx, userInfo.token.access_token);
-    console.log(userInfo.token.access_token);
+    getMatchingProps(numberIdx, token);
   }, [idx]);
 };
 

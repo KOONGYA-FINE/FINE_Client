@@ -12,8 +12,10 @@ import useGetMatchingProps from "../hooks/useGetMatchingProps";
 import { useParams } from "react-router-dom";
 import { deleteMatchingApi } from "../apis/matchingWriting";
 import SpecificMatchingForm from "../components/matching/SpecificMatchingForm";
+import useGetToken from "../hooks/useGetToken";
 
 const Matching = () => {
+  useGetToken();
   const { idx } = useParams();
   const numberIdx: number = parseInt(idx!);
   const { t } = useTranslation();

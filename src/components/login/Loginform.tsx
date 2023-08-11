@@ -34,6 +34,8 @@ const Loginform = () => {
         user: result.data.user,
         token: result.data.token,
       });
+      localStorage.setItem("refresh_token", result.data.token.refresh_token);
+      localStorage.setItem("access_token", result.data.token.access_token);
       alert("로그인 성공!");
       navigate("matching/main/");
     } else if (result.status === 403) {

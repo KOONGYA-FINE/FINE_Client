@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -25,6 +25,13 @@ const MatchingEditForm = () => {
       ? (Engproperties.content as string)
       : (KRproperties.content as string)
   );
+  useEffect(() => {
+    registerProp((prev) => ({
+      ...prev,
+      title: text,
+      content: contentText,
+    }));
+  }, []);
   const registerProp = useSetRecoilState(editMatchingAtom);
   const displayText = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newText = e.target.value;

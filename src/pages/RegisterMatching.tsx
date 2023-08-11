@@ -8,10 +8,12 @@ import { UserInfoAtom, registerMatchingAtom } from "../store/atom";
 import { useWithRoutePageFunc } from "../hooks/useRoutePageFunc";
 import MatchingInterestRegister from "../components/matching/MatchingInterestRegister";
 import MatchingWritingForm from "../components/matching/MatchingWritingForm";
+import useGetToken from "../hooks/useGetToken";
 
 const RegisterMatching = () => {
   const { t } = useTranslation();
   useGetLanguage();
+  useGetToken();
   const registerProp = useRecoilValue(registerMatchingAtom);
   const userInfo = useRecoilValue(UserInfoAtom);
   const navigate = useWithRoutePageFunc();

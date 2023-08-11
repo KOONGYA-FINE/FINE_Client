@@ -11,11 +11,10 @@ import {
   editMatchingAtom,
   matchingReadingAtom,
 } from "../store/atom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../hooks/useGetLanguage";
 import useGetMatchingProps from "../hooks/useGetMatchingProps";
-import { useWithRoutePageFunc } from "../hooks/useRoutePageFunc";
 import useGetinterestArray from "../hooks/interestArray";
 import { editMatchingApi } from "../apis/matchingWriting";
 import MatchingEditForm from "../components/matching/MatchingEditForm";
@@ -34,7 +33,7 @@ const EditMatching = () => {
   const interestArray = useGetinterestArray();
   let checkItems: string[] = [];
   const userInfo = useRecoilValue(UserInfoAtom);
-  const navigate = useWithRoutePageFunc();
+  const navigate = useNavigate();
   {
     Engproperties && Engproperties!.interest
       ? (checkItems = interest.split(" "))
@@ -52,7 +51,9 @@ const EditMatching = () => {
     if (typeof result !== "string") {
       alert("Success!");
       resetEditProps();
-      navigate(`matching/main/${numberIdx}`);
+      setTimeout(() => {
+        navigate(`/matching/main/${numberIdx}`, { replace: true });
+      }, 1300);
     } else {
       alert(result);
     }

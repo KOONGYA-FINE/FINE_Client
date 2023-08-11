@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../hooks/useGetLanguage";
 import { CommonFlex } from "../common/commonstyle";

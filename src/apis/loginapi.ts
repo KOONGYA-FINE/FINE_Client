@@ -33,3 +33,24 @@ export const LogoutApi = async () => {
     return false;
   }
 };
+
+export const LoginmaintainApi = async (token: string) => {
+  try {
+    const response = await axios.post(`${SERVER_URL}/accounts/token/refresh/`, {
+      refresh: token,
+    });
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const result = error.response;
+      if (result?.status === 400) {
+        const errorMessage = result?.data?.non_field_errors?.[0];
+        return errorMessage;
+      } else {
+        return result;
+      }
+    } else {
+      return false;
+    }
+  }
+};
