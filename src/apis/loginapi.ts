@@ -24,9 +24,11 @@ export const LoginApi = async (email: string, password: string) => {
 };
 
 //이 기능을 불러올 때 우리쪽에서 atom을 reset해주면 된다.
-export const LogoutApi = async () => {
+export const LogoutApi = async (token: string) => {
   try {
-    const response = await axios.delete(`${SERVER_URL}/accounts/signin/`);
+    const response = await axios.delete(`${SERVER_URL}/accounts/signin/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response;
   } catch (error) {
     console.log(error);

@@ -6,9 +6,13 @@ import { useRef } from "react";
 import "../../common/font.css";
 import { styled } from "styled-components";
 import icons from "../../common/icons";
-import { useRoutePageFunc } from "../../hooks/useRoutePageFunc";
+import {
+  useRoutePageFunc,
+  useWithRoutePageFunc,
+} from "../../hooks/useRoutePageFunc";
 import { KatahdinFont } from "../../styles/loginFontStyle";
 import { useLocation } from "react-router-dom";
+import { LogoutApi } from "../../apis/loginapi";
 
 export const HeaderCompo = () => {
   const location = useLocation().pathname;
@@ -26,6 +30,19 @@ export const HeaderCompo = () => {
     } else {
       i18n.changeLanguage("en");
       setLangInfo("en");
+    }
+  };
+  const token = localStorage.getItem("access_token") as string;
+  const navigate = useWithRoutePageFunc();
+  const logoutFunc = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const result = await LogoutApi(token);
+    if (result !== false) {
+      alert("로그아웃 되었습니다");
+      localStorage.clear();
+      navigate("");
+    } else {
+      alert("failed");
     }
   };
   return (
@@ -50,7 +67,20 @@ export const HeaderCompo = () => {
             </ChangeLanguageBtn>
           </>
         )}
-        <LoginButton onClick={useRoutePageFunc("")}>Login</LoginButton>
+        {token && (
+          <>
+            <LoginButton onClick={logoutFunc}>Logout</LoginButton>
+          </>
+        )}
+        {!token && (
+          <LoginButton
+            onClick={() => {
+              navigate("");
+            }}
+          >
+            Login
+          </LoginButton>
+        )}
       </CommonFlex>
     </Header>
   );
