@@ -1,30 +1,85 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { CommonFlex } from "../common/commonstyle";
-import { MatchingWrapper, MatchingWrapperBox } from "../styles/MatchingStyle";
-import { KeyPairs, matchingReadingAtom } from "../store/atom";
+import {
+  MatchingButton,
+  MatchingWrapper,
+  MatchingWrapperBox,
+} from "../styles/MatchingStyle";
+import {
+  KeyPairs,
+  UserInfoAtom,
+  editMatchingAtom,
+  matchingReadingAtom,
+} from "../store/atom";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../hooks/useGetLanguage";
 import useGetMatchingProps from "../hooks/useGetMatchingProps";
+import { useWithRoutePageFunc } from "../hooks/useRoutePageFunc";
+import useGetinterestArray from "../hooks/interestArray";
+import { editMatchingApi } from "../apis/matchingWriting";
+import MatchingEditForm from "../components/matching/MatchingEditForm";
 
 const EditMatching = () => {
   const { t } = useTranslation();
   useGetLanguage();
   useGetMatchingProps();
   const { idx } = useParams();
+  const numberIdx: number = parseInt(idx!);
   const props = useRecoilValue(matchingReadingAtom);
+  const editProps = useRecoilValue(editMatchingAtom);
+  const resetEditProps = useResetRecoilState(editMatchingAtom);
   const Engproperties = props.post_en as KeyPairs<string, number>;
-  const KRproperties = props.post_kr as KeyPairs<string, number>;
-
+  const interest = Engproperties.interest as string;
+  const interestArray = useGetinterestArray();
+  let checkItems: string[] = [];
+  const userInfo = useRecoilValue(UserInfoAtom);
+  const navigate = useWithRoutePageFunc();
+  {
+    Engproperties && Engproperties!.interest
+      ? (checkItems = interest.split(" "))
+      : (checkItems = [interest]);
+  }
+  const matchingEdit = async () => {
+    const result = await editMatchingApi(
+      numberIdx,
+      userInfo.user.id,
+      t(`matching.register`) === "register" ? "en" : "ko",
+      editProps.title,
+      editProps.content,
+      userInfo.token.access_token
+    );
+    if (typeof result !== "string") {
+      alert("Success!");
+      resetEditProps();
+      navigate(`matching/main/${numberIdx}`);
+    } else {
+      alert(result);
+    }
+  };
   return (
     <>
       <MatchingWrapperBox className="edit">
-        <MatchingWrapper className="title">매칭</MatchingWrapper>
-        <MatchingWrapper className="editcontent">내용</MatchingWrapper>
-        <MatchingWrapper className="select">아래로 내려가려나?</MatchingWrapper>
+        <MatchingEditForm />
+        <MatchingWrapper className="select">
+          {interestArray.map((el) => {
+            return (
+              <>
+                <input
+                  type="checkbox"
+                  name={el.id}
+                  checked={checkItems.includes(el.id) ? true : false}
+                />
+                <label>{el.content}</label>
+              </>
+            );
+          })}
+        </MatchingWrapper>
       </MatchingWrapperBox>
       <CommonFlex>
-        <button>버튼</button>
+        <MatchingButton onClick={matchingEdit}>
+          {t(`matching.register`)}
+        </MatchingButton>
       </CommonFlex>
     </>
   );
