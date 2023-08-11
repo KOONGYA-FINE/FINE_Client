@@ -27,10 +27,29 @@ export const UserInfoAtom = atom({
   },
 });
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const matchingReadingAtom = atom<KeyPair<object>>({
   key: "matchingReading",
   default: {
     post_en: {},
     post_kr: {},
+  },
+});
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const registerMatchingAtom = atom<KeyPair<string>>({
+  key: "registerMatching",
+  default: {
+    title: "",
+    content: "",
+    interest: "",
+  },
+});
+
+export const editMatchingAtom = atom<KeyPair<string>>({
+  key: "editMatching",
+  default: {
+    title: "",
+    content: "",
   },
 });

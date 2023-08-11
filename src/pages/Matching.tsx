@@ -1,10 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { CommonFlex } from "../common/commonstyle";
-import {
-  MatchingButton,
-  MatchingWrapper,
-  MatchingWrapperBox,
-} from "../styles/MatchingStyle";
+import { MatchingButton } from "../styles/MatchingStyle";
 import { useGetLanguage } from "../hooks/useGetLanguage";
 import {
   useRoutePageFunc,
@@ -14,6 +10,8 @@ import { useRecoilValue } from "recoil";
 import { KeyPairs, UserInfoAtom, matchingReadingAtom } from "../store/atom";
 import useGetMatchingProps from "../hooks/useGetMatchingProps";
 import { useParams } from "react-router-dom";
+import { deleteMatchingApi } from "../apis/matchingWriting";
+import SpecificMatchingForm from "../components/matching/SpecificMatchingForm";
 
 const Matching = () => {
   const { idx } = useParams();
@@ -24,42 +22,28 @@ const Matching = () => {
   const props = useRecoilValue(matchingReadingAtom);
   const userInfo = useRecoilValue(UserInfoAtom);
   const Engproperties = props.post_en as KeyPairs<string, number>;
-  const KRproperties = props.post_kr as KeyPairs<string, number>;
-  const interest = Engproperties.interest as string;
-  let interestArray: string[] = [];
   const navigate = useWithRoutePageFunc();
-  {
-    Engproperties && Engproperties!.interest
-      ? (interestArray = interest.split(" "))
-      : [interest];
-  }
+  const deleteMatching = async () => {
+    const result = await deleteMatchingApi(
+      numberIdx,
+      userInfo.token.access_token
+    );
+    if (typeof result === "string") {
+      alert(result);
+    } else {
+      alert("delete Success!");
+      navigate("matching/main");
+    }
+  };
   return (
     <>
-      <MatchingWrapperBox>
-        <MatchingWrapper className="title">
-          {" "}
-          {t(`signup.previous`) === "Previous step"
-            ? Engproperties.title
-            : KRproperties.title}
-        </MatchingWrapper>
-        <MatchingWrapper className="interest">
-          {interestArray.map((e) => {
-            return <button>{e}</button>;
-          })}
-        </MatchingWrapper>
-        <MatchingWrapper className="content">
-          {t(`signup.previous`) === "Previous step"
-            ? Engproperties.content
-            : KRproperties.content}
-        </MatchingWrapper>
-        <MatchingWrapper className="img">이미지</MatchingWrapper>
-      </MatchingWrapperBox>
+      <SpecificMatchingForm />
       {userInfo.user.id === Engproperties.user_id ? (
         <CommonFlex>
           <button onClick={() => navigate(`matching/main/${numberIdx}/edit`)}>
             {t(`matching.edit`)}
           </button>
-          <button>{t(`matching.delete`)}</button>
+          <button onClick={deleteMatching}>{t(`matching.delete`)}</button>
         </CommonFlex>
       ) : null}
       <CommonFlex>
