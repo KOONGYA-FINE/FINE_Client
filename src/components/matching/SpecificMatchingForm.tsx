@@ -6,6 +6,7 @@ import {
 } from "../../styles/MatchingStyle";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
+import ScrapButton from "./scrap/ScrapButton";
 
 const SpecificMatchingForm = () => {
   const { t } = useTranslation();
@@ -27,6 +28,7 @@ const SpecificMatchingForm = () => {
           {t(`signup.previous`) === "Previous step"
             ? Engproperties.title
             : KRproperties.title}
+          <ScrapButton />
         </MatchingWrapper>
         <MatchingWrapper className="interest">
           {interestArray.map((e) => {
