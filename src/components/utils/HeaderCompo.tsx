@@ -12,10 +12,12 @@ import {
 } from "../../hooks/useRoutePageFunc";
 import { KatahdinFont } from "../../styles/loginFontStyle";
 import { LogoutApi } from "../../apis/loginapi";
+import { useLocation } from "react-router-dom";
 
 export const HeaderCompo = () => {
-  const refreshToken = localStorage.getItem("refresh_token");
-  const displayLanguageButton = refreshToken ? false : true;
+  const location = useLocation().pathname;
+  const displayLanguageButton =
+    location.includes("register") || location.includes("edit") ? false : true;
   const languageRef = useRef<null | HTMLDivElement>(null);
   const [langInfo, setLangInfo] = useRecoilState(TranslationAtom);
   const { i18n } = useTranslation();
