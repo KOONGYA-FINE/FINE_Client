@@ -27,6 +27,13 @@ export const GetAllMatchingPostsApi = async(page:number) => {
     }
 }
 
-export const GetFilteredMatchingPostApi = async() => {
-    //구현
+export const GetFilteredMatchingPostApi = async(page:number,interestStr:string, nationStr:string, genderStr:string) => {
+    try{
+        const response = await axios.get(`${SERVER_URL}/posts/?order=-post_id&page=${page}${interestStr}${nationStr}${genderStr}`);
+        console.log(response.data);
+        return response;
+    } catch(error) {
+        console.log(error);
+        return false;
+    }
 }

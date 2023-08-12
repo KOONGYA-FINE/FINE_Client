@@ -20,6 +20,8 @@ import { useNavigate } from 'react-router-dom'
 
 export const CardBox = (props:postType) => {
     const navigate = useNavigate();
+    const DateArr = (props.created_at)?.split("T");
+    const filterArr = (props.interest)?.split(" ");
     const handleClick = () => {
         navigate(`${props.post_id}`);
     }
@@ -27,11 +29,11 @@ export const CardBox = (props:postType) => {
     <ArticleCardBox onClick={handleClick}>
         <ContentBox>
             <InfoWithScrapbox>
-                <PostDate>{props.created_at}</PostDate>
+                <PostDate>{DateArr[0]}</PostDate>
             </InfoWithScrapbox>
             <Title>{props.title}</Title>
             <FilterBox>
-                <Filter>{props.interest}</Filter>
+                {filterArr && filterArr.map((filter) => (<Filter>{filter}</Filter>))}
             </FilterBox>
         </ContentBox>
         <NameBox>

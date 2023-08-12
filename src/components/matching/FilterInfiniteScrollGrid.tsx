@@ -1,30 +1,40 @@
-import React, { createRef, useCallback, useEffect, useRef, useState } from 'react'
+import React, { SetStateAction, createRef, useCallback, useEffect, useRef, useState } from 'react'
 import { styled } from 'styled-components'
 import { CardBox } from './CardBox'
-import { GetAllMatchingPostsApi, postType } from '../../apis/matchingGet';
+import { GetFilteredMatchingPostApi, postType } from '../../apis/matchingGet';
 import { useRecoilValue } from 'recoil';
 import { TranslationAtom } from '../../store/atom';
 
-export const FilterInfiniteScrollGrid = () => {
+interface FilterProps {
+    gender : string|null;
+    nation : Number|null;
+    interest : string|null;
+}
+
+export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (props) => {
     const currentlang = useRecoilValue(TranslationAtom);
     const postList : postType[] = [];
     const [page, setPage] = useState(1);
     const [ENPosts, setENPosts] = useState<postType[]>(postList);
     const [KOPosts, setKOPosts] = useState<postType[]>(postList);
 
-    // const getPosts = async() => {
-    //     const result = await GetAllMatchingPostsApi(page); 
-    //     if(result===false) {
-    //         alert("불러오기 오류 발생");
-    //     } else{
-    //         console.log(`page=${page}불러오기`);
-    //         setENPosts(ENPosts.concat(result.data['post_en']));
-    //         console.log(ENPosts);
-    //         setKOPosts(KOPosts.concat(result.data['post_ko']));
-    //         console.log(KOPosts);
-    //         setPage(page+1);
-    //     }
-    // }
+    const genderStr = (props.gender===null)? ``:`&gender=${props.gender}`;
+    const nationStr = (props.nation===null)? ``:`&nation=${props.nation}`;
+    const interestStr = (props.interest===null)? ``:`&interest=${props.interest}`;
+
+    const getPosts = async() => {
+        const result = await GetFilteredMatchingPostApi(page, interestStr, nationStr, genderStr); 
+        if(result===false) {
+            alert("불러오기 오류 발생");
+        } else{
+            console.log(`page=${page}불러오기`);
+            setENPosts(ENPosts.concat(result.data['post_en']));
+            console.log(ENPosts);
+            setKOPosts(KOPosts.concat(result.data['post_ko']));
+            console.log(KOPosts);
+            setPage(page+1);
+        }
+    }
 
     useEffect(() => {
         getPosts();
