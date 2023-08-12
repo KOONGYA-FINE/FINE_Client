@@ -11,15 +11,11 @@ import {
   useWithRoutePageFunc,
 } from "../../hooks/useRoutePageFunc";
 import { KatahdinFont } from "../../styles/loginFontStyle";
-import { useLocation } from "react-router-dom";
 import { LogoutApi } from "../../apis/loginapi";
 
 export const HeaderCompo = () => {
-  const location = useLocation().pathname;
-  const displayLanguageButton =
-    location === "/matching/register" || location.includes("edit")
-      ? false
-      : true;
+  const refreshToken = localStorage.getItem("refresh_token");
+  const displayLanguageButton = refreshToken ? false : true;
   const languageRef = useRef<null | HTMLDivElement>(null);
   const [langInfo, setLangInfo] = useRecoilState(TranslationAtom);
   const { i18n } = useTranslation();

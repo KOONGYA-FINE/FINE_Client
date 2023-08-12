@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { UserInfoAtom } from "../store/atom";
 import { LoginmaintainApi } from "../apis/loginapi";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const useGetToken = () => {
+  const location = useLocation().pathname;
   const { idx } = useParams();
   const refresh_token = localStorage.getItem("refresh_token") as string;
   const userInfo = useSetRecoilState(UserInfoAtom);
@@ -28,6 +29,9 @@ const useGetToken = () => {
     };
     if (refresh_token) {
       getUsertoken(refresh_token);
+    } else if (location.includes("register") && !refresh_token) {
+      alert("Please login first");
+      router(-1);
     }
   }, [refresh_token, userInfo, idx]);
 };
