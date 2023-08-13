@@ -6,10 +6,18 @@ import { useRef } from "react";
 import "../../common/font.css";
 import { styled } from "styled-components";
 import icons from "../../common/icons";
-import { useRoutePageFunc } from "../../hooks/useRoutePageFunc";
+import {
+  useRoutePageFunc,
+  useWithRoutePageFunc,
+} from "../../hooks/useRoutePageFunc";
 import { KatahdinFont } from "../../styles/loginFontStyle";
+import { LogoutApi } from "../../apis/loginapi";
+import { useLocation } from "react-router-dom";
 
 export const HeaderCompo = () => {
+  const location = useLocation().pathname;
+  const displayLanguageButton =
+    location.includes("register") || location.includes("edit") ? false : true;
   const languageRef = useRef<null | HTMLDivElement>(null);
   const [langInfo, setLangInfo] = useRecoilState(TranslationAtom);
   const { i18n } = useTranslation();
@@ -22,6 +30,19 @@ export const HeaderCompo = () => {
       setLangInfo("en");
     }
   };
+  const token = localStorage.getItem("access_token") as string;
+  const navigate = useWithRoutePageFunc();
+  const logoutFunc = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const result = await LogoutApi(token);
+    if (result !== false) {
+      alert("로그아웃 되었습니다");
+      localStorage.clear();
+      navigate("");
+    } else {
+      alert("failed");
+    }
+  };
   return (
     <Header>
       <CommonFlex>
@@ -29,16 +50,35 @@ export const HeaderCompo = () => {
         <KatahdinFont>FINE</KatahdinFont>
       </CommonFlex>
       <CommonFlex>
-        <PoppinsFont onClick={useRoutePageFunc("signup")}>Home</PoppinsFont>
-        <PoppinsFont>Friend Matching</PoppinsFont>
+        <PoppinsFont>Home</PoppinsFont>
+        <PoppinsFont onClick={useRoutePageFunc("matching/main")}>
+          Friend Matching
+        </PoppinsFont>
         <PoppinsFont>Restaurant review</PoppinsFont>
       </CommonFlex>
       <CommonFlex ref={languageRef}>
-        {icons.globe}
-        <ChangeLanguageBtn onClick={() => handleChangeLanguage()}>
-          {langInfo === "ko" ? "KOR" : "ENG"}
-        </ChangeLanguageBtn>
-        <LoginButton onClick={useRoutePageFunc("")}>Login</LoginButton>
+        {displayLanguageButton && (
+          <>
+            {icons.globe}
+            <ChangeLanguageBtn onClick={() => handleChangeLanguage()}>
+              {langInfo === "ko" ? "KOR" : "ENG"}
+            </ChangeLanguageBtn>
+          </>
+        )}
+        {token && (
+          <>
+            <LoginButton onClick={logoutFunc}>Logout</LoginButton>
+          </>
+        )}
+        {!token && (
+          <LoginButton
+            onClick={() => {
+              navigate("");
+            }}
+          >
+            Login
+          </LoginButton>
+        )}
       </CommonFlex>
     </Header>
   );

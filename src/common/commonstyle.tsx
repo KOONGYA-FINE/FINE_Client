@@ -23,6 +23,13 @@ export const Wrapper = styled.div`
   flex-basis: 88%;
   width: 90%;
   border: 1px solid white;
+  &.matching {
+    flex-direction: column;
+  }
+  &.landing {
+    flex-direction: column;
+    overflow: visible;
+  }
 `;
 
 export const Article = styled.div`

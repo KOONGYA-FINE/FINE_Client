@@ -99,3 +99,46 @@ export const nationOptionsEN: readonly NationOpt[] = [
     {value: 36, label: "Australia"},
     {value: 37, label: "Hong Kong"},
 ];
+
+export interface InterestOpt {
+    readonly value: string;
+    readonly label: string;
+}
+
+export const InterestOptionsEN: readonly InterestOpt[] = [
+    {value:"travel", label:"travel"},
+    {value:"music", label:"music"},
+    {value:"game", label:"game"},
+    {value:"reading", label:"reading"},
+    {value:"movies", label:"movies"},
+    {value:"cooking", label:"cooking"},
+    {value:"pets", label:"pets"},
+    {value:"sports", label:"sports"},
+    {value:"camping", label:"camping"},
+    {value:"running", label:"running"},
+    {value:"hiking", label:"hiking"},
+    {value:"photography", label:"photography"},
+    {value:"drama", label:"drama"},
+    {value:"studying", label:"studying"},
+    {value:"foodExploration", label:"foodExploration"},
+    {value:"idol", label:"idol"},
+];
+
+export const InterestOptionsKO: readonly InterestOpt[] = [
+    {value:"travel", label:"여행"},
+    {value:"music", label:"음악"},
+    {value:"game", label:"게임"},
+    {value:"reading", label:"독서"},
+    {value:"movies", label:"영화"},
+    {value:"cooking", label:"요리"},
+    {value:"pets", label:"반려동물"},
+    {value:"sports", label:"스포츠"},
+    {value:"camping", label:"캠핑"},
+    {value:"running", label:"러닝"},
+    {value:"hiking", label:"등산"},
+    {value:"photography", label:"사진찍기"},
+    {value:"drama", label:"드라마"},
+    {value:"studying", label:"공부"},
+    {value:"foodExploration", label:"맛집탐방"},
+    {value:"idol", label:"아이돌"},
+];
