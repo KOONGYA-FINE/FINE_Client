@@ -16,29 +16,31 @@ const MatchingMain = () => {
   const currentLang = useRecoilValue(TranslationAtom);
   const navigate = useRoutePageFunc;
 
-  const [filterIsSelected, setFilterIsSelected] = useState(false);
+  const [filterIsSelected, setFilterIsSelected] = useState<number>(1);
   const [selectedGenderOpt, setSelectedGenderOpt] = useState<GenderOpt|null>();
   // const [selectedNationOpt, setSelectedNationOpt] = useState<NationOpt[]|[null]>([]);
   const [selectedNationOpt, setSelectedNationOpt] = useState<NationOpt|null>();
-  const [selectedInterestOpt, setSelectedInterestOpt] = useState<InterestOpt[]|null>([]);
+  const [selectedInterestOpt, setSelectedInterestOpt] = useState<InterestOpt[]|null>();
 
-  const [getGender, setGetGender] = useState<string|null>();
-  const [getNation, setGetNation] = useState<Number|null>();
-  const [getInterest, setGetInterest] = useState<string|null>();
+  const [getGender, setGetGender] = useState<string>(``);
+  const [getNation, setGetNation] = useState<string>(``);
+  const [getInterest, setGetInterest] = useState<string>(``);
 
   const handleFilterClick = () => {
+    setFilterIsSelected(filterIsSelected+1);
     const interestArr = (selectedInterestOpt ? selectedInterestOpt.map(opt => opt.value) : null);
-    setGetInterest(interestArr ? interestArr.join(' ') : null);
-    setGetGender(selectedGenderOpt ? selectedGenderOpt.value : null);
-    setGetNation(selectedNationOpt ? selectedNationOpt.value : null);
+    setGetInterest((interestArr!==undefined && interestArr!==null) ? `&interest=${interestArr.join(' ')}` : ``);
+    setGetGender((selectedGenderOpt!==undefined && selectedGenderOpt!==null) ? `&gender=${selectedGenderOpt.value}` : ``);
+    setGetNation((selectedNationOpt!==undefined && selectedNationOpt!==null) ? `&nation=${selectedNationOpt.value}` : ``);
+
     console.log(getInterest);
     console.log(getGender);
     console.log(getNation);
-    if (getGender===null && getNation===null && getInterest===null){
-      alert('항목을 반드시 하나 이상 선택해주세요');
-    } else{
-      setFilterIsSelected(true);
-    }
+    // if (getGender===null && getNation===null && getInterest===null){
+    //   alert('항목을 반드시 하나 이상 선택해주세요');
+    // } else{
+    //   setFilterIsSelected(true);
+    // }
   }
 
   return (
@@ -68,13 +70,16 @@ const MatchingMain = () => {
           <h3>Recommended Friends</h3>
           <button onClick={navigate('matching/register')}>Write</button>
         </TitleAndWriteWrapper>
-        {getGender!==undefined && getInterest!==undefined && getNation!==undefined && filterIsSelected ? 
+        {/* {getGender!==undefined && getInterest!==undefined && getNation!==undefined && filterIsSelected ?  */}
+        {
         <FilterInfiniteScrollGrid
         gender={getGender}
         nation={getNation}
-        interest={getInterest} />
-        :
-        <InfiniteScrollGrid />}
+        interest={getInterest}
+        isClicked={filterIsSelected} />
+        // :
+        // <InfiniteScrollGrid />
+        }
       </ArticleWrapper>
     </MainWrapper>
     </>

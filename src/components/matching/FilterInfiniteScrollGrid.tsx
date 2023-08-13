@@ -6,9 +6,11 @@ import { useRecoilValue } from 'recoil';
 import { TranslationAtom } from '../../store/atom';
 
 interface FilterProps {
-    gender : string|null;
-    nation : Number|null;
-    interest : string|null;
+    gender : string;
+    // nation : Number|null;
+    nation : string;
+    interest : string;
+    isClicked : number;
 }
 
 export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (props) => {
@@ -18,12 +20,13 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
     const [ENPosts, setENPosts] = useState<postType[]>(postList);
     const [KOPosts, setKOPosts] = useState<postType[]>(postList);
 
-    const genderStr = (props.gender===null)? ``:`&gender=${props.gender}`;
-    const nationStr = (props.nation===null)? ``:`&nation=${props.nation}`;
-    const interestStr = (props.interest===null)? ``:`&interest=${props.interest}`;
+    // const genderStr = (props.gender===null)? ``:`&gender=${props.gender}`;
+    // const nationStr = (props.nation===null)? ``:`&nation=${props.nation}`;
+    // const interestStr = (props.interest===null)? ``:`&interest=${props.interest}`;
 
     const getPosts = async() => {
-        const result = await GetFilteredMatchingPostApi(page, interestStr, nationStr, genderStr); 
+        // const result = await GetFilteredMatchingPostApi(page, interestStr, nationStr, genderStr); 
+        const result = await GetFilteredMatchingPostApi(page, props.interest, props.gender, props.nation); 
         if(result===false) {
             alert("불러오기 오류 발생");
         } else{
@@ -38,8 +41,14 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
 
     useEffect(() => {
         getPosts();
-        getPosts();
     }, [])
+
+    useEffect(() => {
+        setPage(1);
+        setENPosts(postList);
+        setKOPosts(postList);
+        page===1 && getPosts();
+    }, [props.isClicked])
 
     const ref = createRef<HTMLDivElement>();
     const handleScroll = useCallback((): void => {
