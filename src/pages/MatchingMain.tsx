@@ -20,7 +20,9 @@ const MatchingMain = () => {
   const [selectedGenderOpt, setSelectedGenderOpt] = useState<GenderOpt|null>();
   // const [selectedNationOpt, setSelectedNationOpt] = useState<NationOpt[]|[null]>([]);
   const [selectedNationOpt, setSelectedNationOpt] = useState<NationOpt|null>();
-  const [selectedInterestOpt, setSelectedInterestOpt] = useState<InterestOpt[]|null>();
+  const [selectedInterestOpt, setSelectedInterestOpt] = useState<InterestOpt[]>();
+
+  const blankSpace : InterestOpt[] = [];
 
   const [getGender, setGetGender] = useState<string>(``);
   const [getNation, setGetNation] = useState<string>(``);
@@ -62,7 +64,7 @@ const MatchingMain = () => {
           options={currentLang==="en" ? InterestOptionsEN : InterestOptionsKO}
           isMulti
           value={selectedInterestOpt}
-          onChange={opt => setSelectedInterestOpt([].concat(opt))} />
+          onChange={opt => setSelectedInterestOpt(blankSpace.concat(opt))} />
         <button onClick={handleFilterClick}>{t(`matching.search`)}</button>
       </FilterWapper>
       <ArticleWrapper>

@@ -7,11 +7,16 @@ import EditMatching from "./pages/EditMatching";
 import MatchingPageWrapper from "./pages/MatchingPageWrapper";
 import MatchingMain from "./pages/MatchingMain";
 import RegisterMatching from "./pages/RegisterMatching";
+import { Landing } from "./pages/Landing";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
+  },
+  {
+    path: "landing",
+    element: <Landing />,
   },
   {
     path: "signup",

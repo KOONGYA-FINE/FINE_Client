@@ -33,7 +33,7 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
             console.log(`page=${page}불러오기`);
             setENPosts(ENPosts.concat(result.data['post_en']));
             console.log(ENPosts);
-            setKOPosts(KOPosts.concat(result.data['post_ko']));
+            setKOPosts(KOPosts.concat(result.data['post_kr']));
             console.log(KOPosts);
             setPage(page+1);
         }

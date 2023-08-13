@@ -26,6 +26,10 @@ export const Wrapper = styled.div`
   &.matching {
     flex-direction: column;
   }
+  &.landing {
+    flex-direction: column;
+    overflow: visible;
+  }
 `;
 
 export const Article = styled.div`
