@@ -15,7 +15,7 @@ const useGetMatchingProps = () => {
     const result = await getPostMatchingApi(postId, token);
     if (result === "Not found.") {
       alert("This is not exist paper");
-      navigate(-1);
+      navigate("/matching/main");
     } else if (
       result === "Given token not valid for any token type" ||
       result === "Authorization header must contain two space-delimited values"
@@ -26,7 +26,7 @@ const useGetMatchingProps = () => {
       navigate("/");
     } else if (result === "This post is deleted") {
       alert("This post is deleted");
-      navigate(`/matching/main/${numberIdx + 1}`);
+      navigate("/matching/main");
     } else {
       setProps({
         post_en: result?.data.post_en,
