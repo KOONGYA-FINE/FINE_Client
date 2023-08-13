@@ -5,10 +5,10 @@ import { CommonFlex } from "../common/commonstyle";
 import { PostMatchingWritingApi } from "../apis/matchingWriting";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { UserInfoAtom, registerMatchingAtom } from "../store/atom";
-import { useWithRoutePageFunc } from "../hooks/useRoutePageFunc";
 import MatchingInterestRegister from "../components/matching/MatchingInterestRegister";
 import MatchingWritingForm from "../components/matching/MatchingWritingForm";
 import useGetToken from "../hooks/useGetToken";
+import { useNavigate } from "react-router-dom";
 
 const RegisterMatching = () => {
   const { t } = useTranslation();
@@ -16,7 +16,7 @@ const RegisterMatching = () => {
   useGetToken();
   const registerProp = useRecoilValue(registerMatchingAtom);
   const userInfo = useRecoilValue(UserInfoAtom);
-  const navigate = useWithRoutePageFunc();
+  const router = useNavigate();
   const resetRegisterProp = useResetRecoilState(registerMatchingAtom);
   const matchingRegister = async () => {
     const result = await PostMatchingWritingApi(
@@ -30,7 +30,7 @@ const RegisterMatching = () => {
     if (typeof result !== "string") {
       alert("Success!");
       resetRegisterProp();
-      navigate("matching/main");
+      router("/matching/main", { replace: true });
     } else {
       alert(result);
     }
