@@ -1,10 +1,65 @@
 {
   "header": {
     "mypage": "My page",
-    "logout": "Sign Out",
-    "login": "Sign In",
+    "logout": "Logout",
+    "login": "Login",
     "register": "Sign Up",
     "language": "Languages",
     "help": "Help"
+  },
+  "login": {
+    "emailMsg": "Enter your school email",
+    "passwordMsg": "Passwords must be at least 8 characters"
+  },
+  "signup": {
+    "create": "Create your account",
+    "emailAdress": "Your Email Adress",
+    "checkEmail": "Send Verify Code",
+    "verifyEmail": "Sending Verification Code",
+    "createPassword": "Create your Password",
+    "confirmPassword": "Re-enter your Password",
+    "confirm": "confirm",
+    "previous": "Previous step",
+    "next": "next step",
+    "personal": "Personal information",
+    "name": "Your name",
+    "birth": "date of birth",
+    "nationality": "nationality",
+    "school": "your school",
+    "gender": "gender",
+    "male": "male",
+    "female": "female",
+    "complete": "complete"
+  },
+  "interest": {
+    "travel": "travel",
+    "music": "music",
+    "game": "game",
+    "reading": "reading",
+    "movies": "movies",
+    "cooking": "cooking",
+    "pets": "pets",
+    "sports": "sports",
+    "camping": "camping",
+    "running": "running",
+    "hiking": "hiking",
+    "photography": "photography",
+    "drama": "drama",
+    "studying": "studying",
+    "foodExploration": "foodExploration",
+    "idol": "idol"
+  },
+  "matching": {
+    "edit": "edit",
+    "delete": "delete",
+    "register": "register",
+    "select": "Select the interest",
+    "mainTitle": "Recommended friends",
+    "writing": "writing",
+    "search": "Search",
+    "Gender": "Gender",
+    "Filters": "Filters",
+    "nationality": "Nationality",
+    "interest": "Interest"
   }
 }
