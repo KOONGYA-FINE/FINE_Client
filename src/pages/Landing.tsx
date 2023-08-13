@@ -2,7 +2,7 @@ import React from 'react'
 import { Article, Container, Wrapper } from '../common/commonstyle'
 import { HeaderCompo } from '../components/utils/HeaderCompo'
 import { styled } from 'styled-components'
-import { MatchingCard } from '../components/landing/matchingCard'
+import { MatchingCard } from '../components/landing/MatchingCard'
 
 export const Landing = () => {
   return (

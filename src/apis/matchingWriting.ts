@@ -38,8 +38,8 @@ export const PostMatchingWritingApi = async (
         role: "system",
         content:
           language === "en"
-            ? "You will be provided with a sentence in English, and your task is to translate it into Korean."
-            : "You will be provided with a sentence in Korean, and your task is to translate it into English.",
+            ? "You will be provided with a sentence in English, and your task is to translate it into Korean all of sentences."
+            : "You will be provided with a sentence in Korean, and your task is to translate it into English all of sentences.",
       },
       { role: "user", content: result },
     ],
@@ -94,7 +94,6 @@ export const editMatchingApi = async (
   token: string
 ) => {
   const result = `${title}\n${content}`;
-  console.log(result);
   const apiKey: string = import.meta.env.VITE_OPENAI_KEY;
   const apiUrl = "https://api.openai.com/v1/chat/completions";
   const headers = {
@@ -108,8 +107,8 @@ export const editMatchingApi = async (
         role: "system",
         content:
           language === "en"
-            ? "You will be provided with a sentence in English, and your task is to translate it into Korean."
-            : "You will be provided with a sentence in Korean, and your task is to translate it into English.",
+            ? "You will be provided with a sentence in English, and your task is to translate it into Korean all of sentences."
+            : "You will be provided with a sentence in Korean, and your task is to translate it into English all of sentences.",
       },
       { role: "user", content: result },
     ],

@@ -10,15 +10,21 @@ interface FilterProps {
     // nation : Number|null;
     nation : string;
     interest : string;
-    isClicked : number;
+    isClicked: number;
+    page: number;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+    ENPosts: postType[];
+    KOPosts: postType[];
+    setENPosts: React.Dispatch<React.SetStateAction<postType[]>>;
+    setKOPosts: React.Dispatch<React.SetStateAction<postType[]>>;
 }
 
 export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (props) => {
     const currentlang = useRecoilValue(TranslationAtom);
     const postList : postType[] = [];
-    const [page, setPage] = useState(1);
-    const [ENPosts, setENPosts] = useState<postType[]>(postList);
-    const [KOPosts, setKOPosts] = useState<postType[]>(postList);
+    // const [page, setPage] = useState(1);
+    // const [ENPosts, setENPosts] = useState<postType[]>(postList);
+    // const [KOPosts, setKOPosts] = useState<postType[]>(postList);
 
     // const genderStr = (props.gender===null)? ``:`&gender=${props.gender}`;
     // const nationStr = (props.nation===null)? ``:`&nation=${props.nation}`;
@@ -26,16 +32,16 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
 
     const getPosts = async() => {
         // const result = await GetFilteredMatchingPostApi(page, interestStr, nationStr, genderStr); 
-        const result = await GetFilteredMatchingPostApi(page, props.interest, props.gender, props.nation); 
+        const result = await GetFilteredMatchingPostApi(props.page, props.interest, props.gender, props.nation); 
         if(result===false) {
             alert("불러오기 오류 발생");
         } else{
-            console.log(`page=${page}불러오기`);
-            setENPosts(ENPosts.concat(result.data['post_en']));
-            console.log(ENPosts);
-            setKOPosts(KOPosts.concat(result.data['post_kr']));
-            console.log(KOPosts);
-            setPage(page+1);
+            console.log(`page=${props.page}불러오기`);
+            props.setENPosts((props.ENPosts).concat(result.data['post_en']));
+            console.log(props.ENPosts);
+            props.setKOPosts((props.KOPosts).concat(result.data['post_kr']));
+            console.log(props.KOPosts);
+            props.setPage(props.page+1);
         }
     }
 
@@ -44,10 +50,9 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
     }, [])
 
     useEffect(() => {
-        setPage(1);
-        setENPosts(postList);
-        setKOPosts(postList);
-        page===1 && getPosts();
+        // setENPosts(postList);
+        // setKOPosts(postList);
+        props.page===1 && getPosts();
     }, [props.isClicked])
 
     const ref = createRef<HTMLDivElement>();
@@ -56,12 +61,14 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
         const scrollHeight = ref?.current?.scrollHeight;
         const scrollTop = ref?.current?.scrollTop;
         
-        if(innerHeight&&scrollHeight&&scrollTop){
-            if(Math.round(scrollTop+innerHeight) >= scrollHeight){
-                getPosts();
+        if (props.ENPosts!==postList){
+            if(innerHeight&&scrollHeight&&scrollTop){
+                if(Math.round(scrollTop+innerHeight) >= scrollHeight){
+                    getPosts();
+                }
             }
         }
-    }, [page, ENPosts]);
+    }, [props.page, props.ENPosts]);
     
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, true);
@@ -72,8 +79,8 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
   return (
     <FlexScrollBox>
         <ArticleWrapper ref={ref}>
-            {ENPosts&&(currentlang==="en" ?
-                ENPosts.map((post:postType, idx:number) => (
+            {props.ENPosts&&(currentlang==="en" ?
+                (props.ENPosts).map((post:postType, idx:number) => (
                 <CardBox 
                 key={idx}
                 post_id={post.post_id}
@@ -90,7 +97,7 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
                 user_id={post.user_id} />
                 )) 
                 :
-                KOPosts.map((post:postType, idx:number) => (
+                (props.KOPosts).map((post:postType, idx:number) => (
                 <CardBox 
                 key={idx}
                 post_id={post.post_id}
