@@ -5,57 +5,88 @@ import { useGetLanguage } from '../../hooks/useGetLanguage'
 import { useRecoilValue } from 'recoil'
 import { TranslationAtom } from '../../store/atom'
 import { genderOptionsEN, genderOptionsKO, nationOptionsEN, nationOptionsKO } from '../../store/optiondata'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { SignUpUserInfoApi } from '../../apis/signupapi'
-import { useRoutePageFunc } from '../../hooks/useRoutePageFunc'
+import { Controller, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { UserInfoAtom } from '../../store/atom'
 
-const SignUpInfoForm = () => {
+interface UserInfoValue {
+    name: string
+    nation: number
+    birth: string
+    school: string
+    gender: string
+}
+
+const SignUpInfoForm : FC = () => {
     const currentLang = useRecoilValue(TranslationAtom)
     const { t } = useTranslation()
     useGetLanguage()
-    const navigate = useRoutePageFunc;
-    
-    const [name, setName] = useState<string>('');
-    const [birth, setBirth] = useState<string>('');
-    const [gender, setGender] = useState<string>();
-    const [nation, setNation] = useState<number>();
-    const [school, setSchool] = useState<string>('');
+    const navigate = useNavigate();
+    const {register, watch, control, formState:{errors, isValid}} = useForm<UserInfoValue>({mode: "onChange"})
+    const userInfo = useRecoilValue(UserInfoAtom);
 
-    // const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault();
-    //     const result = await SignUpUserInfoApi(name, nation, birth, school, gender);
-    //     if (result === false) {
-    //         alert("오류");
-    //     } else {
-    //         alert("회원가입 성공!");
-    //         console.log(result.data)
-    //         navigate('/');
-    //     }
-    // };
+    const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        // console.log(userInfo.token)
+        // console.log(userInfo.token['access_token'])
+        const result = await SignUpUserInfoApi(watch("name"), watch("nation"), watch("birth"), watch("school"), watch("gender"), userInfo.token['access_token']);
+        if (result === false) {
+            alert("오류");
+        } else {
+            alert("회원가입 성공!");
+            console.log(result.data)
+            navigate('/');
+        }
+    };
 
   return (
     <>
+    <h3>{t(`signup.personal`)}</h3>
     <Form>
         <Label>{t(`signup.name`)}</Label>
-        <Input type='text' onChange={(e) => setName(e.target.value)} />
+        <Input {...register("name", { required: true })} type="name" placeholder="enter your name" />
         <Label>{t(`signup.birth`)}</Label>
-        <Input type='date' onChange={(e) => setBirth(e.target.value)} />
+        <Input {...register("birth", { required: true })} type="date" />
         <Label>{t(`signup.gender`)}</Label>
-        <Select options={
-            (currentLang === "en") ? genderOptionsEN : genderOptionsKO }
-            placeholder={<div>{t(`signup.gender`)}</div>} 
-            onChange={(e) => setGender(e?.value)} />
+        <Controller 
+            name="gender"
+            control={control}
+            render={({field: {onChange, value}}) => (
+                <Select 
+                options={(currentLang === "en") ? genderOptionsEN : genderOptionsKO}
+                value={(currentLang === "en") ? 
+                    genderOptionsEN.find((c) => c.value === value) 
+                    :
+                    genderOptionsKO.find((c) => c.value === value)
+                }
+                onChange={(option) => (onChange(option?.value))} />
+        )} />
         <Label>{t(`signup.nationality`)}</Label>
-        <Select options={
-            (currentLang === "en") ? nationOptionsEN : nationOptionsKO}
-            placeholder={<div>{t(`signup.nationality`)}</div>}
-            onChange={(e) => setNation(e?.value)} />
+        <Controller 
+            name="nation"
+            control={control}
+            render={({field: {onChange, value}}) => (
+                <Select 
+                options={(currentLang === "en") ? nationOptionsEN : nationOptionsKO}
+                value={(currentLang === "en") ? 
+                    nationOptionsEN.find((c) => c.value === value) 
+                    :
+                    nationOptionsKO.find((c) => c.value === value)
+                }
+                onChange={(option) => (onChange(option?.value))} />
+        )} />
         <Label>{t(`signup.school`)}</Label>
-        <Input type='text' onChange={(e) => setSchool(e.target.value)} />
+        <Input {...register("school", { required: true })} type="text" />
 
         <FormSubmitButtonWrapper>
             <PrevPageButton>{t(`signup.previous`)}</PrevPageButton>
-            <SubmitButton>{t(`signup.complete`)}</SubmitButton>
+            <SubmitButton 
+            className={isValid ? "" : "unvalid"}
+            type="submit"
+            disabled={!isValid}
+            onClick={onSubmit}>{t(`signup.complete`)}</SubmitButton>
         </FormSubmitButtonWrapper>
     </Form>
     </>
@@ -95,5 +126,8 @@ const PrevPageButton = styled.button`
 
 const SubmitButton = styled.button`
     display: flex;
-    background-color: green
+    background-color: green;
+    &.unvalid {
+    background: rgba(151, 151, 151, 1);
+    }
 `

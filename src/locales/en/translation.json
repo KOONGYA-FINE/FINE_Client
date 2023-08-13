@@ -14,7 +14,7 @@
   "signup": {
     "create": "Create your account",
     "emailAdress": "Your Email Adress",
-    "checkEmail": "check email",
+    "checkEmail": "Send Verify Code",
     "verifyEmail": "Sending Verification Code",
     "createPassword": "Create your Password",
     "confirmPassword": "Re-enter your Password",
