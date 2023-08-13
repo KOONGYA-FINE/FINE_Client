@@ -35,11 +35,13 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
         const result = await GetFilteredMatchingPostApi(props.page, props.interest, props.gender, props.nation); 
         if(result===false) {
             alert("불러오기 오류 발생");
-        } else{
+        } else if(result?.status===404) {
+            alert("마지막 포스트까지 모두 불러왔습니다.");
+        } else {
             console.log(`page=${props.page}불러오기`);
-            props.setENPosts((props.ENPosts).concat(result.data['post_en']));
+            props.setENPosts((props.ENPosts).concat(result?.data['post_en']));
             console.log(props.ENPosts);
-            props.setKOPosts((props.KOPosts).concat(result.data['post_kr']));
+            props.setKOPosts((props.KOPosts).concat(result?.data['post_kr']));
             console.log(props.KOPosts);
             props.setPage(props.page+1);
         }
@@ -83,7 +85,7 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
                 (props.ENPosts).map((post:postType, idx:number) => (
                 <CardBox 
                 key={idx}
-                post_id={post.post_id}
+                post_id={post!.post_id}
                 username={post.username}
                 school={post.school}
                 gender={post.gender}
@@ -100,7 +102,7 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
                 (props.KOPosts).map((post:postType, idx:number) => (
                 <CardBox 
                 key={idx}
-                post_id={post.post_id}
+                post_id={post!.id}
                 username={post.username}
                 school={post.school}
                 gender={post.gender}

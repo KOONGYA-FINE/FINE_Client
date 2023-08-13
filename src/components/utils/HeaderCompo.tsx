@@ -50,7 +50,7 @@ export const HeaderCompo = () => {
         <KatahdinFont>FINE</KatahdinFont>
       </CommonFlex>
       <CommonFlex>
-        <PoppinsFont>Home</PoppinsFont>
+        <PoppinsFont onClick={useRoutePageFunc("landing")}>Home</PoppinsFont>
         <PoppinsFont onClick={useRoutePageFunc("matching/main")}>
           Friend Matching
         </PoppinsFont>
