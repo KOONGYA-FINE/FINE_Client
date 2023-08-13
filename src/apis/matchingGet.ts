@@ -2,7 +2,8 @@ import axios from "axios";
 import { SERVER_URL } from "../store/jsonURL";
 
 export type postType = {
-    post_id: number,
+    post_id?: number,
+    id?:number,
     username: string,
     school: string,
     gender: string,
@@ -33,7 +34,13 @@ export const GetFilteredMatchingPostApi = async(page:number,interestStr:string, 
         console.log(response.data);
         return response;
     } catch(error) {
-        console.log(error);
-        return false;
+        if (axios.isAxiosError(error)) {
+            const result = error.response;
+            console.log(result?.status);
+            console.log(result?.data.accept);
+            return result;
+          } else {
+            return false;
+          }
     }
 }
