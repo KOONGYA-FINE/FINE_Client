@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import { TranslationAtom } from "../store/atom";
 import { GenderOpt, InterestOpt, InterestOptionsEN, InterestOptionsKO, NationOpt, genderOptionsEN, genderOptionsKO, nationOptionsEN, nationOptionsKO } from "../store/optiondata";
 import { FilterInfiniteScrollGrid } from "../components/matching/FilterInfiniteScrollGrid";
+import { postType } from "../apis/matchingGet";
 
 const MatchingMain = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ const MatchingMain = () => {
   const navigate = useRoutePageFunc;
 
   const [filterIsSelected, setFilterIsSelected] = useState<number>(1);
+  const [prevFilterIsSelected, setPrevFilterIsSelected] = useState<number>(1);
   const [selectedGenderOpt, setSelectedGenderOpt] = useState<GenderOpt|null>();
   // const [selectedNationOpt, setSelectedNationOpt] = useState<NationOpt[]|[null]>([]);
   const [selectedNationOpt, setSelectedNationOpt] = useState<NationOpt|null>();
@@ -28,12 +30,22 @@ const MatchingMain = () => {
   const [getNation, setGetNation] = useState<string>(``);
   const [getInterest, setGetInterest] = useState<string>(``);
 
+  const [page, setPage] = useState<number>(1);
+  const postList : postType[] = [];
+    // const [page, setPage] = useState(1);
+  const [ENPosts, setENPosts] = useState<postType[]>(postList);
+  const [KOPosts, setKOPosts] = useState<postType[]>(postList);
+
   const handleFilterClick = () => {
-    setFilterIsSelected(filterIsSelected+1);
+    // setPrevFilterIsSelected(filterIsSelected);
+    setFilterIsSelected((prev)=>(filterIsSelected+1));
     const interestArr = (selectedInterestOpt ? selectedInterestOpt.map(opt => opt.value) : null);
     setGetInterest((interestArr!==undefined && interestArr!==null) ? `&interest=${interestArr.join(' ')}` : ``);
     setGetGender((selectedGenderOpt!==undefined && selectedGenderOpt!==null) ? `&gender=${selectedGenderOpt.value}` : ``);
     setGetNation((selectedNationOpt!==undefined && selectedNationOpt!==null) ? `&nation=${selectedNationOpt.value}` : ``);
+    setENPosts(postList);
+    setKOPosts(postList);
+    setPage(1);
 
     console.log(getInterest);
     console.log(getGender);
@@ -73,12 +85,18 @@ const MatchingMain = () => {
           <button onClick={navigate('matching/register')}>Write</button>
         </TitleAndWriteWrapper>
         {/* {getGender!==undefined && getInterest!==undefined && getNation!==undefined && filterIsSelected ?  */}
-        {
+        { 
         <FilterInfiniteScrollGrid
         gender={getGender}
         nation={getNation}
         interest={getInterest}
-        isClicked={filterIsSelected} />
+        isClicked={filterIsSelected}
+        page={page}
+        setPage={setPage}
+        ENPosts={ENPosts}
+        KOPosts={KOPosts}
+        setENPosts={setENPosts}
+        setKOPosts={setKOPosts} />
         // :
         // <InfiniteScrollGrid />
         }
