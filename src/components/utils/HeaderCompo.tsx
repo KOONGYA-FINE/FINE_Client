@@ -43,6 +43,17 @@ export const HeaderCompo = () => {
       alert("failed");
     }
   };
+  const goMyPageFunc = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (token) {
+      navigate("mypage");
+    } else {
+      alert("로그인해주세요");
+      navigate("");
+    }
+  };
+
+
   return (
     <Header>
       <CommonFlex>
@@ -79,6 +90,9 @@ export const HeaderCompo = () => {
             Login
           </LoginButton>
         )}
+        <MyPageImage onClick={goMyPageFunc}>
+          <img src="/MyPageIcon.png" />
+        </MyPageImage>
       </CommonFlex>
     </Header>
   );
@@ -123,4 +137,14 @@ const LoginButton = styled.button`
   font-family: "Poppins";
   font-size: 18px;
   font-weight: 500;
+`;
+
+const MyPageImage = styled.button`
+  display: flex;
+  height: 45px;
+  margin-left: 20px;
+  padding: 0px;
+  & > img{
+    height: 100%;
+  }
 `;

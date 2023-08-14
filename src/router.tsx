@@ -8,6 +8,7 @@ import MatchingPageWrapper from "./pages/MatchingPageWrapper";
 import MatchingMain from "./pages/MatchingMain";
 import RegisterMatching from "./pages/RegisterMatching";
 import { Landing } from "./pages/Landing";
+import { MyPage } from "./pages/MyPage";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignupAccount />,
+  },
+  {
+    path: "mypage",
+    element: <MyPage />
   },
   {
     path: "userinfo",
