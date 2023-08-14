@@ -32,6 +32,7 @@ export const Wrapper = styled.div`
   }
   &.mypage {
     flex-direction: column;
+    align-items: center;
   }
 `;
 

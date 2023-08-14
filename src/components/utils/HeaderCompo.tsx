@@ -91,7 +91,7 @@ export const HeaderCompo = () => {
           </LoginButton>
         )}
         <MyPageImage onClick={goMyPageFunc}>
-          <img src="/MyPageIcon.png" />
+          <img src="/MyPageIcon.png" onClick={() => {navigate("mypage")}} />
         </MyPageImage>
       </CommonFlex>
     </Header>
