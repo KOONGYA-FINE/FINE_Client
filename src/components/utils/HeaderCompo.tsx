@@ -54,7 +54,9 @@ export const HeaderCompo = () => {
         <PoppinsFont onClick={useRoutePageFunc("matching/main")}>
           Friend Matching
         </PoppinsFont>
-        <PoppinsFont>Restaurant review</PoppinsFont>
+        <PoppinsFont onClick={useRoutePageFunc("food/search")}>
+          Restaurant review
+        </PoppinsFont>
       </CommonFlex>
       <CommonFlex ref={languageRef}>
         {displayLanguageButton && (
