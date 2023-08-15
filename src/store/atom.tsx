@@ -53,3 +53,41 @@ export const editMatchingAtom = atom<KeyPair<string>>({
     content: "",
   },
 });
+
+export interface RegisterPlaceProp {
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+}
+
+export interface PlaceProp extends RegisterPlaceProp {
+  phtotoProp: string;
+  rating: number;
+  url: string;
+}
+
+export const placesState = atom<PlaceProp[]>({
+  key: "placesState",
+  default: [
+    {
+      phtotoProp: "",
+      name: "",
+      address: "",
+      rating: 0,
+      url: "",
+      lat: 0,
+      lng: 0,
+    },
+  ],
+});
+
+export const registerProps = atom<RegisterPlaceProp>({
+  key: "registerProps",
+  default: {
+    name: "",
+    address: "",
+    lat: 0,
+    lng: 0,
+  },
+});
