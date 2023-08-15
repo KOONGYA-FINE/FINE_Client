@@ -9,10 +9,14 @@ import useGetToken from '../hooks/useGetToken'
 import {BsLink45Deg} from "react-icons/bs"
 import { ViewUserInfoBox } from '../components/mypage/ViewUserInfoBox'
 import { EditUserInfoBox } from '../components/mypage/EditUserInfoBox'
+import { useParams } from 'react-router-dom'
 
 export const MyPage = () => {
+    const {username} = useParams();
+
     useGetToken();
     const userInfo = useRecoilValue(UserInfoAtom);
+
     // const access_token = userInfo.token['access_token'];
     const [name, setName] = useState<string>('');
     const [school, setSchool] = useState<string>('');
@@ -30,7 +34,7 @@ export const MyPage = () => {
     }
 
     const getProfile = async() => {
-        const result = await GetProfileApi(userInfo.token.access_token, 'gyeongbin');
+        const result = await GetProfileApi(userInfo.token.access_token, username);
         console.log(result);
         if (result === false){
             alert('오류 발생, 다시 시도해주세요');

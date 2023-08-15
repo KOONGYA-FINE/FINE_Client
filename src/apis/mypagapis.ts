@@ -1,7 +1,8 @@
 import axios from "axios";
 import { SERVER_URL } from "../store/jsonURL";
+import { Params } from "react-router-dom";
 
-export const GetProfileApi = async (token: string, username:string) => {
+export const GetProfileApi = async (token: string, username:string|undefined) => {
     try {
       const response = await axios.get(`${SERVER_URL}/profiles/${username}`, 
       {

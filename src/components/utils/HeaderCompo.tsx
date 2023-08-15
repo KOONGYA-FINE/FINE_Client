@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { CommonFlex, Header } from "../../common/commonstyle";
-import { useRecoilState } from "recoil";
-import { TranslationAtom } from "../../store/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { TranslationAtom, UserInfoAtom } from "../../store/atom";
 import { useRef } from "react";
 import "../../common/font.css";
 import { styled } from "styled-components";
@@ -30,6 +30,7 @@ export const HeaderCompo = () => {
       setLangInfo("en");
     }
   };
+  const userInfo = useRecoilValue(UserInfoAtom);
   const token = localStorage.getItem("access_token") as string;
   const navigate = useWithRoutePageFunc();
   const logoutFunc = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -46,7 +47,7 @@ export const HeaderCompo = () => {
   const goMyPageFunc = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (token) {
-      navigate("mypage");
+      navigate(`profile/${userInfo.user.username}`);
     } else {
       alert("로그인해주세요");
       navigate("");
@@ -91,7 +92,7 @@ export const HeaderCompo = () => {
           </LoginButton>
         )}
         <MyPageImage onClick={goMyPageFunc}>
-          <img src="/MyPageIcon.png" onClick={() => {navigate("mypage")}} />
+          <img src="/MyPageIcon.png" />
         </MyPageImage>
       </CommonFlex>
     </Header>

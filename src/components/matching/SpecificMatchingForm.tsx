@@ -7,6 +7,9 @@ import {
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
 import ScrapButton from "./scrap/ScrapButton";
+import { useEffect } from "react";
+import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const SpecificMatchingForm = () => {
   const { t } = useTranslation();
@@ -21,6 +24,16 @@ const SpecificMatchingForm = () => {
       ? (interestArray = interest.split(" "))
       : [interest];
   }
+  const imageLink = Engproperties.profile_image as string;
+  // useEffect(()=> {
+  //   console.log(Engproperties.username);
+  //   console.log(props.post_kr);
+  // }, [])
+  const navigate = useNavigate();
+  const handelProfileClick = () => {
+    navigate(`/profile/${Engproperties.username}`);
+  }
+
   return (
     <>
       <MatchingWrapperBox>
@@ -29,6 +42,9 @@ const SpecificMatchingForm = () => {
             ? Engproperties.title
             : KRproperties.title}
           <ScrapButton />
+          <ProfileBox onClick={handelProfileClick}>
+            <div><img src={imageLink}/>{Engproperties.username}</div>
+          </ProfileBox>
         </MatchingWrapper>
         <MatchingWrapper className="interest">
           {interestArray.map((e) => {
@@ -47,3 +63,11 @@ const SpecificMatchingForm = () => {
 };
 
 export default SpecificMatchingForm;
+
+const ProfileBox = styled.div`
+  display: flex;
+  background-color: coral;
+  & > div {
+    display: flex;
+  }
+`
