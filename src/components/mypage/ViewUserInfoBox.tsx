@@ -17,6 +17,8 @@ interface userInfoProps {
     birth: string;
     // image: string|null;
     gender: string;
+    nation: string;
+    KONation: string;
     // dateJoined: string;
     SNSLink: string|null;
     // isEditing: boolean;
@@ -39,7 +41,7 @@ export const ViewUserInfoBox : React.FunctionComponent<userInfoProps> = (props) 
             </WritingBox>
             <WritingBox>
                 <div className='label'>nationality</div>
-                <div className='content'>데이터 없음</div>
+                <div className='content'>{props.nation}</div>
             </WritingBox>
             <WritingBox>
                 <div className='label'>Gender</div>

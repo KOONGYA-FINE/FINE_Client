@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { styled } from 'styled-components';
 import { EditProfileApi } from '../../apis/mypagapis';
+import { useNavigate } from 'react-router-dom';
 
 interface userInfoProps {
     name : string;
@@ -19,24 +20,51 @@ interface userInfoProps {
 }
 
 export const EditUserInfoBox:React.FunctionComponent<userInfoProps> = (props) => {
+    const navigate = useNavigate();
     const genderStr = (props.gender === 'M')? 'Man' : 'Woman';
     const birthStr = (props.birth).split("T");
     const newNameInput = useRef<HTMLInputElement>(null);
     const newSNSInput = useRef<HTMLInputElement>(null);
-    const editInfo =async(newname:string, newsns:string) => {
-        const result = await EditProfileApi(props.name, props.token, props.SNSLink, props.image, newname, newsns, undefined);
-        if (result === false){
-            alert("오류 발생, 다시 시도해주세요");
+    const editInfo = async(newname:string, newsns:string) => {
+        let newDataJson : any = {}
+        if (newname===null && newname==='' && newsns==='' && newsns===null) {
+            alert("수정 사항이 없습니다.");
         } else {
-            console.log(result);
+            if (newname!==null && newname!==''){
+                newDataJson.name = newname;
+                if (newsns!=='' && newsns!==null){
+                    newDataJson.sns = newsns;
+                }
+            } else {
+                if (newsns!=='' || newsns!==null){
+                    newDataJson.sns = newsns;
+                }
+            }
+
+            const result = await EditProfileApi(props.name, props.token, newDataJson);
+        
+            if (result === false){
+                alert("오류 발생, 다시 시도해주세요");
+            } else if (result === 'username already exists'){
+                alert("이미 존재하는 사용자명입니다. 수정해주세요.");
+            } else if (result === 'Not an Image File'){
+                alert("이미지 파일 형식으로 넘겨주세요.");
+            } else if (result === 'Given token not valid for any token type') {
+                alert("재로그인 후 다시 시도해주세요.");
+            } else if (result === 'Authentication credentials were not provided.') {
+                alert("로그인 해주세요");
+            } else if (result === "You do not have permission to perform this action.") {
+                alert("접근 권한이 없습니다.");
+            } else {
+                alert("수정 완료");
+                props.setIsEditing(false);
+            }
         }
     }
     const handleEditBtnClick = (e:React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (newNameInput.current===null || newSNSInput.current===null){
             alert("오류 발생");
-        } else if (newNameInput.current.value===''){
-            alert("이름은 반드시 필요합니다!");
         } else {
             // props.setName(newNameInput.current.value);
             // props.setSNSLink(newSNSInput.current.value);

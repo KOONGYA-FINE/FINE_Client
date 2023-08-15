@@ -14,44 +14,52 @@ export const MyPage = () => {
     useGetToken();
     const userInfo = useRecoilValue(UserInfoAtom);
     // const access_token = userInfo.token['access_token'];
-    // const [name, setName] = useState<string>();
-    // const [school, setSchool] = useState<string>();
-    // const [birth, setBirth] = useState<string>();
-    // const [image, setImage] = useState<string|null>();
-    // const [gender, setGender] = useState<string>();
-    // const [dateJoined, setDateJoined] = useState<string>();
-    // const [SNSLink, setSNSLink] = useState<string|null>();
-
-    const imgLinkForTest = 'https://i.namu.wiki/i/XL34R5rJe_dWfnFmdlD8iVV_jltfYiIhzfVWmdbQOQEqBlsfbMjH14XQodzYK-djpVZr3r9VLSkq_LAUYxLcrRhl0zIpKGT85nn8X2uV4-eTcUo82KWpGQT6dG93NjJY601MnSxuWjNtJmnefoAxNg.webp'
-    //테스트용
-    const [name, setName] = useState<string>('gyeongbin');
-    const [school, setSchool] = useState<string>('Chung-Ang Univ');
-    const [birth, setBirth] = useState<string>('2001-04-09');
-    const [image, setImage] = useState<string|null>(imgLinkForTest);
-    const [gender, setGender] = useState<string>('F');
-    const [dateJoined, setDateJoined] = useState<string>('2023-08-15');
-    const [SNSLink, setSNSLink] = useState<string|null>('https://www.instagram.com/gydotb/');
+    const [name, setName] = useState<string>('');
+    const [school, setSchool] = useState<string>('');
+    const [birth, setBirth] = useState<string>('');
+    const [image, setImage] = useState<string|null>('');
+    const [gender, setGender] = useState<string>('');
+    const [nation, setNation] = useState<string>('');
+    const [KONation, setKONation] = useState<string>('');
+    const [dateJoined, setDateJoined] = useState<string>('');
+    const [SNSLink, setSNSLink] = useState<string|null>('');
 
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const handelBtnClick = () => {
         setIsEditing(true);
     }
 
-    // const getProfile = async() => {
-    //     const result = await GetProfileApi(userInfo.token.access_token, userName);
-    //     console.log(result);
-    //     setName(result.data.info.username);
-    //     setSchool(result.data.info.school);
-    //     setBirth(result.data.info.birth);
-    //     setImage(result.data.info.image);
-    //     setGender(result.data.info.gender);
-    //     setDateJoined(result.data.info.date_joined);
-    //     setSNSLink(result.data.info.sns);
-    // }
+    const getProfile = async() => {
+        const result = await GetProfileApi(userInfo.token.access_token, 'gyeongbin');
+        console.log(result);
+        if (result === false){
+            alert('오류 발생, 다시 시도해주세요');
+        } else if (result === 'Authentication credentials were not provided.'){
+            alert('로그인해주세요');
+        } else if (result === 'Given token not valid for any token type'){
+            alert('재로그인해주세요');
+        } else if (result === 'user profile not found'){
+            alert('존재하지 않는 유저입니다.');
+        } else {
+            setName(result.data.info.username);
+            setSchool(result.data.info.school);
+            setBirth(result.data.info.birth);
+            setImage(result.data.info.image);
+            setGender(result.data.info.gender);
+            setNation(result.data.info.nation);
+            setKONation(result.data.info.nation_KR);
+            setDateJoined(result.data.info.date_joined);
+            setSNSLink(result.data.info.sns);
+        }
+    }
 
-    // useEffect(()=>{
-    //     getProfile();
-    // }, [])
+    useEffect(()=>{
+        getProfile();
+    }, [])
+
+    useEffect(()=>{
+        getProfile();
+    }, [isEditing])
 
   return (
     <Container>
@@ -62,7 +70,11 @@ export const MyPage = () => {
         </MyPageTitle>
         <ProfileWrapper>
             <ProfileImg>
-                <img src={imgLinkForTest} />
+                {(image!==null) ? 
+                    <img src={image} />
+                    :
+                    <img src={'MyPageIcon.png'} />
+                }
             </ProfileImg>
             <ProfileInfo>
                 <ProfileNameAndLink>
@@ -87,7 +99,9 @@ export const MyPage = () => {
             name={name}
             birth={birth}
             gender={gender}
-            SNSLink={SNSLink} />
+            SNSLink={SNSLink}
+            nation={nation}
+            KONation={KONation} />
             :
             <EditUserInfoBox 
             name={name}
