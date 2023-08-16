@@ -8,6 +8,7 @@ import {
 } from "../../store/atom";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
+import FoodTagButton from "./FoodTagButton";
 
 const FoodEditForm = () => {
   const { t } = useTranslation();
@@ -41,7 +42,13 @@ const FoodEditForm = () => {
       <div>{t(`review.register_location`)}</div>
       <input value={propInfo.address} disabled />
       <div>{t(`review.register_tag`)}</div>
-      <div>{submitProp.tag}</div>
+      <>
+        {propInfo.tag === "cafe" ? (
+          <button>{propInfo.tag}</button>
+        ) : (
+          <FoodTagButton />
+        )}
+      </>
       <div>
         {t(`review.register_rating`)}
         {t(`review.rating_again`)}
