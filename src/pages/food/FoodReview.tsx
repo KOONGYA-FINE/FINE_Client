@@ -16,8 +16,8 @@ const FoodReview = () => {
   const userInfo = useRecoilValue(UserInfoAtom);
   const propInfo = prop.data as KeyPairs<string, number>;
   const checkMine = useCheckMine(propInfo.user as number);
-  const latitude = parseFloat(propInfo!.latitude as string);
-  const longtitude = parseFloat(propInfo!.longitude as string);
+  const latitude = parseFloat(propInfo.latitude as string);
+  const longtitude = parseFloat(propInfo.longitude as string);
   const navigate = useNavigate();
   const onClick = () => {
     if (checkMine === false) {

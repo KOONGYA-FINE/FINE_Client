@@ -12,23 +12,23 @@ export const FoodRegisterApi = async (
   content: string,
   image?: File
 ) => {
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("score", score.toString());
+  formData.append("address", address);
+  formData.append("latitude", latitude.toString());
+  formData.append("longitude", longitude.toString());
+  formData.append("tag", tag);
+  formData.append("content", content);
+  {
+    image === undefined
+      ? formData.append("image", "")
+      : formData.append("image", image);
+  }
   try {
-    const response = await axios.post(
-      `${SERVER_URL}/places/`,
-      {
-        name: name,
-        score: score,
-        address: address,
-        latitude: latitude,
-        longitude: longitude,
-        tag: tag,
-        content: content,
-        image: image,
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const response = await axios.post(`${SERVER_URL}/places/`, formData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
