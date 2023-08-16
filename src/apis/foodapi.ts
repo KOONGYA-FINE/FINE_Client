@@ -129,3 +129,22 @@ export const getAllPlacesApi = async (page: number, tag: string) => {
     }
   }
 };
+
+export const getSearchPlacesApi = async (q:string, page: number, tag: string) => {
+  console.log(`${SERVER_URL}/places/search?q=${q}&page=${page}${tag}`);
+  try {
+    const response = await axios.get(
+      `${SERVER_URL}/places/search?q=${q}&page=${page}${tag}`
+    );
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const result = error.response;
+      console.log(result?.status);
+      console.log(result?.data.accept);
+      return result;
+    } else {
+      return false;
+    }
+  }
+};

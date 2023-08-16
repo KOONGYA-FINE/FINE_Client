@@ -1,46 +1,66 @@
-import React, { createRef, useCallback, useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil';
-import { styled } from 'styled-components'
-import { TranslationAtom } from '../../store/atom';
-import { getAllPlacesApi } from '../../apis/foodapi';
-import { FoodCardBox } from './FoodCardBox';
-
-export interface foodGetType {
-    id: number,
-    name: string,
-    score: number,
-    address: string,
-    tag: string,
-    image: string,
-};
+import { createRef, useCallback, useEffect, useState } from "react";
+import { foodGetType } from "./FilterInfiniteScrollFoodGrid";
+import { styled } from "styled-components";
+import { FoodCardBox } from "./FoodCardBox";
+import { getAllPlacesApi, getSearchPlacesApi } from "../../apis/foodapi";
 
 interface propsType {
     selectedTag: string|null,
     page: number,
     foodData: foodGetType[],
     foodBlankDatas: foodGetType[],
-    // searchThing: string,
+    searchThing: string,
     setPage: React.Dispatch<React.SetStateAction<number>>,
     setFoodData: React.Dispatch<React.SetStateAction<foodGetType[]>>,
 }
 
-export const FilterInfiniteScrollFoodGrid = (props:propsType) => {
+export const SearchFilterScrollFoodGrid = (props:propsType) => {
     // const [page, setPage] = useState<number>(1);
     // const foodBlankDatas : foodGetType[] = [];
     // const [isLoading, setIsLoading] = useState(false);
     // const [foodData, setFoodData] = useState<foodGetType[]>(foodBlankDatas);
     const getFilter = props.selectedTag===null ? '' : `&tag=${props.selectedTag}`;
+    // const [getFilter, setGetFilter] = useState<string>('');
 
     const getPlaces = async() => {
-        const result = await getAllPlacesApi(props.page, getFilter); 
-        if(result===false) {
-            alert("불러오기 오류 발생");
-        } else if(result?.status===404) {
-            alert("마지막 포스트까지 모두 불러왔습니다.");
+        // const result = await getSearchPlacesApi(props.searchThing ,props.page, getFilter); 
+        // // const result = await getSearchPlacesApi(props.searchThing ,props.page, `&tag=아`); 
+        // if(result===false) {
+        //     alert("불러오기 오류 발생");
+        // } else if(result?.status===404) {
+        //     alert("마지막 포스트까지 모두 불러왔습니다.");
+        // } else if(result?.status===204){
+        //     alert("검색결과가 없습니다");
+        // } else {
+        //     // console.log(result.data.data);
+        //     props.setFoodData((props.foodData).concat(result?.data.data));
+        //     props.setPage(props.page+1);
+        // }
+        if (props.searchThing==='') {
+            const result = await getAllPlacesApi(props.page, getFilter); 
+            if(result===false) {
+                alert("불러오기 오류 발생");
+            } else if(result?.status===404) {
+                alert("마지막 포스트까지 모두 불러왔습니다.");
+            } else {
+                // console.log(result.data.data);
+                props.setFoodData((props.foodData).concat(result?.data.data));
+                props.setPage(props.page+1);
+            }
         } else {
-            // console.log(result.data.data);
-            props.setFoodData((props.foodData).concat(result?.data.data));
-            props.setPage(props.page+1);
+            const result = await getSearchPlacesApi(props.searchThing ,props.page, getFilter); 
+            // const result = await getSearchPlacesApi(props.searchThing ,props.page, `&tag=아`); 
+            if(result===false) {
+                alert("불러오기 오류 발생");
+            } else if(result?.status===404) {
+                alert("마지막 포스트까지 모두 불러왔습니다.");
+            } else if(result?.status===204){
+                alert("검색결과가 없습니다");
+            } else {
+                // console.log(result.data.data);
+                props.setFoodData((props.foodData).concat(result?.data.data));
+                props.setPage(props.page+1);
+            }
         }
     }
 
@@ -53,7 +73,8 @@ export const FilterInfiniteScrollFoodGrid = (props:propsType) => {
         // setKOPosts(postList);
         props.setFoodData(props.foodBlankDatas);
         props.page===1 && getPlaces();
-    }, [props.selectedTag])
+        // setGetFilter(props.selectedTag===null?'':`&tag=${props.selectedTag}`);
+    }, [props.selectedTag, props.searchThing])
 
     const ref = createRef<HTMLDivElement>();
     const handleScroll = useCallback((): void => {
