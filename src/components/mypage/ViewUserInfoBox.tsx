@@ -70,7 +70,7 @@ const UserInfoBox = styled.div`
 
 const UserInfoHeader = styled.div`
     display: flex;
-    flex-basis: 20%;
+    height: 5vh;
     background-color: green;
 `
 
@@ -78,13 +78,14 @@ const UserInfoArticle = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    flex-basis: 70%;
+    height: 25vh;
+    border: 1px solid white;
     margin: 2% 10% 2% 10%;
 `
 
 const WritingBox = styled.div`
     display: flex;
-    flex-basis: 10%;
+    height: 3vh;
     border: 1px solid white;
     & > .label{
         display: flex;

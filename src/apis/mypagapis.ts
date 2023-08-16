@@ -27,10 +27,27 @@ export const GetProfileApi = async (token: string, username:string|undefined) =>
     }
   };
 
-  export const EditProfileApi = async(username:string, token: string, json:any) => {
+  export const EditProfileApi = async(username:string, token: string, newname:string, newsns: string, newimg:File|null) => {
+    const data = new FormData();
+    data.append('username', newname);
+    data.append('sns', newsns);
+    if (newimg !== null) {
+      data.append('profile_image', newimg);
+    }
+    var keys = data.keys();
+    console.log('key값');
+    console.log(keys.next());
+    console.log(keys.next());
+    console.log(keys.next());
+    var values = data.values();
+    console.log('value값');
+    console.log(values.next());
+    console.log(values.next());
+    console.log(values.next());
+
     try {
       const response = await axios.put(`${SERVER_URL}/profiles/${username}/`,
-      json,
+      data,
       {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -45,6 +62,8 @@ export const GetProfileApi = async (token: string, username:string|undefined) =>
               console.log(result?.data);
               const errorMessage = result?.data;
               return errorMessage;
+            } else if (error.status === 413){
+              return error.status;
             } else {
               return result;
             }
