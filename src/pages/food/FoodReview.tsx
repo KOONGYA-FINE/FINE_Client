@@ -7,8 +7,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import FineGoogleMap from "../../components/utils/FineGoogleMap";
 import HeaderFoodReview from "../../components/food/HeaderFoodReview";
 import NavFoodReview from "../../components/food/NavFoodReview";
+import { useTranslation } from "react-i18next";
+import { useGetLanguage } from "../../hooks/useGetLanguage";
 
 const FoodReview = () => {
+  const { t } = useTranslation();
+  useGetLanguage();
   const { idx } = useParams();
   const numberIdx: number = parseInt(idx!);
   useGetReviewProps();
@@ -50,8 +54,8 @@ const FoodReview = () => {
         <FineGoogleMap lat={latitude} lng={longtitude} />
       ) : null}
       <NavFoodReview />
-      <button onClick={onClick}>수정</button>
-      <button onClick={onDelete}>삭제</button>
+      <button onClick={onClick}>{t(`matching.edit`)}</button>
+      <button onClick={onDelete}>{t(`matching.delete`)}</button>
     </>
   );
 };

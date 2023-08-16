@@ -8,8 +8,12 @@ import {
   submitPlaceRegisterAtom,
 } from "../../store/atom";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useGetLanguage } from "../../hooks/useGetLanguage";
 
 const PhotoProp = () => {
+  const { t } = useTranslation();
+  useGetLanguage();
   const location = useLocation().pathname;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const setSubmitFile = useSetRecoilState(submitPhotoAtom);
@@ -47,7 +51,7 @@ const PhotoProp = () => {
   return (
     <>
       <button onClick={handleImageClick}>
-        리뷰 이미지 추가
+        {t(`review.register_photo`)}
         <input
           type="file"
           accept="image/*"
@@ -60,7 +64,7 @@ const PhotoProp = () => {
       {uploadImage && (
         <>
           <img src={uploadImage} alt="selected" />
-          <button onClick={deleteImgFile}>삭제하기</button>
+          <button onClick={deleteImgFile}>{t(`matching.delete`)}</button>
         </>
       )}
     </>

@@ -3,8 +3,12 @@ import StarEvaluation from "../utils/StarEvaluation";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { registerProps, submitPlaceRegisterAtom } from "../../store/atom";
 import FoodReviewPhoto from "./FoodReviewPhoto";
+import { useTranslation } from "react-i18next";
+import { useGetLanguage } from "../../hooks/useGetLanguage";
 
 const FoodRegisterForm = () => {
+  const { t } = useTranslation();
+  useGetLanguage();
   const registerProp = useRecoilValue(registerProps);
   const [submitProp, setSubmitProp] = useRecoilState(submitPlaceRegisterAtom);
   const [text, setText] = useState("");
@@ -28,15 +32,15 @@ const FoodRegisterForm = () => {
   }, [registerProp]);
   return (
     <>
-      <div>맛집이름이 무엇인가요?</div>
+      <div>{t(`review.register_name`)}</div>
       <input value={registerProp.name} disabled />
-      <div>맛집 위치가 어디인지 알려주세요!</div>
+      <div>{t(`review.register_location`)}</div>
       <input value={registerProp.address} disabled />
-      <div>음식종류를 선택해주세요</div>
+      <div>{t(`review.register_tag`)}</div>
       <div>{submitProp.tag}</div>
-      <div>맛집의 별점</div>
+      <div>{t(`review.register_rating`)}</div>
       <StarEvaluation />
-      <div>맛집이 어떤점에서 좋았나요?</div>
+      <div>{t(`review.register_content`)}</div>
       <textarea
         value={text}
         onChange={displayText}

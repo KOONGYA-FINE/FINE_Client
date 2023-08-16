@@ -11,11 +11,6 @@ const Base = styled.section`
   gap: 8px;
 `;
 
-const Name = styled.span`
-  font-size: 1.4rem;
-  line-height: 100%;
-`;
-
 const RatingValue = styled.span`
   font-size: 1.2rem;
   line-height: 100%;
@@ -27,7 +22,7 @@ const RatingField = styled.fieldset`
   align-items: center;
   flex-direction: row-reverse;
   border: none;
-  transform: translateY(2px);
+  transform: translateY(3px);
 
   input:checked ~ label,
   labeL:hover,
@@ -51,7 +46,6 @@ const StarEvaluation = () => {
 
   return (
     <Base>
-      <Name>별점</Name>
       <RatingField>
         <StarInput onClickRating={handleClickRating} value={5} />
         <StarInput onClickRating={handleClickRating} value={4} />

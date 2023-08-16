@@ -2,8 +2,12 @@ import { useSetRecoilState } from "recoil";
 import { PlaceProp, registerProps } from "../../store/atom";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useGetLanguage } from "../../hooks/useGetLanguage";
 
 const InfoCard: React.FunctionComponent<PlaceProp> = (props) => {
+  const { t } = useTranslation();
+  useGetLanguage();
   const setRegisterProps = useSetRecoilState(registerProps);
   const router = useNavigate();
   const registerRouter = () => {
@@ -22,7 +26,7 @@ const InfoCard: React.FunctionComponent<PlaceProp> = (props) => {
       <div> {props.name}</div>
       <div>{props.tag}</div>
       <CardImg src={`${props?.phtotoProp}`} />
-      <button onClick={registerRouter}>Leave a Review</button>
+      <button onClick={registerRouter}>{t(`review.leave_review`)}</button>
     </>
   );
 };

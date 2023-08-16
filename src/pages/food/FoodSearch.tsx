@@ -4,8 +4,12 @@ import { placesState } from "../../store/atom";
 import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
 import InfoCard from "../../components/food/InfoCard";
+import { useTranslation } from "react-i18next";
+import { useGetLanguage } from "../../hooks/useGetLanguage";
 
 const FoodSearch: React.FC = () => {
+  const { t } = useTranslation();
+  useGetLanguage();
   const placesInfo = useRecoilValue(placesState);
   useEffect(() => {
     console.log(placesInfo);
@@ -35,7 +39,7 @@ const FoodSearch: React.FC = () => {
             return null; // 인덱스가 0인 경우는 무시
           })
         ) : (
-          <div>Please Search Location First!</div>
+          <div>{t(`review.map_search`)}</div>
         )}
       </CardWrapper>
     </>
