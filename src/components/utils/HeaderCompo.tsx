@@ -13,6 +13,7 @@ import {
 import { KatahdinFont } from "../../styles/loginFontStyle";
 import { LogoutApi } from "../../apis/loginapi";
 import { useLocation } from "react-router-dom";
+import useGetToken from "../../hooks/useGetToken";
 
 export const HeaderCompo = () => {
   const location = useLocation().pathname;
@@ -30,6 +31,7 @@ export const HeaderCompo = () => {
       setLangInfo("en");
     }
   };
+  useGetToken(); //mypage 접근용으로 추가
   const userInfo = useRecoilValue(UserInfoAtom);
   const token = localStorage.getItem("access_token") as string;
   const navigate = useWithRoutePageFunc();

@@ -34,7 +34,7 @@ export const MyPage = () => {
     }
 
     const getProfile = async() => {
-        const result = await GetProfileApi(userInfo.token.access_token, username);
+        const result = await GetProfileApi(localStorage.getItem("access_token") as string, username);
         console.log(result);
         if (result === false){
             alert('오류 발생, 다시 시도해주세요');
@@ -59,11 +59,13 @@ export const MyPage = () => {
 
     useEffect(()=>{
         getProfile();
+        console.log(username);
+        console.log(userInfo.user.username);
     }, [])
 
     useEffect(()=>{
         getProfile();
-    }, [isEditing])
+    }, [isEditing, username])
 
   return (
     <Container>
@@ -93,7 +95,7 @@ export const MyPage = () => {
                 <div>{school}</div>
             </ProfileInfo>
             <ProfileChangeButtonWrapper>
-                { (isEditing === false ) &&
+                { (isEditing === false ) && (username === userInfo.user.username) &&
                     <button onClick={handelBtnClick}>edit profile</button>
                 }
             </ProfileChangeButtonWrapper>
