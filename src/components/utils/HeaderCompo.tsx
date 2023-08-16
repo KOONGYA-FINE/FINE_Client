@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { CommonFlex, Header } from "../../common/commonstyle";
-import { useRecoilState } from "recoil";
-import { TranslationAtom } from "../../store/atom";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { TranslationAtom, UserInfoAtom } from "../../store/atom";
 import { useRef } from "react";
 import "../../common/font.css";
 import { styled } from "styled-components";
@@ -20,6 +20,7 @@ export const HeaderCompo = () => {
     location.includes("register") || location.includes("edit") ? false : true;
   const languageRef = useRef<null | HTMLDivElement>(null);
   const [langInfo, setLangInfo] = useRecoilState(TranslationAtom);
+  const resetUserInfo = useResetRecoilState(UserInfoAtom);
   const { i18n } = useTranslation();
   const handleChangeLanguage = () => {
     if (langInfo === "en") {
@@ -38,6 +39,7 @@ export const HeaderCompo = () => {
     if (result !== false) {
       alert("로그아웃 되었습니다");
       localStorage.clear();
+      resetUserInfo();
       navigate("");
     } else {
       alert("failed");
