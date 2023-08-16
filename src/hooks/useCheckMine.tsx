@@ -2,10 +2,10 @@ import { useRecoilValue } from "recoil";
 import useGetToken from "./useGetToken";
 import { UserInfoAtom } from "../store/atom";
 
-const useCheckMine = () => {
+const useCheckMine = (idx: number) => {
   useGetToken();
   const userInfo = useRecoilValue(UserInfoAtom);
-  if (userInfo.user.id !== 23) {
+  if (userInfo.user.id !== idx) {
     return false;
   } else {
     return true;

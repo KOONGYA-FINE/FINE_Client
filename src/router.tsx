@@ -11,6 +11,8 @@ import { Landing } from "./pages/Landing";
 import FoodMain from "./pages/food/FoodMain";
 import FoodSearch from "./pages/food/FoodSearch";
 import FoodRegister from "./pages/food/FoodRegister";
+import FoodReview from "./pages/food/FoodReview";
+import FoodEdit from "./pages/food/FoodEdit";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
     path: "food",
     element: <FoodMain />,
     children: [
+      {
+        path: ":idx",
+        element: <FoodReview />,
+      },
+      {
+        path: ":idx/edit",
+        element: <FoodEdit />,
+      },
       {
         path: "search",
         element: <FoodSearch />,

@@ -37,6 +37,14 @@ export const matchingReadingAtom = atom<KeyPair<object>>({
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
+export const reviewReadingAtom = atom<KeyPair<object>>({
+  key: "readingReview",
+  default: {
+    data: {},
+  },
+});
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const registerMatchingAtom = atom<KeyPair<string>>({
   key: "registerMatching",
   default: {
@@ -65,7 +73,7 @@ export interface RegisterPlaceProp {
 export interface FinalRegisterPlaceProp extends RegisterPlaceProp {
   rating: number;
   content: string;
-  image: File | null;
+  image: File | undefined;
 }
 
 export interface PlaceProp extends RegisterPlaceProp {
@@ -111,6 +119,6 @@ export const submitPlaceRegisterAtom = atom<FinalRegisterPlaceProp>({
     rating: 0,
     content: "",
     tag: "",
-    image: null,
+    image: undefined,
   },
 });
