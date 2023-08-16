@@ -122,3 +122,13 @@ export const submitPlaceRegisterAtom = atom<FinalRegisterPlaceProp>({
     image: undefined,
   },
 });
+
+export const submitPhotoAtom = atom<File | undefined>({
+  key: "submitPhoto",
+  default: undefined,
+});
+
+export const beforeSubmitPhotoAtom = atom<string | null>({
+  key: "beforeSubmitPhoto",
+  default: null,
+});

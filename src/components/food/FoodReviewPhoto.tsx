@@ -1,45 +1,25 @@
-import { useRef, useState } from "react";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import {
   UserInfoAtom,
+  beforeSubmitPhotoAtom,
   placesState,
+  submitPhotoAtom,
   submitPlaceRegisterAtom,
 } from "../../store/atom";
 import { FoodRegisterApi } from "../../apis/foodapi";
 import { useNavigate } from "react-router-dom";
+import PhotoProp from "../utils/PhotoProp";
 
 const FoodReviewPhoto = () => {
   const userInfo = useRecoilValue(UserInfoAtom);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploadImage, setUploadImage] = useState<string | null>(null);
-  const [submitFile, setSubmitFile] = useState<File | undefined>();
-  const [submitProp, setSubmitProp] = useRecoilState(submitPlaceRegisterAtom);
+  const uploadImage = useRecoilValue(beforeSubmitPhotoAtom);
+  const resetPhoto = useResetRecoilState(submitPhotoAtom);
+  const beforeResetPhoto = useResetRecoilState(beforeSubmitPhotoAtom);
+  const submitFile = useRecoilValue(submitPhotoAtom);
+  const submitProp = useRecoilValue(submitPlaceRegisterAtom);
   const resetSubmitProp = useResetRecoilState(submitPlaceRegisterAtom);
   const resetPlaceState = useResetRecoilState(placesState);
   const router = useNavigate();
-  const handleImageClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-  const ImgFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    const file = e.target.files[0];
-    setSubmitFile(e.target.files[0]);
-    if (file) {
-      const Image = URL.createObjectURL(file);
-      setUploadImage(Image);
-      setSubmitProp((prev) => ({
-        ...prev,
-        image: file,
-      }));
-    }
-    console.log(submitProp.image);
-  };
-  const deleteImgFile = () => {
-    setUploadImage(null);
-    setSubmitFile(undefined);
-  };
   const revokeBlobUrl = (blobUrl: string) => {
     URL.revokeObjectURL(blobUrl);
   };
@@ -72,6 +52,8 @@ const FoodReviewPhoto = () => {
       resetSubmitProp();
       revokeBlobUrl(uploadImage!);
       resetPlaceState();
+      resetPhoto();
+      beforeResetPhoto();
       router("/matching/main", { replace: true });
     } else {
       alert("Failed...");
@@ -79,23 +61,7 @@ const FoodReviewPhoto = () => {
   };
   return (
     <>
-      <button onClick={handleImageClick}>
-        리뷰 이미지 추가
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          id="inputImage"
-          onChange={ImgFile}
-        />
-      </button>
-      {uploadImage && (
-        <>
-          <img src={uploadImage} alt="selected" />
-          <button onClick={deleteImgFile}>삭제하기</button>
-        </>
-      )}
+      <PhotoProp />
       <button onClick={submitFoodRegister}>등록하기</button>
     </>
   );
