@@ -4,6 +4,9 @@ import { KeyPairs, UserInfoAtom, reviewReadingAtom } from "../../store/atom";
 import useGetReviewProps from "../../hooks/useGetReviewProps";
 import { deleteFoodRegisterApi } from "../../apis/foodapi";
 import { useNavigate, useParams } from "react-router-dom";
+import FineGoogleMap from "../../components/utils/FineGoogleMap";
+import HeaderFoodReview from "../../components/food/HeaderFoodReview";
+import NavFoodReview from "../../components/food/NavFoodReview";
 
 const FoodReview = () => {
   const { idx } = useParams();
@@ -13,12 +16,14 @@ const FoodReview = () => {
   const userInfo = useRecoilValue(UserInfoAtom);
   const propInfo = prop.data as KeyPairs<string, number>;
   const checkMine = useCheckMine(propInfo.user as number);
+  const latitude = parseFloat(propInfo!.latitude as string);
+  const longtitude = parseFloat(propInfo!.longitude as string);
   const navigate = useNavigate();
   const onClick = () => {
     if (checkMine === false) {
-      alert("본인이 아닙니다");
+      alert("This page can be access only writer");
     } else {
-      alert("본인이 맞군요!");
+      navigate(`/food/${numberIdx}/edit`);
     }
   };
 
@@ -40,7 +45,11 @@ const FoodReview = () => {
   };
   return (
     <>
-      <div>{propInfo.name}</div>
+      <HeaderFoodReview />
+      {!Number.isNaN(latitude) ? (
+        <FineGoogleMap lat={latitude} lng={longtitude} />
+      ) : null}
+      <NavFoodReview />
       <button onClick={onClick}>수정</button>
       <button onClick={onDelete}>삭제</button>
     </>
