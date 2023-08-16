@@ -8,7 +8,7 @@ import {
 } from "../../store/atom";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
-import FoodTagButton from "./FoodTagButton";
+import FoodTagButton, { CheckButton } from "./FoodTagButton";
 
 const FoodEditForm = () => {
   const { t } = useTranslation();
@@ -44,7 +44,7 @@ const FoodEditForm = () => {
       <div>{t(`review.register_tag`)}</div>
       <>
         {propInfo.tag === "cafe" ? (
-          <button>{propInfo.tag}</button>
+          <CheckButton disabled>{propInfo.tag}</CheckButton>
         ) : (
           <FoodTagButton />
         )}

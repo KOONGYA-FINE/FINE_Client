@@ -79,15 +79,19 @@ export const putFoodRegisterApi = async (
   content: string,
   image?: File
 ) => {
+  const formData = new FormData();
+  formData.append("score", score.toString());
+  formData.append("tag", tag);
+  formData.append("content", content);
+  {
+    image === undefined
+      ? formData.append("image", "")
+      : formData.append("image", image);
+  }
   try {
     const response = await axios.put(
       `${SERVER_URL}/places/${placeId}/`,
-      {
-        score: score,
-        tag: tag,
-        content: content,
-        image: image,
-      },
+      formData,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -108,9 +112,11 @@ export const putFoodRegisterApi = async (
   }
 };
 
-export const getAllPlacesApi = async(page:number, tag:string) => {
+export const getAllPlacesApi = async (page: number, tag: string) => {
   try {
-    const response = await axios.get(`${SERVER_URL}/places/?page=${page}${tag}`);
+    const response = await axios.get(
+      `${SERVER_URL}/places/?page=${page}${tag}`
+    );
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -122,4 +128,4 @@ export const getAllPlacesApi = async(page:number, tag:string) => {
       return false;
     }
   }
-}
+};

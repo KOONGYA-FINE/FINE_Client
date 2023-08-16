@@ -42,8 +42,11 @@ const FoodTagButton = () => {
 
 export default FoodTagButton;
 
-const CheckButton = styled.button`
+export const CheckButton = styled.button`
   &.checked {
     background-color: yellowgreen;
+  }
+  &:disabled {
+    background-color: pink;
   }
 `;

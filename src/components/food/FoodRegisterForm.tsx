@@ -5,7 +5,7 @@ import { registerProps, submitPlaceRegisterAtom } from "../../store/atom";
 import FoodReviewPhoto from "./FoodReviewPhoto";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
-import FoodTagButton from "./FoodTagButton";
+import FoodTagButton, { CheckButton } from "./FoodTagButton";
 
 const FoodRegisterForm = () => {
   const { t } = useTranslation();
@@ -40,7 +40,7 @@ const FoodRegisterForm = () => {
       <div>{t(`review.register_tag`)}</div>
       <>
         {submitProp.tag === "cafe" ? (
-          <button>{submitProp.tag}</button>
+          <CheckButton disabled>{submitProp.tag}</CheckButton>
         ) : (
           <FoodTagButton />
         )}
