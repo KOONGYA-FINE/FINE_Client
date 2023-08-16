@@ -8,6 +8,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { putFoodRegisterApi } from "../../apis/foodapi";
 import PhotoProp from "../utils/PhotoProp";
+import { CheckButton } from "./FoodTagButton";
 
 const FoodEditButton = () => {
   const { idx } = useParams();
@@ -56,7 +57,14 @@ const FoodEditButton = () => {
   return (
     <>
       <PhotoProp />
-      <button onClick={submitEditFoodRegister}>Register</button>
+      <CheckButton
+        disabled={
+          submitProp.rating !== 0 && submitProp.tag !== "" ? false : true
+        }
+        onClick={submitEditFoodRegister}
+      >
+        Register
+      </CheckButton>
     </>
   );
 };
