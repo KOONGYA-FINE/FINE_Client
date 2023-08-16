@@ -42,13 +42,13 @@ const FoodEditButton = () => {
             submitProp.content as string,
             submitFile
           );
-    if (result.status === 201) {
+    if (result.status !== 401 || result.status !== 404) {
       alert("Success!");
       resetSubmitProp();
       revokeBlobUrl(uploadImage!);
       resetPhoto();
       beforeResetPhoto();
-      router("/matching/main", { replace: true });
+      router(`/food/${numberIdx}`, { replace: true });
     } else {
       alert("Failed...");
     }

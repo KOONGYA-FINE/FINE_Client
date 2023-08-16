@@ -54,7 +54,7 @@ const FoodReviewPhoto = () => {
       resetPlaceState();
       resetPhoto();
       beforeResetPhoto();
-      router("/matching/main", { replace: true });
+      router("/foodmain", { replace: true });
     } else {
       alert("Failed...");
     }
