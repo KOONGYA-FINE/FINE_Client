@@ -1,18 +1,17 @@
 import { useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
-import {
-  UserInfoAtom,
-  registerProps,
-  submitPlaceRegisterAtom,
-} from "../../store/atom";
+import { UserInfoAtom, submitPlaceRegisterAtom } from "../../store/atom";
+import { FoodRegisterApi } from "../../apis/foodapi";
+import { useNavigate } from "react-router-dom";
 
 const FoodReviewPhoto = () => {
   const userInfo = useRecoilValue(UserInfoAtom);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadImage, setUploadImage] = useState<string | null>(null);
+  const [submitFile, setSubmitFile] = useState<File | undefined>();
   const [submitProp, setSubmitProp] = useRecoilState(submitPlaceRegisterAtom);
   const resetSubmitProp = useResetRecoilState(submitPlaceRegisterAtom);
-  const resetRegisterProp = useResetRecoilState(registerProps);
+  const router = useNavigate();
   const handleImageClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -21,6 +20,7 @@ const FoodReviewPhoto = () => {
   const ImgFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
+    setSubmitFile(e.target.files[0]);
     if (file) {
       const Image = URL.createObjectURL(file);
       setUploadImage(Image);
@@ -29,10 +29,43 @@ const FoodReviewPhoto = () => {
         image: file,
       }));
     }
-    console.log(file);
+    console.log(submitProp.image);
   };
   const revokeBlobUrl = (blobUrl: string) => {
     URL.revokeObjectURL(blobUrl);
+  };
+  const submitFoodRegister = async () => {
+    const result =
+      submitFile === undefined
+        ? await FoodRegisterApi(
+            userInfo.token.access_token,
+            submitProp.name,
+            submitProp.rating,
+            submitProp.address,
+            submitProp.lat,
+            submitProp.lng,
+            submitProp.tag,
+            submitProp.content
+          )
+        : await FoodRegisterApi(
+            userInfo.token.access_token,
+            submitProp.name,
+            submitProp.rating,
+            submitProp.address,
+            submitProp.lat,
+            submitProp.lng,
+            submitProp.tag,
+            submitProp.content,
+            submitFile
+          );
+    if (result.status === 201) {
+      alert("Success!");
+      resetSubmitProp();
+      revokeBlobUrl(uploadImage!);
+      router("/matching/main", { replace: true });
+    } else {
+      alert("Failed...");
+    }
   };
   return (
     <>
@@ -48,7 +81,7 @@ const FoodReviewPhoto = () => {
         />
       </button>
       {uploadImage && <img src={uploadImage} alt="selected" />}
-      <button>등록하기</button>
+      <button onClick={submitFoodRegister}>등록하기</button>
     </>
   );
 };
