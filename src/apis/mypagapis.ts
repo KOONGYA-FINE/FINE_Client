@@ -34,16 +34,16 @@ export const GetProfileApi = async (token: string, username:string|undefined) =>
     if (newimg !== null) {
       data.append('profile_image', newimg);
     }
-    var keys = data.keys();
-    console.log('key값');
-    console.log(keys.next());
-    console.log(keys.next());
-    console.log(keys.next());
-    var values = data.values();
-    console.log('value값');
-    console.log(values.next());
-    console.log(values.next());
-    console.log(values.next());
+    // var keys = data.keys();
+    // console.log('key값');
+    // console.log(keys.next());
+    // console.log(keys.next());
+    // console.log(keys.next());
+    // var values = data.values();
+    // console.log('value값');
+    // console.log(values.next());
+    // console.log(values.next());
+    // console.log(values.next());
 
     try {
       const response = await axios.put(`${SERVER_URL}/profiles/${username}/`,
@@ -73,3 +73,49 @@ export const GetProfileApi = async (token: string, username:string|undefined) =>
     }
 
   }
+
+  export const GetWritePostsApi = async (token: string, username: string|undefined) => {
+    try {
+      const response = await axios.get(`${SERVER_URL}/profiles/${username}/posts/`, 
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const result = error.response;
+            if (result?.status === 401) {
+              return result.status;
+            } else if (result?.status === 404){
+                return result.status;
+            } else {
+              return false;
+            }
+          } else {
+            return false;
+          }
+    }
+  };
+
+  export const GetScrapPostsApi = async (token: string, username: string|undefined) => {
+    try {
+      const response = await axios.get(`${SERVER_URL}/profiles/${username}/saved/posts/`, 
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const result = error.response;
+            if (result?.status === 401) {
+              return result.status;
+            } else if (result?.status === 404){
+                return result.status;
+            } else {
+              return false;
+            }
+          } else {
+            return false;
+          }
+    }
+  };

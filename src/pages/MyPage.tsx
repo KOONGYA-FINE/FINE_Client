@@ -4,18 +4,22 @@ import { HeaderCompo } from '../components/utils/HeaderCompo'
 import { styled } from 'styled-components'
 import { useRecoilValue } from 'recoil'
 import { UserInfoAtom } from '../store/atom'
-import { GetProfileApi } from '../apis/mypagapis'
+import { GetProfileApi, GetWritePostsApi } from '../apis/mypagapis'
 import useGetToken from '../hooks/useGetToken'
 import {BsLink45Deg} from "react-icons/bs"
 import { ViewUserInfoBox } from '../components/mypage/ViewUserInfoBox'
 import { EditUserInfoBox } from '../components/mypage/EditUserInfoBox'
 import { useParams } from 'react-router-dom'
+import { postType } from '../apis/matchingGet'
+import { MatchingScrapUserInfo } from '../components/mypage/MatchingScrapUserInfo'
+import { MatchingPostUserInfo } from '../components/mypage/MatchingPostUserInfo'
 
 export const MyPage = () => {
     const {username} = useParams();
 
     useGetToken();
     const userInfo = useRecoilValue(UserInfoAtom);
+    const [buttonScrap, setButtonScrap] = useState(false);
 
     // const access_token = userInfo.token['access_token'];
     const [name, setName] = useState<string>('');
@@ -57,8 +61,49 @@ export const MyPage = () => {
         }
     }
 
+    const postList : postType[] = [];
+    const [writePostIsNull, setWritePostIsNull] = useState(false);
+    const [ENPosts, setENPosts] = useState<postType[]>(postList);
+    const [KOPosts, setKOPosts] = useState<postType[]>(postList);
+
+    const getWritePosts = async() => {
+        const result = await GetWritePostsApi(localStorage.getItem("access_token") as string, username);
+        console.log(result);
+        if (result === 401){
+            alert("다시 로그인 해주세요");
+        } else if (result === 404) {
+            setWritePostIsNull(true);
+        } else if (result === false){
+            alert("오류 발생");
+        } else {
+            setENPosts((ENPosts).concat(result.data['post_en']))
+            setKOPosts((KOPosts).concat(result.data['post_kr']))
+        }
+    }
+
+    const [scrapPostIsNull, setScrapPostIsNull] = useState(false);
+    const [ENScrapPosts, setENScrapPosts] = useState<postType[]>(postList);
+    const [KOScrapPosts, setKOScrapPosts] = useState<postType[]>(postList);
+
+    const getScrapPosts = async() => {
+        const result = await GetWritePostsApi(localStorage.getItem("access_token") as string, username);
+        console.log(result);
+        if (result === 401){
+            alert("다시 로그인 해주세요");
+        } else if (result === 404) {
+            setScrapPostIsNull(true);
+        } else if (result === false){
+            alert("오류 발생");
+        } else {
+            // setENScrapPosts((ENScrapPosts).concat(result.data['post_en']))
+            // setKOScrapPosts((KOScrapPosts).concat(result.data['post_kr']))
+        }
+    }
+
     useEffect(()=>{
         getProfile();
+        getWritePosts();
+        getScrapPosts();
         console.log(username);
         console.log(userInfo.user.username);
     }, [])
@@ -121,6 +166,23 @@ export const MyPage = () => {
             setSNSLink={setSNSLink}
             setIsEditing={setIsEditing} />
         }
+        {(username === userInfo.user.username)&&
+            <ArticleAndButtonWrapper>
+                <SelectButtonWrapper>
+                    <button onClick={() => setButtonScrap(false)}>1</button>
+                    <button onClick={() => setButtonScrap(true)}>2</button>
+                </SelectButtonWrapper>
+                {(buttonScrap === false)?
+                    <MatchingScrapUserInfo />
+                    :
+                    <MatchingPostUserInfo
+                    // writePostIsNull={writePostIsNull}
+                    // ENPosts={ENPosts}
+                    // KOPosts ={KOPosts}
+                     />
+                }
+            </ArticleAndButtonWrapper>
+        }
       </Wrapper>
     </Container>
   )
@@ -139,7 +201,7 @@ const MyPageTitle = styled.div`
 
 const ProfileWrapper = styled.div`
     display: flex;
-    flex-basis: 30%;
+    height: 30vh;
     width : 90%;
     align-items: center;
     justify-content: space-around;
@@ -193,4 +255,19 @@ const ProfileChangeButtonWrapper = styled.div`
         padding: 5px;
         border: 2px solid black;
     }
+`
+
+const ArticleAndButtonWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    margin: 2%;
+    width: 90%;
+    background-color: gray;
+`
+
+const SelectButtonWrapper = styled.div`
+    display: flex;
+    height: 5vh;
+    border: 1px solid white;
 `
