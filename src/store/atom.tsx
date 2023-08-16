@@ -59,6 +59,13 @@ export interface RegisterPlaceProp {
   address: string;
   lat: number;
   lng: number;
+  tag: string;
+}
+
+export interface FinalRegisterPlaceProp extends RegisterPlaceProp {
+  rating: number;
+  content: string;
+  image: File | null;
 }
 
 export interface PlaceProp extends RegisterPlaceProp {
@@ -78,6 +85,7 @@ export const placesState = atom<PlaceProp[]>({
       url: "",
       lat: 0,
       lng: 0,
+      tag: "",
     },
   ],
 });
@@ -89,5 +97,20 @@ export const registerProps = atom<RegisterPlaceProp>({
     address: "",
     lat: 0,
     lng: 0,
+    tag: "",
+  },
+});
+
+export const submitPlaceRegisterAtom = atom<FinalRegisterPlaceProp>({
+  key: "submitPlaceRegister",
+  default: {
+    name: "",
+    address: "",
+    lat: 0,
+    lng: 0,
+    rating: 0,
+    content: "",
+    tag: "",
+    image: null,
   },
 });

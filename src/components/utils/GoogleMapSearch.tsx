@@ -128,6 +128,9 @@ const GoogleMapSearch: React.FC = () => {
                 const url = `${placeResult!.url}&hl=en`;
                 const lat = placeResult!.geometry?.location?.lat() as number;
                 const lng = placeResult!.geometry?.location?.lng() as number;
+                const tag = placeResult!.types?.includes("restaurant")
+                  ? "restaurant"
+                  : "cafe";
                 setPlacesInfo((prev) => [
                   ...prev,
                   {
@@ -138,6 +141,7 @@ const GoogleMapSearch: React.FC = () => {
                     url,
                     lat,
                     lng,
+                    tag,
                   },
                 ]);
               }
@@ -188,6 +192,9 @@ const GoogleMapSearch: React.FC = () => {
                   const url = `${placeResult!.url}&hl=en`;
                   const lat = placeResult!.geometry?.location?.lat() as number;
                   const lng = placeResult!.geometry?.location?.lng() as number;
+                  const tag = placeResult!.types?.includes("restaurant")
+                    ? "restaurant"
+                    : "cafe";
                   setPlacesInfo((prev) => [
                     ...prev,
                     {
@@ -198,6 +205,7 @@ const GoogleMapSearch: React.FC = () => {
                       url,
                       lat,
                       lng,
+                      tag,
                     },
                   ]);
                   // window.open(url, "_blank");

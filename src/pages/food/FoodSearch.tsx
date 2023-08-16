@@ -27,6 +27,7 @@ const FoodSearch: React.FC = () => {
                     lat={e.lat}
                     lng={e.lng}
                     url={e.url}
+                    tag={e.tag}
                   />
                 </Card>
               );

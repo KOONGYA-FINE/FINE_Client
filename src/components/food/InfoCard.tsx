@@ -12,6 +12,7 @@ const InfoCard: React.FunctionComponent<PlaceProp> = (props) => {
       address: props.address,
       lat: props.lat,
       lng: props.lng,
+      tag: props.tag,
     });
     router("/food/register");
   };
@@ -19,6 +20,7 @@ const InfoCard: React.FunctionComponent<PlaceProp> = (props) => {
     <>
       <div> {props.address}</div>
       <div> {props.name}</div>
+      <div>{props.tag}</div>
       <CardImg src={`${props?.phtotoProp}`} />
       <button onClick={registerRouter}>리뷰남기러 가기</button>
     </>

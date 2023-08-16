@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
 import StarInput from "./StarInput";
+import { useSetRecoilState } from "recoil";
+import { submitPlaceRegisterAtom } from "../../store/atom";
 
 const Base = styled.section`
   display: flex;
@@ -37,9 +39,14 @@ const RatingField = styled.fieldset`
 
 const StarEvaluation = () => {
   const [rating, setRating] = useState(0);
+  const setSubmitProp = useSetRecoilState(submitPlaceRegisterAtom);
 
   const handleClickRating = (value: number) => {
     setRating(value);
+    setSubmitProp((prev) => ({
+      ...prev,
+      rating: value,
+    }));
   };
 
   return (
