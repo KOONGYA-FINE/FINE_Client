@@ -13,7 +13,7 @@ const FoodRegister: React.FC = () => {
   const navigate = useWithRoutePageFunc();
   useEffect(() => {
     if (registerProp.address === "" && refresh_token) {
-      alert("먼저 검색을 하고 오십시오");
+      alert("Do search First");
       navigate("food/search");
     }
     console.log(registerProp);

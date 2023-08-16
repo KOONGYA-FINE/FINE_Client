@@ -22,7 +22,7 @@ const InfoCard: React.FunctionComponent<PlaceProp> = (props) => {
       <div> {props.name}</div>
       <div>{props.tag}</div>
       <CardImg src={`${props?.phtotoProp}`} />
-      <button onClick={registerRouter}>리뷰남기러 가기</button>
+      <button onClick={registerRouter}>Leave a Review</button>
     </>
   );
 };

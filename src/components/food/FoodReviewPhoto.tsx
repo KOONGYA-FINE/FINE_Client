@@ -62,7 +62,7 @@ const FoodReviewPhoto = () => {
   return (
     <>
       <PhotoProp />
-      <button onClick={submitFoodRegister}>등록하기</button>
+      <button onClick={submitFoodRegister}>Register</button>
     </>
   );
 };

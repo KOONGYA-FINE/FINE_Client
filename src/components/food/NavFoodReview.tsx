@@ -15,8 +15,10 @@ const NavFoodReview = () => {
         </div>
         {propInfo.image === null ? (
           <div>
-            <div>{propInfo.username}없지롱</div>
-            <div>{propInfo.score}</div>
+            {propInfo.username}
+            <div>
+              <StarRating rating={propInfo.score as number} />
+            </div>
           </div>
         ) : (
           <div>

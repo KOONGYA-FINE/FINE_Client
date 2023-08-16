@@ -29,7 +29,7 @@ const FoodReview = () => {
 
   const onDelete = async () => {
     if (checkMine === false) {
-      alert("본인이 아닙니다");
+      alert("This function can be access only writer");
     } else {
       const result = await deleteFoodRegisterApi(
         numberIdx,

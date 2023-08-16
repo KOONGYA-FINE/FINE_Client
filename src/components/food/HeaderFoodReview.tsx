@@ -9,9 +9,7 @@ const HeaderFoodReview = () => {
       <div>
         <div>{propInfo.name}</div>
         <div>
-          {propInfo.user_image === null ? (
-            <div>프로필 이미지 무</div>
-          ) : (
+          {propInfo.user_image === null ? null : (
             <img src={`${propInfo.user_image}`} />
           )}
         </div>
