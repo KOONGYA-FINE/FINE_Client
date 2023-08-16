@@ -107,3 +107,19 @@ export const putFoodRegisterApi = async (
     }
   }
 };
+
+export const getAllPlacesApi = async(page:number, tag:string) => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/places/?page=${page}${tag}`);
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const result = error.response;
+      console.log(result?.status);
+      console.log(result?.data.accept);
+      return result;
+    } else {
+      return false;
+    }
+  }
+}

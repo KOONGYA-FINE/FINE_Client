@@ -13,6 +13,7 @@ import FoodSearch from "./pages/food/FoodSearch";
 import FoodRegister from "./pages/food/FoodRegister";
 import FoodReview from "./pages/food/FoodReview";
 import FoodEdit from "./pages/food/FoodEdit";
+import { FoodReviewMain } from "./pages/food/FoodReviewMain";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
         element: <RegisterMatching />,
       },
     ],
+  },
+  {
+    path: "foodmain",
+    element: <FoodReviewMain />,
   },
   {
     path: "food",
