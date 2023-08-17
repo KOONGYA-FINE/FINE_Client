@@ -102,7 +102,7 @@ export const FilterInfiniteScrollGrid: React.FunctionComponent<FilterProps> = (p
                 (props.KOPosts).map((post:postType, idx:number) => (
                 <CardBox 
                 key={idx}
-                post_id={post!.id}
+                post_id={post!.post}
                 username={post.username}
                 school={post.school}
                 gender={post.gender}

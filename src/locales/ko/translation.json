@@ -61,5 +61,16 @@
     "Filters": "필터",
     "nationality": "국가",
     "interest": "관심사"
+  },
+  "review": {
+    "map_search": "장소를 먼저 검색해주세요",
+    "leave_review": "리뷰남기기",
+    "register_name": "맛집이름이 무엇인가요?",
+    "register_location": "맛집 위치가 어디인지 알려주세요!",
+    "register_tag": "태그를 선택해주세요",
+    "register_rating": "별점",
+    "register_content": "맛집이 어떤점에서 좋았나요?",
+    "register_photo": "이미지 추가",
+    "rating_again": "다시 평가해주세요"
   }
 }

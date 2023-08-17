@@ -27,14 +27,14 @@ const RegisterMatching = () => {
       t(`matching.register`) === "register" ? "en" : "ko",
       userInfo.token.access_token
     );
-    if (typeof result !== "string") {
+    if (typeof result !== "string" && typeof result !== "boolean") {
       alert("Success!");
       resetRegisterProp();
-      setTimeout(() => {
-        router("/matching/main", { replace: true });
-      }, 1300);
-    } else {
+      router("/matching/main", { replace: true });
+    } else if (typeof result === "string") {
       alert(result);
+    } else {
+      alert("Please provide a coherent translation");
     }
   };
   return (

@@ -23,7 +23,7 @@ const useGetMatchingProps = () => {
       alert("Please login first");
       resetUserInfo();
       localStorage.clear();
-      navigate("/");
+      navigate("/login");
     } else if (result === "This post is deleted") {
       alert("This post is deleted");
       navigate("/matching/main");

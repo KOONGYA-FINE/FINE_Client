@@ -8,19 +8,34 @@ import MatchingPageWrapper from "./pages/MatchingPageWrapper";
 import MatchingMain from "./pages/MatchingMain";
 import RegisterMatching from "./pages/RegisterMatching";
 import { Landing } from "./pages/Landing";
+import { MyPage } from "./pages/MyPage";
+import FoodMain from "./pages/food/FoodMain";
+import FoodSearch from "./pages/food/FoodSearch";
+import FoodRegister from "./pages/food/FoodRegister";
+import FoodReview from "./pages/food/FoodReview";
+import FoodEdit from "./pages/food/FoodEdit";
+import { FoodReviewMain } from "./pages/food/FoodReviewMain";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Landing />,
   },
   {
-    path: "landing",
-    element: <Landing />,
+    path: "login",
+    element: <Login />,
   },
   {
     path: "signup",
     element: <SignupAccount />,
+  },
+  // {
+  //   path: "mypage",
+  //   element: <MyPage />
+  // },
+  {
+    path: "profile/:username",
+    element: <MyPage />,
   },
   {
     path: "userinfo",
@@ -45,6 +60,32 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <RegisterMatching />,
+      },
+    ],
+  },
+  {
+    path: "foodmain",
+    element: <FoodReviewMain />,
+  },
+  {
+    path: "food",
+    element: <FoodMain />,
+    children: [
+      {
+        path: ":idx",
+        element: <FoodReview />,
+      },
+      {
+        path: ":idx/edit",
+        element: <FoodEdit />,
+      },
+      {
+        path: "search",
+        element: <FoodSearch />,
+      },
+      {
+        path: "register",
+        element: <FoodRegister />,
       },
     ],
   },

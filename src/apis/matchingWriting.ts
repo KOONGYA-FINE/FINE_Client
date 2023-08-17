@@ -49,40 +49,45 @@ export const PostMatchingWritingApi = async (
     frequency_penalty: 0,
     presence_penalty: 0,
   };
-
-  axios
-    .post(apiUrl, requestData, { headers })
-    .then((response) => {
-      const translatedContent = response.data.choices[0].message["content"];
-      if (translatedContent !== "") {
-        try {
-          const response = axios.post(
-            `${SERVER_URL}/posts/`,
-            {
-              title: title,
-              user_id: user_id,
-              content: content,
-              interest: interest,
-              language: language,
-              translate: translatedContent,
-            },
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-          return response;
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            const result = error.response?.data?.detail;
-            return result;
+  try {
+    const result = await axios.post(apiUrl, requestData, { headers });
+    const translatedContent = result.data.choices[0].message["content"];
+    if (translatedContent !== "") {
+      try {
+        const response = await axios.post(
+          `${SERVER_URL}/posts/`,
+          {
+            title: title,
+            user_id: user_id,
+            content: content,
+            interest: interest,
+            language: language,
+            translate: translatedContent,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
           }
+        );
+        if (axios.isAxiosError(response)) {
+          const result = response.response;
+          if (result?.status === 400 || result?.status === 401) {
+            const errorMessage = response.response?.data?.detail;
+            return errorMessage;
+          } else {
+            return false;
+          }
+        } else {
+          return response;
         }
+      } catch (error) {
+        console.log("Error while posting :", error);
+        return false;
       }
-    })
-    .catch((error) => {
-      console.error("Error while chatting:", error);
-      return "Error while translating";
-    });
+    }
+  } catch (error) {
+    console.error("Error while chatting:", error);
+    return "Error while translating";
+  }
 };
 
 export const editMatchingApi = async (
@@ -118,38 +123,42 @@ export const editMatchingApi = async (
     frequency_penalty: 0,
     presence_penalty: 0,
   };
-  axios
-    .post(apiUrl, requestData, { headers })
-    .then((response) => {
-      const translatedContent = response.data.choices[0].message["content"];
-      if (translatedContent !== "") {
-        try {
-          const response = axios.put(
-            `${SERVER_URL}/posts/${postId}/`,
-            {
-              user_id: user_id,
-              language: language,
-              title: title,
-              content: content,
-              translate: translatedContent,
-            },
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-          return response;
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            const result = error.response?.data?.detail;
-            return result;
-          }
+  try {
+    const response = await axios.post(apiUrl, requestData, { headers });
+    const translatedContent = response.data.choices[0].message["content"];
+    try {
+      const response = axios.put(
+        `${SERVER_URL}/posts/${postId}/`,
+        {
+          user_id: user_id,
+          language: language,
+          title: title,
+          content: content,
+          translate: translatedContent,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
         }
+      );
+      if (axios.isAxiosError(response)) {
+        const result = response.response;
+        if (result?.status === 401 || result?.status === 404) {
+          const errorMessage = response.response?.data?.detail;
+          return errorMessage;
+        } else {
+          return false;
+        }
+      } else {
+        return response;
       }
-    })
-    .catch((error) => {
-      console.error("Error while chatting:", error);
-      return "Error while translating";
-    });
+    } catch (error) {
+      console.log("Error while editing :", error);
+      return false;
+    }
+  } catch (error) {
+    console.error("Error while chatting:", error);
+    return "Error while translating";
+  }
 };
 
 export const deleteMatchingApi = async (postId: number, token: string) => {
