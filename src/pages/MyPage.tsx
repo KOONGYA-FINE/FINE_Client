@@ -169,16 +169,16 @@ export const MyPage = () => {
         {(username === userInfo.user.username)&&
             <ArticleAndButtonWrapper>
                 <SelectButtonWrapper>
-                    <button onClick={() => setButtonScrap(false)}>1</button>
-                    <button onClick={() => setButtonScrap(true)}>2</button>
+                    <button onClick={() => setButtonScrap(false)}>Posts</button>
+                    <button onClick={() => setButtonScrap(true)}>Scraped</button>
                 </SelectButtonWrapper>
-                {(buttonScrap === false)?
+                {(buttonScrap)?
                     <MatchingScrapUserInfo />
                     :
                     <MatchingPostUserInfo
-                    // writePostIsNull={writePostIsNull}
-                    // ENPosts={ENPosts}
-                    // KOPosts ={KOPosts}
+                    writePostIsNull={writePostIsNull}
+                    ENPosts={ENPosts}
+                    KOPosts ={KOPosts}
                      />
                 }
             </ArticleAndButtonWrapper>
