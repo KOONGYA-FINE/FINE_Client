@@ -73,9 +73,15 @@ export const PostMatchingWritingApi = async (
           return response;
         } catch (error) {
           if (axios.isAxiosError(error)) {
-            const result = error.response?.data?.detail;
-            return result;
+            const result = error.response;
+            if (result?.status === 400 || result?.status === 401) {
+              const errorMessage = error.response?.data?.detail;
+              return errorMessage;
+            } else {
+              return false;
+            }
           }
+          return result;
         }
       }
     })
@@ -118,7 +124,7 @@ export const editMatchingApi = async (
     frequency_penalty: 0,
     presence_penalty: 0,
   };
-  axios
+  await axios
     .post(apiUrl, requestData, { headers })
     .then((response) => {
       const translatedContent = response.data.choices[0].message["content"];
@@ -140,9 +146,15 @@ export const editMatchingApi = async (
           return response;
         } catch (error) {
           if (axios.isAxiosError(error)) {
-            const result = error.response?.data?.detail;
-            return result;
+            const result = error.response;
+            if (result?.status === 401 || result?.status === 404) {
+              const errorMessage = error.response?.data?.detail;
+              return errorMessage;
+            } else {
+              return false;
+            }
           }
+          return result;
         }
       }
     })

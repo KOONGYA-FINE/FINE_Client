@@ -49,14 +49,16 @@ const EditMatching = () => {
       editProps.content,
       userInfo.token.access_token
     );
-    if (typeof result !== "string") {
+    if (typeof result !== "string" && typeof result !== "boolean") {
       alert("Success!");
       resetEditProps();
       setTimeout(() => {
         navigate(`/matching/main/${numberIdx}`, { replace: true });
       }, 1300);
-    } else {
+    } else if (typeof result === "string") {
       alert(result);
+    } else {
+      alert("Please provide a coherent translation");
     }
   };
   return (

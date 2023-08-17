@@ -90,7 +90,7 @@ export const HeaderCompo = () => {
         {!token && (
           <LoginButton
             onClick={() => {
-              navigate("");
+              navigate("login");
             }}
           >
             Login
