@@ -216,6 +216,7 @@ const ProfileImg = styled.div`
     background-color: red;
     overflow: hidden;
     & > img {
+        object-fit:cover;
         width: 100%;
         border-radius: 40%;
     }
