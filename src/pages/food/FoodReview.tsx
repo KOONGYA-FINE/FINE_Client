@@ -41,7 +41,7 @@ const FoodReview = () => {
       );
       if (result.status === 204) {
         alert("delete Success!");
-        navigate("/matching/main");
+        navigate("/foodmain");
       } else {
         alert("delete failed..");
       }

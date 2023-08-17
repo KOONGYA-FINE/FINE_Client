@@ -13,7 +13,7 @@ const useGetReviewProps = () => {
     const result = await getFoodInfoApi(postId);
     if (result === "Not found.") {
       alert("This is not exist paper");
-      navigate("/matching/main");
+      navigate("/foodmain");
     } else {
       setProps({ data: result?.data.data });
     }
