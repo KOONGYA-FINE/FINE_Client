@@ -19,6 +19,7 @@ export const UserInfoAtom = atom({
     user: {
       id: 0,
       email: "",
+      username: "",
     },
     token: {
       access_token: "",

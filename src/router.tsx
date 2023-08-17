@@ -8,6 +8,7 @@ import MatchingPageWrapper from "./pages/MatchingPageWrapper";
 import MatchingMain from "./pages/MatchingMain";
 import RegisterMatching from "./pages/RegisterMatching";
 import { Landing } from "./pages/Landing";
+import { MyPage } from "./pages/MyPage";
 import FoodMain from "./pages/food/FoodMain";
 import FoodSearch from "./pages/food/FoodSearch";
 import FoodRegister from "./pages/food/FoodRegister";
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignupAccount />,
+  },
+  // {
+  //   path: "mypage",
+  //   element: <MyPage />
+  // },
+  {
+    path: "profile/:username",
+    element: <MyPage />,
   },
   {
     path: "userinfo",

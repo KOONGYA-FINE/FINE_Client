@@ -30,6 +30,10 @@ export const Wrapper = styled.div`
     flex-direction: column;
     overflow: visible;
   }
+  &.mypage {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Article = styled.div`

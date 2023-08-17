@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { CommonFlex, Header } from "../../common/commonstyle";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState, useRecoilValue } from "recoil";
 import { TranslationAtom, UserInfoAtom } from "../../store/atom";
 import { useRef } from "react";
 import "../../common/font.css";
@@ -13,6 +13,7 @@ import {
 import { KatahdinFont } from "../../styles/loginFontStyle";
 import { LogoutApi } from "../../apis/loginapi";
 import { useLocation } from "react-router-dom";
+import useGetToken from "../../hooks/useGetToken";
 
 export const HeaderCompo = () => {
   const location = useLocation().pathname;
@@ -31,6 +32,8 @@ export const HeaderCompo = () => {
       setLangInfo("en");
     }
   };
+  useGetToken(); //mypage 접근용으로 추가
+  const userInfo = useRecoilValue(UserInfoAtom);
   const token = localStorage.getItem("access_token") as string;
   const navigate = useWithRoutePageFunc();
   const logoutFunc = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,6 +48,16 @@ export const HeaderCompo = () => {
       alert("failed");
     }
   };
+  const goMyPageFunc = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (token) {
+      navigate(`profile/${userInfo.user.username}`);
+    } else {
+      alert("로그인해주세요");
+      navigate("");
+    }
+  };
+
   return (
     <Header>
       <CommonFlex>
@@ -83,6 +96,9 @@ export const HeaderCompo = () => {
             Login
           </LoginButton>
         )}
+        <MyPageImage onClick={goMyPageFunc}>
+          <img src="/MyPageIcon.png" />
+        </MyPageImage>
       </CommonFlex>
     </Header>
   );
@@ -127,4 +143,14 @@ const LoginButton = styled.button`
   font-family: "Poppins";
   font-size: 18px;
   font-weight: 500;
+`;
+
+const MyPageImage = styled.button`
+  display: flex;
+  height: 45px;
+  margin-left: 20px;
+  padding: 0px;
+  & > img {
+    height: 100%;
+  }
 `;
