@@ -30,6 +30,7 @@ export const FoodReviewMain = () => {
     // const handelSearchClick = () => {
         e.preventDefault();
         setFoodData(foodBlankDatas);
+        setTag(null);
         if (inputValue.current===null || inputValue.current.value===null || inputValue.current.value===''){
             setIsSearching(false);
             setSearchThing('');
