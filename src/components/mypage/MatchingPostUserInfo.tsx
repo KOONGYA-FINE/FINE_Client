@@ -32,7 +32,7 @@ export const MatchingPostUserInfo:React.FunctionComponent<matchingPostsWritedPro
                 ))
                 :
                 (props.KOPosts).map((post: postType, idx: number) => (
-                <ArticleBox key={idx} onClick={()=>{navigate(`/matching/main/${post.id}`)}}>
+                <ArticleBox key={idx} onClick={()=>{navigate(`/matching/main/${post.post}`)}}>
                     <div>{post.title}</div>
                     <div>{post.username}</div>
                     <div>{post.created_at}</div>

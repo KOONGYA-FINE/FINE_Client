@@ -22,7 +22,7 @@ export const MatchingScrapUserInfo:React.FunctionComponent<ScrapUserInfoProps> =
         :
         <ArticleWrapper>
             {(currentLang=="en") ?
-                (props.scrapPosts).map((post: scarpPostsType, idx: number) => (
+                (props.scrapPosts).map((post: scarpPostsType, idx: number) => (post.is_deleted===false &&
                 <ArticleBox key={idx} onClick={()=>{navigate(`/matching/main/${post.post_en}`)}}>
                     {/* <div>{post.id}</div> */}
                     <div>{post.title_en}</div>
@@ -31,8 +31,8 @@ export const MatchingScrapUserInfo:React.FunctionComponent<ScrapUserInfoProps> =
                 </ArticleBox>
                 ))
                 :
-                (props.scrapPosts).map((post: scarpPostsType, idx: number) => (
-                <ArticleBox key={idx} onClick={()=>{navigate(`/matching/main/${post.post_kr}`)}}>
+                (props.scrapPosts).map((post: scarpPostsType, idx: number) => (post.is_deleted===false &&
+                <ArticleBox key={idx} onClick={()=>{navigate(`/matching/main/${post.post_en}`)}}>
                     {/* <div>{post.id}</div> */}
                     <div>{post.title_kr}</div>
                     <div>{post.username}</div>
