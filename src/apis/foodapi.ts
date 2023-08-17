@@ -36,8 +36,8 @@ export const FoodRegisterApi = async (
       if (result?.status === 401) {
         const errorMessage = result?.data?.detail;
         return errorMessage;
-      } else {
-        return result;
+      } else if (result?.status === 413) {
+        return false;
       }
     } else {
       return false;
@@ -130,7 +130,11 @@ export const getAllPlacesApi = async (page: number, tag: string) => {
   }
 };
 
-export const getSearchPlacesApi = async (q:string, page: number, tag: string) => {
+export const getSearchPlacesApi = async (
+  q: string,
+  page: number,
+  tag: string
+) => {
   console.log(`${SERVER_URL}/places/search?q=${q}&page=${page}${tag}`);
   try {
     const response = await axios.get(

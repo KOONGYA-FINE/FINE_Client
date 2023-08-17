@@ -26,32 +26,42 @@ const FoodEditButton = () => {
     URL.revokeObjectURL(blobUrl);
   };
   const submitEditFoodRegister = async () => {
-    const result =
-      submitFile === undefined
-        ? await putFoodRegisterApi(
-            numberIdx,
-            userInfo.token.access_token,
-            submitProp.rating as number,
-            submitProp.tag as string,
-            submitProp.content as string
-          )
-        : putFoodRegisterApi(
-            numberIdx,
-            userInfo.token.access_token,
-            submitProp.rating as number,
-            submitProp.tag as string,
-            submitProp.content as string,
-            submitFile
-          );
-    if (result.status !== 401 || result.status !== 404) {
-      alert("Success!");
-      resetSubmitProp();
+    const maxAllowedSize = 1024 * 1024;
+    if (submitFile !== undefined && submitFile.size > maxAllowedSize) {
+      alert(
+        "Failed... Don't push large photo capacity We will be updated soon!"
+      );
       revokeBlobUrl(uploadImage!);
       resetPhoto();
       beforeResetPhoto();
-      router(`/food/${numberIdx}`, { replace: true });
     } else {
-      alert("Failed...");
+      const result =
+        submitFile === undefined
+          ? await putFoodRegisterApi(
+              numberIdx,
+              userInfo.token.access_token,
+              submitProp.rating as number,
+              submitProp.tag as string,
+              submitProp.content as string
+            )
+          : putFoodRegisterApi(
+              numberIdx,
+              userInfo.token.access_token,
+              submitProp.rating as number,
+              submitProp.tag as string,
+              submitProp.content as string,
+              submitFile
+            );
+      if (result.status !== 401 || result.status !== 404) {
+        alert("Success!");
+        resetSubmitProp();
+        revokeBlobUrl(uploadImage!);
+        resetPhoto();
+        beforeResetPhoto();
+        router(`/food/${numberIdx}`, { replace: true });
+      } else {
+        alert("Failed...");
+      }
     }
   };
   return (

@@ -25,39 +25,57 @@ const FoodReviewPhoto = () => {
     URL.revokeObjectURL(blobUrl);
   };
   const submitFoodRegister = async () => {
-    const result =
-      submitFile === undefined
-        ? await FoodRegisterApi(
-            userInfo.token.access_token,
-            submitProp.name,
-            submitProp.rating,
-            submitProp.address,
-            submitProp.lat,
-            submitProp.lng,
-            submitProp.tag,
-            submitProp.content
-          )
-        : await FoodRegisterApi(
-            userInfo.token.access_token,
-            submitProp.name,
-            submitProp.rating,
-            submitProp.address,
-            submitProp.lat,
-            submitProp.lng,
-            submitProp.tag,
-            submitProp.content,
-            submitFile
-          );
-    if (result.status === 201) {
-      alert("Success!");
-      resetSubmitProp();
+    const maxAllowedSize = 1024 * 1024;
+    if (submitFile !== undefined && submitFile.size > maxAllowedSize) {
+      alert(
+        "Failed... Don't push large photo capacity We will be updated soon!"
+      );
       revokeBlobUrl(uploadImage!);
-      resetPlaceState();
       resetPhoto();
       beforeResetPhoto();
-      router("/foodmain", { replace: true });
     } else {
-      alert("Failed...");
+      const result =
+        submitFile === undefined
+          ? await FoodRegisterApi(
+              userInfo.token.access_token,
+              submitProp.name,
+              submitProp.rating,
+              submitProp.address,
+              submitProp.lat,
+              submitProp.lng,
+              submitProp.tag,
+              submitProp.content
+            )
+          : await FoodRegisterApi(
+              userInfo.token.access_token,
+              submitProp.name,
+              submitProp.rating,
+              submitProp.address,
+              submitProp.lat,
+              submitProp.lng,
+              submitProp.tag,
+              submitProp.content,
+              submitFile
+            );
+      if (result.status === 201) {
+        alert("Success!");
+        resetSubmitProp();
+        revokeBlobUrl(uploadImage!);
+        resetPlaceState();
+        resetPhoto();
+        beforeResetPhoto();
+        router("/foodmain", { replace: true });
+      }
+      // else if (result === false) {
+      //   alert(
+      //     "Failed... Don't push large photo capacity We will be updated soon!"
+      //   );
+      //   revokeBlobUrl(uploadImage!);
+      //   beforeResetPhoto();
+      // }
+      else {
+        alert("Failed...Try again");
+      }
     }
   };
   return (
