@@ -113,17 +113,23 @@ export const MyPage = () => {
         }
     }
 
+    // useEffect(()=>{
+    //     getProfile();
+    //     getWritePosts();
+    //     getScrapPosts();
+    //     console.log("첫번째 useEffect")
+    //     console.log(username);
+    //     console.log(userInfo.user.username);
+    // }, [username])
+
     useEffect(()=>{
         getProfile();
         getWritePosts();
         getScrapPosts();
+        console.log("두번째 useEffect");
         console.log(username);
         console.log(userInfo.user.username);
-    }, [])
-
-    useEffect(()=>{
-        getProfile();
-    }, [isEditing, username])
+    }, [username])
 
   return (
     <Container>

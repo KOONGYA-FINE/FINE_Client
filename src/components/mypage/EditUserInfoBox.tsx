@@ -2,6 +2,9 @@ import React, { useRef } from 'react'
 import { styled } from 'styled-components';
 import { EditProfileApi } from '../../apis/mypagapis';
 import { useNavigate } from 'react-router-dom';
+import useGetToken from '../../hooks/useGetToken';
+import { useRecoilValue } from 'recoil';
+import { UserInfoAtom } from '../../store/atom';
 
 interface userInfoProps {
     name : string;
@@ -37,15 +40,23 @@ export const EditUserInfoBox:React.FunctionComponent<userInfoProps> = (props) =>
             alert("이미지 파일 형식으로 넘겨주세요.");
         } else if (result === 'Given token not valid for any token type') {
             alert("재로그인 후 다시 시도해주세요.");
+            navigate("/");
         } else if (result === 'Authentication credentials were not provided.') {
             alert("로그인 해주세요");
+            navigate("/");
         } else if (result === "You do not have permission to perform this action.") {
             alert("접근 권한이 없습니다.");
+            navigate("/");
         } else if (result === 413){
             alert("파일 크기가 너무 큽니다!");
         } else {
             alert("수정 완료");
-            props.setIsEditing(false);
+            if (newname===''){
+                props.setIsEditing(false);
+            }else {
+                navigate(`/matching/main`);
+                props.setIsEditing(false);
+            }
         }
     }
     
