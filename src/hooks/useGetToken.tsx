@@ -31,7 +31,7 @@ const useGetToken = () => {
       getUsertoken(refresh_token);
     } else if (location.includes("register") && !refresh_token) {
       alert("Please login first");
-      router(-1);
+      router("/");
     }
   }, [refresh_token, userInfo, idx]);
 };
