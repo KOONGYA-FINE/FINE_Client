@@ -15,6 +15,7 @@ export type postType = {
     image: string,
     interest: string,
     user_id: number,
+    post?: number,
 }
 
 export const GetAllMatchingPostsApi = async(page:number) => {
