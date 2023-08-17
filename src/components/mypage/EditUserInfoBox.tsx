@@ -40,10 +40,10 @@ export const EditUserInfoBox:React.FunctionComponent<userInfoProps> = (props) =>
             alert("이미지 파일 형식으로 넘겨주세요.");
         } else if (result === 'Given token not valid for any token type') {
             alert("재로그인 후 다시 시도해주세요.");
-            navigate("/");
+            navigate("/login");
         } else if (result === 'Authentication credentials were not provided.') {
             alert("로그인 해주세요");
-            navigate("/");
+            navigate("/login");
         } else if (result === "You do not have permission to perform this action.") {
             alert("접근 권한이 없습니다.");
             navigate("/");

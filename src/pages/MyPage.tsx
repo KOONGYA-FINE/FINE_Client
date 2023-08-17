@@ -64,10 +64,13 @@ export const MyPage = () => {
       alert("오류 발생, 다시 시도해주세요");
     } else if (result === "Authentication credentials were not provided.") {
       alert("로그인해주세요");
+      router("/login");
     } else if (result === "Given token not valid for any token type") {
       alert("재로그인해주세요");
+      router("/login");
     } else if (result === "user profile not found") {
       alert("존재하지 않는 유저입니다.");
+      router("/");
     } else {
       setName(result.data.info.username);
       setSchool(result.data.info.school);
@@ -94,6 +97,8 @@ export const MyPage = () => {
     console.log(result);
     if (result === 401) {
       alert("다시 로그인 해주세요");
+      router("/login");
+      
     } else if (result === 404) {
       setWritePostIsNull(true);
     } else if (result === false) {
@@ -116,6 +121,7 @@ export const MyPage = () => {
     console.log(result);
     if (result === 401) {
       alert("다시 로그인 해주세요");
+      router("/login");
     } else if (result === 404) {
       setScrapPostIsNull(true);
     } else if (result === false) {
@@ -139,7 +145,7 @@ export const MyPage = () => {
   useEffect(() => {
     if (localStorage.getItem("access_token") === null) {
       alert("Please Login again");
-      router("/");
+      router("/login");
     } else {
       getProfile();
       getWritePosts();
