@@ -52,9 +52,7 @@ const EditMatching = () => {
     if (typeof result !== "string" && typeof result !== "boolean") {
       alert("Success!");
       resetEditProps();
-      setTimeout(() => {
-        navigate(`/matching/main/${numberIdx}`, { replace: true });
-      }, 1300);
+      navigate(`/matching/main/${numberIdx}`, { replace: true });
     } else if (typeof result === "string") {
       alert(result);
     } else {
