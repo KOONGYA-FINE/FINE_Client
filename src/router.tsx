@@ -19,11 +19,11 @@ import { FoodReviewMain } from "./pages/food/FoodReviewMain";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Landing />,
   },
   {
-    path: "landing",
-    element: <Landing />,
+    path: "login",
+    element: <Login />,
   },
   {
     path: "signup",
