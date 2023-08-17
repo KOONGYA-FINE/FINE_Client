@@ -24,7 +24,7 @@ export const MatchingPostUserInfo:React.FunctionComponent<matchingPostsWritedPro
         <ArticleWrapper>
             {(currentLang=="en") ?
                 (props.ENPosts).map((post: postType, idx: number) => (
-                <ArticleBox onClick={()=>{navigate(`/matching/main/${post.post_id}`)}}>
+                <ArticleBox key={idx} onClick={()=>{navigate(`/matching/main/${post.post_id}`)}}>
                     <div>{post.title}</div>
                     <div>{post.username}</div>
                     <div>{post.created_at}</div>
@@ -32,7 +32,7 @@ export const MatchingPostUserInfo:React.FunctionComponent<matchingPostsWritedPro
                 ))
                 :
                 (props.KOPosts).map((post: postType, idx: number) => (
-                <ArticleBox onClick={()=>{navigate(`/matching/main/${post.id}`)}}>
+                <ArticleBox key={idx} onClick={()=>{navigate(`/matching/main/${post.id}`)}}>
                     <div>{post.title}</div>
                     <div>{post.username}</div>
                     <div>{post.created_at}</div>

@@ -4,7 +4,7 @@ import { HeaderCompo } from '../components/utils/HeaderCompo'
 import { styled } from 'styled-components'
 import { useRecoilValue } from 'recoil'
 import { UserInfoAtom } from '../store/atom'
-import { GetProfileApi, GetWritePostsApi } from '../apis/mypagapis'
+import { GetProfileApi, GetScrapPostsApi, GetWritePostsApi } from '../apis/mypagapis'
 import useGetToken from '../hooks/useGetToken'
 import {BsLink45Deg} from "react-icons/bs"
 import { ViewUserInfoBox } from '../components/mypage/ViewUserInfoBox'
@@ -13,6 +13,18 @@ import { useParams } from 'react-router-dom'
 import { postType } from '../apis/matchingGet'
 import { MatchingScrapUserInfo } from '../components/mypage/MatchingScrapUserInfo'
 import { MatchingPostUserInfo } from '../components/mypage/MatchingPostUserInfo'
+
+export interface scarpPostsType{
+    id: number,
+    username: string,
+    title_en: string,
+    title_kr: string,
+    created_at: string,
+    is_deleted: boolean,
+    user: string,
+    post_en: number,
+    post_kr: number,
+}
 
 export const MyPage = () => {
     const {username} = useParams();
@@ -81,12 +93,12 @@ export const MyPage = () => {
         }
     }
 
+    const scrapPostList : scarpPostsType[] = [];
     const [scrapPostIsNull, setScrapPostIsNull] = useState(false);
-    const [ENScrapPosts, setENScrapPosts] = useState<postType[]>(postList);
-    const [KOScrapPosts, setKOScrapPosts] = useState<postType[]>(postList);
+    const [scrapPosts, setScrapPosts] = useState<scarpPostsType[]>(scrapPostList);
 
     const getScrapPosts = async() => {
-        const result = await GetWritePostsApi(localStorage.getItem("access_token") as string, username);
+        const result = await GetScrapPostsApi(localStorage.getItem("access_token") as string, username);
         console.log(result);
         if (result === 401){
             alert("다시 로그인 해주세요");
@@ -95,8 +107,9 @@ export const MyPage = () => {
         } else if (result === false){
             alert("오류 발생");
         } else {
-            // setENScrapPosts((ENScrapPosts).concat(result.data['post_en']))
-            // setKOScrapPosts((KOScrapPosts).concat(result.data['post_kr']))
+            console.log("스크랩 데이터");
+            console.log(result.data.saved_post);
+            setScrapPosts((scrapPosts).concat(result.data.saved_post));
         }
     }
 
@@ -173,7 +186,9 @@ export const MyPage = () => {
                     <button onClick={() => setButtonScrap(true)}>Scraped</button>
                 </SelectButtonWrapper>
                 {(buttonScrap)?
-                    <MatchingScrapUserInfo />
+                    <MatchingScrapUserInfo
+                    scrapPostIsNull={scrapPostIsNull}
+                    scrapPosts={scrapPosts} />
                     :
                     <MatchingPostUserInfo
                     writePostIsNull={writePostIsNull}

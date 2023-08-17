@@ -56,10 +56,14 @@ export const EditUserInfoBox:React.FunctionComponent<userInfoProps> = (props) =>
         // const newImg = (newImageInput.current === null || newImageInput.current.files === null) ? '' : newImageInput.current.files[0].name;
         
         if (!(newImageInput.current?.files)) return;
-        const file = newImageInput.current.files[0];
-        const newImg = (file === undefined || file===null) ? null : file;
-        
-        editInfo(newName, newSNS, newImg);
+        if (newImageInput.current.files[0]?.size > 1024 ** 2){
+            alert("Your image size should be smaller than 1MB");
+        } else {
+            const file = newImageInput.current.files[0];
+            const newImg = (file === undefined || file === null) ? null : file;
+            
+            editInfo(newName, newSNS, newImg);
+        }
     };
 
   return (
