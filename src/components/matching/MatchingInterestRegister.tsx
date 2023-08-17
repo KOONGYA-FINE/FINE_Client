@@ -4,6 +4,7 @@ import useGetinterestArray from "../../hooks/interestArray";
 import { MatchingWrapper } from "../../styles/MatchingStyle";
 import { useSetRecoilState } from "recoil";
 import { registerMatchingAtom } from "../../store/atom";
+import { styled } from "styled-components";
 
 const MatchingInterestRegister = () => {
   useGetLanguage();
@@ -11,8 +12,8 @@ const MatchingInterestRegister = () => {
   const [checkItems, setCheckItems] = useState<string[]>([]);
   const [combinedCheckItems, setCombinedCheckItems] = useState("");
   const registerProp = useSetRecoilState(registerMatchingAtom);
-  const handleSingleCheck = (checked: boolean, id: string) => {
-    if (checked) {
+  const handleButtonCheck = (id: string) => {
+    if (!checkItems.includes(id)) {
       if (checkItems.length > 4) {
         alert("don't check over 5 interests");
       } else {
@@ -22,6 +23,17 @@ const MatchingInterestRegister = () => {
       setCheckItems(checkItems.filter((el) => el !== id));
     }
   };
+  // const handleSingleCheck = (checked: boolean, id: string) => {
+  //   if (checked) {
+  //     if (checkItems.length > 4) {
+  //       alert("don't check over 5 interests");
+  //     } else {
+  //       setCheckItems((prev) => [...prev, id]);
+  //     }
+  //   } else {
+  //     setCheckItems(checkItems.filter((el) => el !== id));
+  //   }
+  // };
   useEffect(() => {
     setCombinedCheckItems(checkItems.join(" "));
     registerProp((prev) => ({
@@ -34,13 +46,21 @@ const MatchingInterestRegister = () => {
       {interestArray.map((el) => {
         return (
           <>
-            <input
-              type="checkbox"
-              name={el.id}
-              onChange={(e) => handleSingleCheck(e.target.checked, el.id)}
-              checked={checkItems.includes(el.id) ? true : false}
-            />
-            <label>{el.content}</label>
+            <TestCheckButton
+              key={el.id}
+              className={checkItems.includes(el.id) ? "checked" : ""}
+              onClick={() => {
+                handleButtonCheck(el.id);
+              }}
+            >
+              <input
+                type="checkbox"
+                name={el.id}
+                style={{ display: "none" }}
+                checked={checkItems.includes(el.id) ? true : false}
+              />
+              {el.content}
+            </TestCheckButton>
           </>
         );
       })}
@@ -49,3 +69,10 @@ const MatchingInterestRegister = () => {
 };
 
 export default MatchingInterestRegister;
+
+export const TestCheckButton = styled.button`
+  width: 15%;
+  &.checked {
+    background-color: yellowgreen;
+  }
+`;

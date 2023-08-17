@@ -24,14 +24,14 @@ const useGetToken = () => {
         localStorage.setItem("access_token", result.data.access_token);
       } else {
         alert(result);
-        router("/");
+        router("/login");
       }
     };
     if (refresh_token) {
       getUsertoken(refresh_token);
     } else if (location.includes("register") && !refresh_token) {
       alert("Please login first");
-      router(-1);
+      router("/login");
     }
   }, [refresh_token, userInfo, idx]);
 };

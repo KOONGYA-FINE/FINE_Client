@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { CommonFlex, Header } from "../../common/commonstyle";
-import { useRecoilState } from "recoil";
-import { TranslationAtom } from "../../store/atom";
+import { useRecoilState, useResetRecoilState, useRecoilValue } from "recoil";
+import { TranslationAtom, UserInfoAtom } from "../../store/atom";
 import { useRef } from "react";
 import "../../common/font.css";
 import { styled } from "styled-components";
@@ -13,6 +13,7 @@ import {
 import { KatahdinFont } from "../../styles/loginFontStyle";
 import { LogoutApi } from "../../apis/loginapi";
 import { useLocation } from "react-router-dom";
+import useGetToken from "../../hooks/useGetToken";
 
 export const HeaderCompo = () => {
   const location = useLocation().pathname;
@@ -20,6 +21,7 @@ export const HeaderCompo = () => {
     location.includes("register") || location.includes("edit") ? false : true;
   const languageRef = useRef<null | HTMLDivElement>(null);
   const [langInfo, setLangInfo] = useRecoilState(TranslationAtom);
+  const resetUserInfo = useResetRecoilState(UserInfoAtom);
   const { i18n } = useTranslation();
   const handleChangeLanguage = () => {
     if (langInfo === "en") {
@@ -30,19 +32,32 @@ export const HeaderCompo = () => {
       setLangInfo("en");
     }
   };
+  useGetToken(); //mypage 접근용으로 추가
+  const userInfo = useRecoilValue(UserInfoAtom);
   const token = localStorage.getItem("access_token") as string;
   const navigate = useWithRoutePageFunc();
   const logoutFunc = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const result = await LogoutApi(token);
     if (result !== false) {
-      alert("로그아웃 되었습니다");
+      alert("Logout");
       localStorage.clear();
-      navigate("");
+      resetUserInfo();
+      navigate("login");
     } else {
       alert("failed");
     }
   };
+  const goMyPageFunc = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (token) {
+      navigate(`profile/${userInfo.user.username}`);
+    } else {
+      alert("Please Login First");
+      navigate("login");
+    }
+  };
+
   return (
     <Header>
       <CommonFlex>
@@ -50,11 +65,13 @@ export const HeaderCompo = () => {
         <KatahdinFont>FINE</KatahdinFont>
       </CommonFlex>
       <CommonFlex>
-        <PoppinsFont onClick={useRoutePageFunc("landing")}>Home</PoppinsFont>
+        <PoppinsFont onClick={useRoutePageFunc("")}>Home</PoppinsFont>
         <PoppinsFont onClick={useRoutePageFunc("matching/main")}>
           Friend Matching
         </PoppinsFont>
-        <PoppinsFont>Restaurant review</PoppinsFont>
+        <PoppinsFont onClick={useRoutePageFunc("foodmain")}>
+          Restaurant review
+        </PoppinsFont>
       </CommonFlex>
       <CommonFlex ref={languageRef}>
         {displayLanguageButton && (
@@ -73,12 +90,15 @@ export const HeaderCompo = () => {
         {!token && (
           <LoginButton
             onClick={() => {
-              navigate("");
+              navigate("login");
             }}
           >
             Login
           </LoginButton>
         )}
+        <MyPageImage onClick={goMyPageFunc}>
+          <img src="/MyPageIcon.png" />
+        </MyPageImage>
       </CommonFlex>
     </Header>
   );
@@ -123,4 +143,14 @@ const LoginButton = styled.button`
   font-family: "Poppins";
   font-size: 18px;
   font-weight: 500;
+`;
+
+const MyPageImage = styled.button`
+  display: flex;
+  height: 45px;
+  margin-left: 20px;
+  padding: 0px;
+  & > img {
+    height: 100%;
+  }
 `;

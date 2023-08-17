@@ -18,6 +18,7 @@ import useGetMatchingProps from "../hooks/useGetMatchingProps";
 import useGetinterestArray from "../hooks/interestArray";
 import { editMatchingApi } from "../apis/matchingWriting";
 import MatchingEditForm from "../components/matching/MatchingEditForm";
+import { TestCheckButton } from "../components/matching/MatchingInterestRegister";
 
 const EditMatching = () => {
   const { t } = useTranslation();
@@ -48,14 +49,14 @@ const EditMatching = () => {
       editProps.content,
       userInfo.token.access_token
     );
-    if (typeof result !== "string") {
+    if (typeof result !== "string" && typeof result !== "boolean") {
       alert("Success!");
       resetEditProps();
-      setTimeout(() => {
-        navigate(`/matching/main/${numberIdx}`, { replace: true });
-      }, 1300);
-    } else {
+      navigate(`/matching/main/${numberIdx}`, { replace: true });
+    } else if (typeof result === "string") {
       alert(result);
+    } else {
+      alert("Please provide a coherent translation");
     }
   };
   return (
@@ -66,12 +67,18 @@ const EditMatching = () => {
           {interestArray.map((el) => {
             return (
               <>
-                <input
-                  type="checkbox"
-                  name={el.id}
-                  checked={checkItems.includes(el.id) ? true : false}
-                />
-                <label>{el.content}</label>
+                <TestCheckButton
+                  key={el.id}
+                  className={checkItems.includes(el.id) ? "checked" : ""}
+                >
+                  <input
+                    type="checkbox"
+                    name={el.id}
+                    style={{ display: "none" }}
+                    checked={checkItems.includes(el.id) ? true : false}
+                  />
+                  <label>{el.content}</label>
+                </TestCheckButton>
               </>
             );
           })}

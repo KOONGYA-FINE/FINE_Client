@@ -30,7 +30,7 @@ const MatchingWritingForm = () => {
       <MatchingWrapper className="title">
         <input
           placeholder="제목을 입력하세요(10자 내외)"
-          maxLength={10}
+          maxLength={50}
           minLength={2}
           type="text"
           value={text}
