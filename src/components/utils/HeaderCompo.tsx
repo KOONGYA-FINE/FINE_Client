@@ -40,10 +40,10 @@ export const HeaderCompo = () => {
     e.preventDefault();
     const result = await LogoutApi(token);
     if (result !== false) {
-      alert("로그아웃 되었습니다");
+      alert("Logout");
       localStorage.clear();
       resetUserInfo();
-      navigate("");
+      navigate("login");
     } else {
       alert("failed");
     }
@@ -53,8 +53,8 @@ export const HeaderCompo = () => {
     if (token) {
       navigate(`profile/${userInfo.user.username}`);
     } else {
-      alert("로그인해주세요");
-      navigate("");
+      alert("Please Login First");
+      navigate("login");
     }
   };
 
@@ -65,7 +65,7 @@ export const HeaderCompo = () => {
         <KatahdinFont>FINE</KatahdinFont>
       </CommonFlex>
       <CommonFlex>
-        <PoppinsFont onClick={useRoutePageFunc("landing")}>Home</PoppinsFont>
+        <PoppinsFont onClick={useRoutePageFunc("")}>Home</PoppinsFont>
         <PoppinsFont onClick={useRoutePageFunc("matching/main")}>
           Friend Matching
         </PoppinsFont>

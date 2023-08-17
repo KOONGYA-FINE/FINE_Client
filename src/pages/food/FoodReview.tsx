@@ -6,7 +6,7 @@ import { deleteFoodRegisterApi } from "../../apis/foodapi";
 import { useNavigate, useParams } from "react-router-dom";
 import FineGoogleMap from "../../components/utils/FineGoogleMap";
 import HeaderFoodReview from "../../components/food/HeaderFoodReview";
-import NavFoodReview from "../../components/food/NavFoodReview";
+import NavFoodReview from "../../components/food/FooterFoodReview";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
 
