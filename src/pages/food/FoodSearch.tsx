@@ -53,6 +53,9 @@ export const CardWrapper = styled.div`
   height: 40vh;
   overflow: scroll;
   flex-wrap: wrap;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const Card = styled.div`
   width: 20vw;
