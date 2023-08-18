@@ -1,28 +1,28 @@
-import React from 'react'
-import { foodGetType } from './FilterInfiniteScrollFoodGrid'
-import { useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
+import React from "react";
+import { foodGetType } from "./FilterInfiniteScrollFoodGrid";
+import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
 
-export const FoodCardBox = (props:foodGetType) => {
-    const navigate = useNavigate();
-    const handleClick = () => {
-        navigate(`/food/${props.id}`);
-    }
+export const FoodCardBox = (props: foodGetType) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/food/${props.id}`);
+  };
   return (
     <ArticleCardBox onClick={handleClick}>
-        <ContentBox>
-            <img src={props.image} />
-        </ContentBox>
-        <NameBox>
-            <Title>{props.name}</Title>
-            <div>{props.address}</div>
-            <div>{props.score}</div>
-        </NameBox>
+      <ContentBox>
+        <img src={props.image} />
+      </ContentBox>
+      <NameBox>
+        <Title>{props.name}</Title>
+        <div>{props.address}</div>
+        <div>{props.score}</div>
+      </NameBox>
     </ArticleCardBox>
-  )
-}
+  );
+};
 
-const ArticleCardBox = styled.div`
+export const ArticleCardBox = styled.div`
   display: flex;
   color: black;
   flex-direction: column;
@@ -30,36 +30,35 @@ const ArticleCardBox = styled.div`
   align-items: center;
   box-shadow: 0px 3px 5px #00000075;
   height: 300px;
-`
+`;
 
-const ContentBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    flex-basis: 60%;
-    overflow: hidden;
-    & > img {
-        width: 110%;
-    }
-`
+export const ContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-basis: 60%;
+  overflow: hidden;
+  & > img {
+    width: 110%;
+  }
+`;
 
-const Title = styled.h3`
-    display: flex;
-    flex-basis: 35%;
-    width: 90%;
-    align-items: flex-start;
-    margin: 5px 0 5px 0;
-`
+export const Title = styled.h3`
+  display: flex;
+  flex-basis: 35%;
+  width: 90%;
+  align-items: flex-start;
+  margin: 5px 0 5px 0;
+`;
 
-const NameBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    align-items: flex-start;
-    & > div{
-        text-align: start;
-    }
-`
-
+export const NameBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: flex-start;
+  & > div {
+    text-align: start;
+  }
+`;

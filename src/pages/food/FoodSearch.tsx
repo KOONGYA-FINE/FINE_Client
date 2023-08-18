@@ -48,14 +48,18 @@ const FoodSearch: React.FC = () => {
 export default FoodSearch;
 
 export const CardWrapper = styled.div`
+  margin: 10px auto;
   display: flex;
   height: 40vh;
   overflow: scroll;
   flex-wrap: wrap;
 `;
 export const Card = styled.div`
-  width: 30vw;
-  height: 25vh;
+  width: 20vw;
+  height: 20vh;
+  box-shadow: 0px 3px 5px #00000075;
+  margin: 10px;
+  border-radius: 10px;
 `;
 
 export const CardImg = styled.img`

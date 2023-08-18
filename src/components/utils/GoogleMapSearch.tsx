@@ -310,7 +310,7 @@ const GoogleMapSearch: React.FC = () => {
       <div>
         <div
           id="map"
-          style={{ height: "50vh", width: "70vw", margin: "20px auto" }}
+          style={{ height: "40vh", width: "70vw", margin: "20px auto" }}
         ></div>
       </div>
     </div>
