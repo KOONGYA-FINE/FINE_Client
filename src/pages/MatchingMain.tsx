@@ -86,21 +86,22 @@ const MatchingMain = () => {
 
   return (
     <>
-      <HeaderWrapper>
-        <h2>Friend Matching</h2>
-      </HeaderWrapper>
       <MainWrapper>
         <FilterWapper>
+          <h3>Filters</h3>
+          <div className="label">Gender</div>
           <Select
             options={currentLang === "en" ? genderOptionsEN : genderOptionsKO}
             value={selectedGenderOpt}
             onChange={(opt) => setSelectedGenderOpt(opt)}
           />
+          <div className="label">Nation</div>
           <Select
             options={currentLang === "en" ? nationOptionsEN : nationOptionsKO}
             value={selectedNationOpt}
             onChange={(opt) => setSelectedNationOpt(opt)}
           />
+          <div className="label">Interest</div>
           <Select
             options={
               currentLang === "en" ? InterestOptionsEN : InterestOptionsKO
@@ -141,23 +142,10 @@ const MatchingMain = () => {
 
 export default MatchingMain;
 
-export const HeaderWrapper = styled.div`
-  display: flex;
-  flex-basis: 10%;
-  width: 100%;
-  align-items: flex-end;
-  background-color: rgba(240, 248, 243, 1);
-  & > h2 {
-    margin: 0px;
-    padding: 0px;
-  }
-`;
-
 const MainWrapper = styled.div`
   display: flex;
   flex-basis: 95%; // height
   width: 100%;
-  background-color: green;
   justify-content: space-between;
 `;
 
@@ -166,7 +154,28 @@ const FilterWapper = styled.div`
   flex-direction: column;
   flex-basis: 18%;
   height: 70%;
-  background-color: red;
+  & > .label{
+    display: flex;
+    height: 5vh;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #22AA55;
+    color: white;
+    align-items: center;
+    font-weight: bold;
+    margin-top: 10px;
+    padding-left: 10px;
+  }
+  & > h3{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  & > button{
+    margin-top: 20px;
+    background-color: #22AA55;
+    color: white;
+  }
 `;
 
 const ArticleWrapper = styled.div`
@@ -174,14 +183,14 @@ const ArticleWrapper = styled.div`
   flex-direction: column;
   flex-basis: 80%;
   flex-direction: column;
-  background-color: blue;
 `;
+
 const TitleAndWriteWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   border: 1px solid white;
   align-items: center;
-  height: 9%;
+  height: 7vh;
   & > h3 {
     margin: 0% 0% 0% 2%;
   }
@@ -189,5 +198,7 @@ const TitleAndWriteWrapper = styled.div`
     height: 70%;
     padding: 0% 5% 0% 5%;
     margin-right: 2%;
+    color: white;
+    background-color: #22AA55;
   }
 `;
