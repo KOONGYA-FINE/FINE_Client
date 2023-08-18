@@ -58,10 +58,10 @@ export const CardWrapper = styled.div`
   }
 `;
 export const Card = styled.div`
-  width: 20vw;
+  width: 25vw;
   height: 20vh;
   box-shadow: 0px 3px 5px #00000075;
-  margin: 10px;
+  margin: 10px auto;
   border-radius: 10px;
 `;
 
