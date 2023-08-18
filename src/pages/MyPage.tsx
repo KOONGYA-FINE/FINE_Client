@@ -17,6 +17,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { postType } from "../apis/matchingGet";
 import { MatchingScrapUserInfo } from "../components/mypage/MatchingScrapUserInfo";
 import { MatchingPostUserInfo } from "../components/mypage/MatchingPostUserInfo";
+import {BiEdit} from "react-icons/bi";
+import {BsActivity} from "react-icons/bs";
 
 export interface scarpPostsType {
   id: number;
@@ -188,7 +190,7 @@ export const MyPage = () => {
           </ProfileInfo>
           <ProfileChangeButtonWrapper>
             {isEditing === false && username === userInfo.user.username && (
-              <button onClick={handelBtnClick}>edit profile</button>
+              <button onClick={handelBtnClick}><BiEdit />Edit Profile</button>
             )}
           </ProfileChangeButtonWrapper>
         </ProfileWrapper>
@@ -217,6 +219,10 @@ export const MyPage = () => {
         )}
         {username === userInfo.user.username && (
           <ArticleAndButtonWrapper>
+            <ActivityInfoHeader>
+              <BsActivity />
+              <div>User Activities</div>
+            </ActivityInfoHeader>
             <SelectButtonWrapper>
               <button onClick={() => setButtonScrap(false)}>Posts</button>
               <button onClick={() => setButtonScrap(true)}>Scraped</button>
@@ -253,24 +259,25 @@ const MyPageTitle = styled.div`
 
 const ProfileWrapper = styled.div`
   display: flex;
-  height: 30vh;
+  height: 25vh;
   width: 90%;
   align-items: center;
   justify-content: space-around;
-  margin: 2%;
-  background-color: green;
+  margin: 5vh;
+  border-top: 2px solid black;
+  border-bottom: 2px solid #bcbcbc;
+  padding-left: 3%;
 `;
 
 const ProfileImg = styled.div`
   display: flex;
   height: 120px;
   width: 120px;
-  background-color: red;
   overflow: hidden;
   & > img {
     object-fit: cover;
     width: 100%;
-    border-radius: 40%;
+    border-radius: 70%;
   }
 `;
 
@@ -280,9 +287,11 @@ const ProfileInfo = styled.div`
   justify-content: center;
   flex-direction: column;
   flex-basis: 50%;
+  padding-left: 10px;
   height: 70%;
   border: 3px solid white;
 `;
+
 const ProfileNameAndLink = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -304,23 +313,54 @@ const ProfileChangeButtonWrapper = styled.div`
   justify-content: flex-end;
   & > button {
     display: flex;
+    justify-content: space-between;
+    color: #676363;
+    display: flex;
+    width : 120px;
     height: 25%;
     padding: 5px;
-    border: 2px solid black;
+    background-color: transparent;
+    border: 0;
   }
 `;
 
 const ArticleAndButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 40vh;
   margin: 2%;
-  width: 90%;
-  background-color: gray;
+  width : 85%;
+  box-shadow: 2px 4px 5px #676363;
 `;
 
 const SelectButtonWrapper = styled.div`
+  margin: 10px 0 10px 0;
+  padding-left: 10px;
   display: flex;
   height: 5vh;
-  border: 1px solid white;
+  width : 95%;
+  background-color: #97979758;
+  border-radius: 15px;
+  & > button {
+    display: inline-block;
+    margin: 0;
+    padding: 5px;
+    background-color: transparent;
+  }
 `;
+
+const ActivityInfoHeader = styled.div`
+    display: flex;
+    height: 5vh;
+    width: 98%;
+    align-items: center;
+    background-color: white;
+    border-bottom: 1px solid black;
+    padding-left: 2%;
+    gap: 2%;
+    & > div{
+        font-weight: bold;
+        margin: 0%;
+    }
+`
