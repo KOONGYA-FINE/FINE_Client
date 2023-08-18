@@ -30,9 +30,7 @@ const RegisterMatching = () => {
     if (typeof result !== "string" && typeof result !== "boolean") {
       alert("Success!");
       resetRegisterProp();
-      setTimeout(() => {
-        router("/matching/main", { replace: true });
-      }, 1300);
+      router("/matching/main", { replace: true });
     } else if (typeof result === "string") {
       alert(result);
     } else {
