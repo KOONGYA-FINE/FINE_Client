@@ -65,7 +65,9 @@ const MainInfo = styled.div`
     flex-basis: 70vh;
     justify-content: center;
     align-items: flex-start;
-    background-color: green;
+    background-image: url('LandingImg.png');
+    background-size: cover;
+    color: white;
     & > h2 {
         margin-left: 5%;
         margin-bottom: 2px;

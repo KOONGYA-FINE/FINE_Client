@@ -31,6 +31,7 @@ const CardBox = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     height: 70%;
+    background-color: white;
     box-shadow: 5px 10px 20px #22aa5684;
     /* border: 1px solid black; */
     margin: 0 20px 0 0;

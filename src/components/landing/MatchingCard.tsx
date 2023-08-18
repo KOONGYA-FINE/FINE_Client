@@ -57,5 +57,8 @@ const CardWrapper = styled.div`
     justify-content: flex-end;
     align-items: center;
     gap: 5px;
+    background-image: url('LandingBack.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     /* background-color: skyblue; */
 `
