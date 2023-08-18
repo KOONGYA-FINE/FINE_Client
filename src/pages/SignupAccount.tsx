@@ -1,13 +1,14 @@
 import { Article, Container, Header, Wrapper } from "../common/commonstyle";
 import SignUpAccountForm from "../components/signup/SignUpAccountForm";
+import { HeaderCompo } from "../components/utils/HeaderCompo";
 
 const SignupAccount = () => {
   return (
     <Container>
-      <Header>헤더</Header>
+      <HeaderCompo />
       <Wrapper>
-        <Article>여기에 이미지</Article>
-        <Article>
+        <Article className="signup-img">여기에 이미지</Article>
+        <Article className="signup-form">
           <SignUpAccountForm/>
         </Article>
       </Wrapper>

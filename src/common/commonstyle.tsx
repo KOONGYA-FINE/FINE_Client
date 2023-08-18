@@ -43,6 +43,12 @@ export const Article = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid white;
+  &.signup-img{
+    flex-basis: 40%;
+  }
+  &.signup-form{
+    flex-basis: 60%;
+  }
 `;
 
 export const CommonFlex = styled.div`

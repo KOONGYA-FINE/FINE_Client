@@ -14,10 +14,10 @@ export const MachingCardBox: React.FunctionComponent<LandingMatchingProps> = (pr
     <CardBox>
       <h3>{props.title}</h3>
       <FilterBox>
-        {filterArr && filterArr.map((filter) => (<Filter>{filter}</Filter>))}
+        {filterArr && filterArr.map((filter, key) => (<Filter key={key}>{filter}</Filter>))}
       </FilterBox>
       <UserInfoBox>
-        <h2>{props.username}</h2>
+        <h3>{props.username}</h3>
         <div>{props.school}</div>
       </UserInfoBox>
     </CardBox>
@@ -65,7 +65,7 @@ const UserInfoBox = styled.div`
   align-items: flex-start;
   height: 20%;
   margin: 0 0 5% 5%;
-  & > h2 {
+  & > h3 {
     margin: 0;
     padding: 0;
   }

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { useGetLanguage } from '../hooks/useGetLanguage'
 import { useNavigate } from 'react-router-dom'
 import {AiOutlineArrowRight} from 'react-icons/ai'
+import { FoodInfoGrid } from '../components/landing/FoodInfoGrid'
 
 export const Landing = () => {
     const { t } = useTranslation();
@@ -47,7 +48,11 @@ export const Landing = () => {
             <button onClick={()=>{navigate(`/matching/main`)}}>Go see Friend Matching<AiOutlineArrowRight /></button>
         </MatchingDescription>
         <MatchingCard />
-        <RestaurantInfo />
+        <FoodDescription>
+            <h3>{t(`landing.go_food`)}</h3>
+            <button onClick={()=>{navigate(`/foodmain`)}}>Go see restaurant review<AiOutlineArrowRight /></button>
+        </FoodDescription>
+        <FoodInfoGrid />
       </Wrapper>
     </Container>
   )
@@ -146,8 +151,22 @@ const MatchingDescription = styled.div`
     }
 `
 
-const RestaurantInfo = styled.div`
+const FoodDescription = styled.div`
     display: flex;
-    flex-basis: 80vh;
-    background-color: yellow;
+    flex-direction: column;
+    flex-basis: 30vh;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10vh;
+    /* background-color: yellow; */
+    & > button{
+        display: flex;
+        color: white;
+        background-color: #22AA55;
+        width: 260px;
+        justify-content: space-between;
+        border-radius: 5px;
+        padding: 10px 25px 10px 25px;
+        margin : 0 0 0 0;
+    }
 `

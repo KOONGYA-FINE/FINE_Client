@@ -90,9 +90,9 @@ const SignUpAccountForm: FC = () => {
     <>
     <h3>{t(`signup.create`)}</h3>
     <Form>
-	    <Label>{t(`signup.emailAdress`)}</Label>
+	    <Label>{t(`signup.emailAdress`)}<MandatoryBtn>*</MandatoryBtn></Label>
         <InputwithButtonBox>
-            <Input {...register("email", 
+            <InputWithBtn className='email-input' {...register("email", 
                 { required: true, pattern: { 
                     value : regExpEmail,
                     message : "email address should be valid" 
@@ -100,7 +100,7 @@ const SignUpAccountForm: FC = () => {
                 })} 
             type="email"
             placeholder="xxxx@xxx.ac.kr"/>
-            <VerifyButton onClick={emailSubmitHandler}>{t(`signup.checkEmail`)}</VerifyButton>
+            <VerifyButton className='verify-btn' onClick={emailSubmitHandler}>{t(`signup.checkEmail`)}</VerifyButton>
         </InputwithButtonBox>
         {errors.email && errors.email.type === "pattern" && (
             <ErrorMessage>{errors.email.message}</ErrorMessage>
@@ -108,9 +108,9 @@ const SignUpAccountForm: FC = () => {
         {emailIsValid === true &&
             <VerifyMessage>You can use this email</VerifyMessage>
         }
-	    <Label>{t(`signup.verifyEmail`)}</Label>
+	    <Label>{t(`signup.verifyEmail`)}<MandatoryBtn>*</MandatoryBtn></Label>
         <InputwithButtonBox>
-        	<Input {...register("verifyNum", { required: true })} type="text" />
+        	<InputWithBtn {...register("verifyNum", { required: true })} type="text" />
             <VerifyButton onClick={verifyNumSubmitHandler}>Verify</VerifyButton>
         </InputwithButtonBox>
         {emailIsValid === true && verifyCodeSend===true && verified===false && (
@@ -119,7 +119,7 @@ const SignUpAccountForm: FC = () => {
         {verified===true && (
             <VerifyMessage>verified!</VerifyMessage>
         )}
-	    <Label>{t(`signup.createPassword`)}</Label>
+	    <Label>{t(`signup.createPassword`)}<MandatoryBtn>*</MandatoryBtn></Label>
         <Input {...register("password", 
         { required: true, minLength: 8 , pattern: regExgPassword})} type="password" />
         {errors.password&&errors.password.type === "minLength" && (
@@ -128,7 +128,7 @@ const SignUpAccountForm: FC = () => {
         {errors.password&&errors.password.type === "pattern" && (
             <ErrorMessage>a char or more, and a number or more</ErrorMessage>
         )}
-	    <Label>{t(`signup.confirmPassword`)}</Label>
+	    <Label>{t(`signup.confirmPassword`)}<MandatoryBtn>*</MandatoryBtn></Label>
         <Input {...register("password_confirm", {
           	required: true,
             validate: {
@@ -160,7 +160,7 @@ export default SignUpAccountForm
 
 const Form = styled.form`
     display: flex;
-    width : 60%;
+    width : 70%;
     flex-direction: column;
 `
 
@@ -172,21 +172,40 @@ const Label = styled.div`
 
 const InputwithButtonBox = styled.div`
     display: flex;
-    flex-basis: 60%;
-    height: 10%;
+    flex-basis: 80%;
+    height: 8%;
+    padding: 2% 5% 2% 5%;
+    justify-content: space-between;
+    border: 1px solid black;
+    border-radius: 5px;
 `
 
 const VerifyButton = styled.button`
     display: flex;
     flex-basis: 20%;
+    color: white;
     align-items: center;
-    background-color: green;
-    border-radius: 0px;
+    justify-content: center;
+    background-color: #22AA55;
+    border-radius: 5px;
+    &.verify-btn{
+        flex-basis: 40%;
+    }
 `
 
 const Input = styled.input`
     display: flex;
+    height: 80%;
     flex-basis : 70%;
+`
+const InputWithBtn = styled.input`
+    display: flex;
+    height: 80%;
+    flex-basis : 70%;
+    border: transparent;
+    &.email-input{
+        flex-basis: 60%;
+    }
 `
 
 const ErrorMessage = styled.div`
@@ -198,7 +217,7 @@ const ErrorMessage = styled.div`
 const VerifyMessage = styled.div`
     display: flex;
     justify-content: left;
-    color : green;
+    color : #22AA55;
 `
 
 // const PasswordMessage = styled.div<{isActive: boolean}>`
@@ -216,13 +235,19 @@ const FormSubmitButtonWrapper = styled.div`
 `
 const PrevPageButton = styled.button`
     display: flex;
-    background-color: green;
+    color: white;
+    background-color: #22AA55;
 `
 
 const SubmitButton = styled.button`
     display: flex;
-    background-color: green;
+    color: white;
+    background-color: #22AA55;
     &.unvalid {
     background: rgba(151, 151, 151, 1);
     }
+`
+
+const MandatoryBtn = styled.a`
+    color: red;
 `

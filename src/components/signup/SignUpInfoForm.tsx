@@ -45,11 +45,11 @@ const SignUpInfoForm : FC = () => {
     <>
     <h3>{t(`signup.personal`)}</h3>
     <Form>
-        <Label>{t(`signup.name`)}</Label>
+        <Label>{t(`signup.name`)}<MandatoryBtn>*</MandatoryBtn></Label>
         <Input {...register("name", { required: true })} type="name" placeholder="enter your name" />
-        <Label>{t(`signup.birth`)}</Label>
+        <Label>{t(`signup.birth`)}<MandatoryBtn>*</MandatoryBtn></Label>
         <Input {...register("birth", { required: true })} type="date" />
-        <Label>{t(`signup.gender`)}</Label>
+        <Label>{t(`signup.gender`)}<MandatoryBtn>*</MandatoryBtn></Label>
         <Controller 
             name="gender"
             control={control}
@@ -63,7 +63,7 @@ const SignUpInfoForm : FC = () => {
                 }
                 onChange={(option) => (onChange(option?.value))} />
         )} />
-        <Label>{t(`signup.nationality`)}</Label>
+        <Label>{t(`signup.nationality`)}<MandatoryBtn>*</MandatoryBtn></Label>
         <Controller 
             name="nation"
             control={control}
@@ -77,7 +77,7 @@ const SignUpInfoForm : FC = () => {
                 }
                 onChange={(option) => (onChange(option?.value))} />
         )} />
-        <Label>{t(`signup.school`)}</Label>
+        <Label>{t(`signup.school`)}<MandatoryBtn>*</MandatoryBtn></Label>
         <Input {...register("school", { required: true })} type="text" />
 
         <FormSubmitButtonWrapper>
@@ -97,7 +97,7 @@ export default SignUpInfoForm
 
 const Form = styled.form`
     display: flex;
-    width : 60%;
+    width : 70%;
     flex-direction: column;
 `
 
@@ -121,13 +121,19 @@ const FormSubmitButtonWrapper = styled.div`
 `
 const PrevPageButton = styled.button`
     display: flex;
-    background-color: green;
+    color: white;
+    background-color: #22AA55;
 `
 
 const SubmitButton = styled.button`
     display: flex;
-    background-color: green;
+    color: white;
+    background-color: #22AA55;
     &.unvalid {
     background: rgba(151, 151, 151, 1);
     }
+`
+
+const MandatoryBtn = styled.a`
+    color: red;
 `
