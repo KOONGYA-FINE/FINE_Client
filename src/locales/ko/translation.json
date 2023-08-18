@@ -60,7 +60,9 @@
     "Gender": "성별",
     "Filters": "필터",
     "nationality": "국가",
-    "interest": "관심사"
+    "interest": "관심사",
+    "previous": "이전",
+    "next": "다음"
   },
   "review": {
     "map_search": "장소를 먼저 검색해주세요",

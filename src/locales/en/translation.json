@@ -20,7 +20,7 @@
     "confirmPassword": "Re-enter your Password",
     "confirm": "confirm",
     "previous": "Previous step",
-    "next": "next step",
+    "next": "Next step",
     "personal": "Personal information",
     "name": "Your name",
     "birth": "date of birth",
@@ -60,7 +60,9 @@
     "Gender": "Gender",
     "Filters": "Filters",
     "nationality": "Nationality",
-    "interest": "Interest"
+    "interest": "Interest",
+    "previous": "Previous",
+    "next": "Next"
   },
   "review": {
     "map_search": "Please search location first",

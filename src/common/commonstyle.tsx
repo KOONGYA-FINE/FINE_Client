@@ -49,4 +49,15 @@ export const CommonFlex = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  &.flex-end {
+    margin: 0px 2%;
+    width: 96%;
+    justify-content: flex-end;
+    padding: 0px 10px 40px 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(151, 151, 151, 0.6);
+  }
+  &.space-between {
+    justify-content: space-between;
+  }
 `;

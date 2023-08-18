@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { postScrapMatchingApi } from "../../../apis/scrapapi";
 import { UserInfoAtom } from "../../../store/atom";
 import { useRecoilValue } from "recoil";
+import { styled } from "styled-components";
 
 const ScrapButton = () => {
   const { idx } = useParams();
@@ -25,7 +26,18 @@ const ScrapButton = () => {
       alert("failed");
     }
   };
-  return <button onClick={scrapFunc}>스크랩</button>;
+  return <ScrapbuttonComp onClick={scrapFunc}>스크랩</ScrapbuttonComp>;
 };
 
 export default ScrapButton;
+
+const ScrapbuttonComp = styled.button`
+  width: 120px;
+  height: 25px;
+  gap: 8px;
+  padding: 4px 0px;
+  border-radius: 10px;
+  background-color: rgba(230, 244, 235, 1);
+  color: rgba(34, 170, 85, 1);
+  border-color: transparent;
+`;

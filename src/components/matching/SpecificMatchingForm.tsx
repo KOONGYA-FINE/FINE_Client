@@ -7,7 +7,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
 import ScrapButton from "./scrap/ScrapButton";
-import { useEffect } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -32,31 +31,35 @@ const SpecificMatchingForm = () => {
   const navigate = useNavigate();
   const handelProfileClick = () => {
     navigate(`/profile/${Engproperties.username}`);
-  }
+  };
 
   return (
     <>
       <MatchingWrapperBox>
         <MatchingWrapper className="title">
-          {t(`signup.previous`) === "Previous step"
-            ? Engproperties.title
-            : KRproperties.title}
-          <ScrapButton />
+          <div className="interestWrapper">
+            {interestArray.map((e) => {
+              return <InterestButton>{t(`interest.${e}`)}</InterestButton>;
+            })}
+          </div>
+          <div className="titleFont">
+            {t(`signup.previous`) === "Previous step"
+              ? Engproperties.title
+              : KRproperties.title}
+          </div>
           <ProfileBox onClick={handelProfileClick}>
-            <div><img src={imageLink}/>{Engproperties.username}</div>
+            <div>
+              <img src={imageLink} />
+              {Engproperties.username}
+            </div>
+            <ScrapButton />
           </ProfileBox>
-        </MatchingWrapper>
-        <MatchingWrapper className="interest">
-          {interestArray.map((e) => {
-            return <button>{e}</button>;
-          })}
         </MatchingWrapper>
         <MatchingWrapper className="content">
           {t(`signup.previous`) === "Previous step"
             ? Engproperties.content
             : KRproperties.content}
         </MatchingWrapper>
-        <MatchingWrapper className="img">이미지</MatchingWrapper>
       </MatchingWrapperBox>
     </>
   );
@@ -66,8 +69,24 @@ export default SpecificMatchingForm;
 
 const ProfileBox = styled.div`
   display: flex;
-  background-color: coral;
+  justify-content: space-between;
   & > div {
     display: flex;
+    font-size: 16px;
   }
-`
+  & > div > img {
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+  }
+`;
+
+const InterestButton = styled.div`
+  border-radius: 20px;
+  background-color: rgba(206, 233, 216, 0.37);
+  width: 15%;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 2px;
+`;
