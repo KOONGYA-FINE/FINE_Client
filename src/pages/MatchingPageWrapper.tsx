@@ -24,7 +24,7 @@ const MatchingPageWrapper = () => {
 
 export default MatchingPageWrapper;
 
-const HeaderWrapper = styled.div`
+export const HeaderWrapper = styled.div`
   display: flex;
   flex-basis: 10%;
   width: 90%;

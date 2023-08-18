@@ -122,12 +122,15 @@ const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 20vh;
+  height: 15vh;
   width: 100%;
-  background-color: red;
   & > input {
-    height: 20%;
+    height: 30%;
     width: 50%;
+  }
+  & > button {
+    color: white;
+    background-color: #22AA55;
   }
 `;
 
@@ -135,29 +138,41 @@ const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 12vh;
-  background-color: yellow;
+  height: 15vh;
 `;
 
 const HeaderBox = styled.div`
   display: flex;
   height: 50%;
   justify-content: space-between;
+  align-items: center;
   & > h3 {
     margin: 0px;
-    padding: 0px;
+    padding: 0 0 0 10px;
+  }
+  & > button{
+    color: white;
+    background-color: #22AA55;
+    margin-right: 10px;
   }
 `;
 
 const FilterWrapper = styled.div`
   display: flex;
   height: 50%;
-  border: 2px solid black;
+  gap: 10px;
+  margin-left: 10px;
+  & > button {
+    color: white;
+    height: 80%;
+    padding: 0 10px 0 10px;
+    background-color: #22AA55;
+  }
 `;
+
 const ArticleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 50vh;
   flex-direction: column;
-  background-color: blue;
 `;

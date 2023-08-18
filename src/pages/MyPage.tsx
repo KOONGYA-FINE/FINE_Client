@@ -19,6 +19,7 @@ import { MatchingScrapUserInfo } from "../components/mypage/MatchingScrapUserInf
 import { MatchingPostUserInfo } from "../components/mypage/MatchingPostUserInfo";
 import {BiEdit} from "react-icons/bi";
 import {BsActivity} from "react-icons/bs";
+import { HeaderWrapper } from "./MatchingPageWrapper";
 
 export interface scarpPostsType {
   id: number;
@@ -162,9 +163,9 @@ export const MyPage = () => {
     <Container>
       <HeaderCompo />
       <Wrapper className="mypage">
-        <MyPageTitle>
-          <h2>View Profile</h2>
-        </MyPageTitle>
+        <HeaderWrapper>
+          <h2>Friend Matching</h2>
+        </HeaderWrapper>
         <ProfileWrapper>
           <ProfileImg>
             {image !== null ? (

@@ -11,7 +11,7 @@ export const FoodCardBox = (props:foodGetType) => {
   return (
     <ArticleCardBox onClick={handleClick}>
         <ContentBox>
-            여기에 이미지
+            <img src={props.image} />
         </ContentBox>
         <NameBox>
             <Title>{props.name}</Title>
@@ -28,8 +28,8 @@ const ArticleCardBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: yellow;
-  height: 250px;
+  box-shadow: 0px 3px 5px #00000075;
+  height: 300px;
 `
 
 const ContentBox = styled.div`
@@ -39,47 +39,18 @@ const ContentBox = styled.div`
     justify-content: space-between;
     width: 100%;
     flex-basis: 60%;
-    background-color: coral;
-`
-
-const InfoWithScrapbox = styled.div`
-    display: flex;
-    width: 90%;
-    flex-basis: 25%;
-    border: 1px solid black;
-`
-
-const PostDate = styled.div`
-    height: 70%;
-    border: 1px solid black;
-    border-radius: 5px;
+    overflow: hidden;
+    & > img {
+        width: 110%;
+    }
 `
 
 const Title = styled.h3`
     display: flex;
     flex-basis: 35%;
     width: 90%;
-    border: 1px solid black;
     align-items: flex-start;
-    margin: 0px;
-`
-
-const FilterBox = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    overflow: hidden;
-    width: 90%;
-    flex-basis: 40%;
-    border: 1px solid black;
-`
-
-const Filter = styled.div`
-    display: flex;
-    background-color: gray;
-    border-radius: 5px;
-    height: 30%;
-    padding: 1% 4% 1% 4%;
-    margin: 2%;
+    margin: 5px 0 5px 0;
 `
 
 const NameBox = styled.div`
@@ -87,5 +58,8 @@ const NameBox = styled.div`
     flex-direction: column;
     width: 80%;
     align-items: flex-start;
+    & > div{
+        text-align: start;
+    }
 `
 
