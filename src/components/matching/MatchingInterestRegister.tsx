@@ -5,6 +5,7 @@ import { MatchingWrapper } from "../../styles/MatchingStyle";
 import { useSetRecoilState } from "recoil";
 import { registerMatchingAtom } from "../../store/atom";
 import { styled } from "styled-components";
+import { Text } from "./MatchingEditForm";
 
 const MatchingInterestRegister = () => {
   useGetLanguage();
@@ -42,29 +43,35 @@ const MatchingInterestRegister = () => {
     }));
   }, [checkItems, combinedCheckItems, registerProp]);
   return (
-    <MatchingWrapper className="select">
-      {interestArray.map((el) => {
-        return (
-          <>
-            <TestCheckButton
-              key={el.id}
-              className={checkItems.includes(el.id) ? "checked" : ""}
-              onClick={() => {
-                handleButtonCheck(el.id);
-              }}
-            >
-              <input
-                type="checkbox"
-                name={el.id}
-                style={{ display: "none" }}
-                checked={checkItems.includes(el.id) ? true : false}
-              />
-              {el.content}
-            </TestCheckButton>
-          </>
-        );
-      })}
-    </MatchingWrapper>
+    <>
+      {" "}
+      <Text className="interest">Types of your interest</Text>
+      <MatchingWrapper className="select">
+        <div className="selectWrapper">
+          {interestArray.map((el) => {
+            return (
+              <>
+                <TestCheckButton
+                  key={el.id}
+                  className={checkItems.includes(el.id) ? "checked" : ""}
+                  onClick={() => {
+                    handleButtonCheck(el.id);
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    name={el.id}
+                    style={{ display: "none" }}
+                    checked={checkItems.includes(el.id) ? true : false}
+                  />
+                  {el.content}
+                </TestCheckButton>
+              </>
+            );
+          })}
+        </div>
+      </MatchingWrapper>
+    </>
   );
 };
 

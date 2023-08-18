@@ -34,24 +34,37 @@ export const MatchingWrapper = styled.div`
     background-color: green;
   }
   &.edittitle {
-    height: 20px;
+    height: 15%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
   }
   &.editcontent {
-    height: 40%;
-    background-color: rgba(95, 0, 255, 0.1);
-    flex-direction: column;
-    align-items: flex-end;
+    height: 35%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    margin: 0px 10px 30px 10px;
+    border-bottom: 1px solid rgba(151, 151, 151, 0.6);
   }
   &.select {
     height: 40%;
     background-image: url(/interestWrapper.png);
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 98% 100%;
     flex-wrap: wrap;
     overflow: scroll;
     scrollbar-width: none;
-    ::-webkit-scrollbar {
-      display: none;
+    .selectWrapper {
+      width: 80vw;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
     }
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 

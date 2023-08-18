@@ -62,27 +62,29 @@ const EditMatching = () => {
   return (
     <>
       <MatchingWrapperBox className="edit">
-        <MatchingEditForm />
         <MatchingWrapper className="select">
-          {interestArray.map((el) => {
-            return (
-              <>
-                <TestCheckButton
-                  key={el.id}
-                  className={checkItems.includes(el.id) ? "checked" : ""}
-                >
-                  <input
-                    type="checkbox"
-                    name={el.id}
-                    style={{ display: "none" }}
-                    checked={checkItems.includes(el.id) ? true : false}
-                  />
-                  <label>{el.content}</label>
-                </TestCheckButton>
-              </>
-            );
-          })}
+          <div className="selectWrapper">
+            {interestArray.map((el) => {
+              return (
+                <>
+                  <TestCheckButton
+                    key={el.id}
+                    className={checkItems.includes(el.id) ? "checked" : ""}
+                  >
+                    <input
+                      type="checkbox"
+                      name={el.id}
+                      style={{ display: "none" }}
+                      checked={checkItems.includes(el.id) ? true : false}
+                    />
+                    <label>{el.content}</label>
+                  </TestCheckButton>
+                </>
+              );
+            })}
+          </div>
         </MatchingWrapper>
+        <MatchingEditForm />
       </MatchingWrapperBox>
       <CommonFlex>
         <MatchingButton onClick={matchingEdit}>
