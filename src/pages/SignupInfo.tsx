@@ -7,7 +7,7 @@ const SignupInfo = () => {
     <Container>
       <HeaderCompo />
       <Wrapper>
-        <Article className="signup-img">여기에 이미지</Article>
+        <Article className="signup-img"><img src="SignInImg.png" /></Article>
         <Article className="signup-form">
           <SignUpInfoForm />
         </Article>
