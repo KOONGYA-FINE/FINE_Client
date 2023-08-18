@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { MatchingTextArea, MatchingWrapper } from "../../styles/MatchingStyle";
+import { MatchingWrapper } from "../../styles/MatchingStyle";
 import { useTranslation } from "react-i18next";
 import { useSetRecoilState } from "recoil";
 import { registerMatchingAtom } from "../../store/atom";
+import { ContentInput, Text, TitleInput } from "./MatchingEditForm";
 
 const MatchingWritingForm = () => {
   const { t } = useTranslation();
@@ -27,9 +28,14 @@ const MatchingWritingForm = () => {
   };
   return (
     <>
-      <MatchingWrapper className="title">
-        <input
-          placeholder="제목을 입력하세요(10자 내외)"
+      <MatchingWrapper className="edittitle">
+        <Text>Titles</Text>
+        <TitleInput
+          placeholder={
+            t(`matching.register`) === "register"
+              ? "write your title(Less than 50)"
+              : "제목을 입력해주세요(50자 이내)"
+          }
           maxLength={50}
           minLength={2}
           type="text"
@@ -38,18 +44,18 @@ const MatchingWritingForm = () => {
         />
       </MatchingWrapper>
       <MatchingWrapper className="editcontent">
-        <MatchingTextArea
+        <Text>Content</Text>
+        <ContentInput
           placeholder={
             t(`matching.register`) === "register"
-              ? "Input your content"
-              : "내용을 입력해주세요"
+              ? "Input your content(Less than 200)"
+              : "내용을 입력해주세요(200자 이내)"
           }
           value={contentText}
           onChange={displayContent}
           minLength={5}
           maxLength={200}
-        ></MatchingTextArea>
-        <div>{contentText.length}/200</div>
+        ></ContentInput>
       </MatchingWrapper>
     </>
   );

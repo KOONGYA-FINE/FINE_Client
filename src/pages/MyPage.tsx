@@ -17,8 +17,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { postType } from "../apis/matchingGet";
 import { MatchingScrapUserInfo } from "../components/mypage/MatchingScrapUserInfo";
 import { MatchingPostUserInfo } from "../components/mypage/MatchingPostUserInfo";
-import {BiEdit} from "react-icons/bi";
-import {BsActivity} from "react-icons/bs";
+import { BiEdit } from "react-icons/bi";
+import { BsActivity } from "react-icons/bs";
 import { HeaderWrapper } from "./MatchingPageWrapper";
 
 export interface scarpPostsType {
@@ -101,7 +101,6 @@ export const MyPage = () => {
     if (result === 401) {
       alert("다시 로그인 해주세요");
       router("/login");
-      
     } else if (result === 404) {
       setWritePostIsNull(true);
     } else if (result === false) {
@@ -191,7 +190,10 @@ export const MyPage = () => {
           </ProfileInfo>
           <ProfileChangeButtonWrapper>
             {isEditing === false && username === userInfo.user.username && (
-              <button onClick={handelBtnClick}><BiEdit />Edit Profile</button>
+              <button onClick={handelBtnClick}>
+                <BiEdit />
+                Edit Profile
+              </button>
             )}
           </ProfileChangeButtonWrapper>
         </ProfileWrapper>
@@ -301,7 +303,7 @@ const ProfileNameAndLink = styled.div`
     margin: 0px 0px 5px 0px;
     padding: 0px;
     .link {
-      color: white;
+      color: black;
     }
   }
 `;
@@ -317,7 +319,7 @@ const ProfileChangeButtonWrapper = styled.div`
     justify-content: space-between;
     color: #676363;
     display: flex;
-    width : 120px;
+    width: 120px;
     height: 25%;
     padding: 5px;
     background-color: transparent;
@@ -331,7 +333,7 @@ const ArticleAndButtonWrapper = styled.div`
   align-items: center;
   height: 40vh;
   margin: 2%;
-  width : 85%;
+  width: 85%;
   box-shadow: 2px 4px 5px #676363;
 `;
 
@@ -340,7 +342,7 @@ const SelectButtonWrapper = styled.div`
   padding-left: 10px;
   display: flex;
   height: 5vh;
-  width : 95%;
+  width: 95%;
   background-color: #97979758;
   border-radius: 15px;
   & > button {
@@ -352,16 +354,16 @@ const SelectButtonWrapper = styled.div`
 `;
 
 const ActivityInfoHeader = styled.div`
-    display: flex;
-    height: 5vh;
-    width: 98%;
-    align-items: center;
-    background-color: white;
-    border-bottom: 1px solid black;
-    padding-left: 2%;
-    gap: 2%;
-    & > div{
-        font-weight: bold;
-        margin: 0%;
-    }
-`
+  display: flex;
+  height: 5vh;
+  width: 98%;
+  align-items: center;
+  background-color: white;
+  border-bottom: 1px solid black;
+  padding-left: 2%;
+  gap: 2%;
+  & > div {
+    font-weight: bold;
+    margin: 0%;
+  }
+`;

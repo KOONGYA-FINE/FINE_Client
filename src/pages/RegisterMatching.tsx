@@ -40,8 +40,8 @@ const RegisterMatching = () => {
   return (
     <>
       <MatchingWrapperBox className="edit">
-        <MatchingWritingForm />
         <MatchingInterestRegister />
+        <MatchingWritingForm />
       </MatchingWrapperBox>
       <CommonFlex>
         {registerProp.title.length > 2 &&
