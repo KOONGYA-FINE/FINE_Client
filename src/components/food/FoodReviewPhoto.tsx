@@ -9,7 +9,7 @@ import {
 import { FoodRegisterApi } from "../../apis/foodapi";
 import { useNavigate } from "react-router-dom";
 import PhotoProp from "../utils/PhotoProp";
-import { CheckButton } from "./FoodTagButton";
+import { MatchingButton } from "../../styles/MatchingStyle";
 
 const FoodReviewPhoto = () => {
   const userInfo = useRecoilValue(UserInfoAtom);
@@ -81,14 +81,15 @@ const FoodReviewPhoto = () => {
   return (
     <>
       <PhotoProp />
-      <CheckButton
+      <MatchingButton
+        style={{ margin: "auto" }}
         disabled={
           submitProp.rating !== 0 && submitProp.tag !== "" ? false : true
         }
         onClick={submitFoodRegister}
       >
         Register
-      </CheckButton>
+      </MatchingButton>
     </>
   );
 };

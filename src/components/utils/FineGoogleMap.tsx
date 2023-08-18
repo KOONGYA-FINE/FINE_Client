@@ -64,6 +64,7 @@ export default React.memo(FineGoogleMap);
 const Wrapper = styled.div`
   .map-container {
     width: 80vw;
-    height: 40vh;
+    height: 50vh;
+    margin: 20px auto;
   }
 `;

@@ -5,6 +5,7 @@ import { useWithRoutePageFunc } from "../../hooks/useRoutePageFunc";
 import FineGoogleMap from "../../components/utils/FineGoogleMap";
 import FoodRegisterForm from "../../components/food/FoodRegisterForm";
 import useGetToken from "../../hooks/useGetToken";
+import { HeaderFoodWrapper } from "./FoodMain";
 
 const FoodRegister: React.FC = () => {
   useGetToken();
@@ -20,6 +21,9 @@ const FoodRegister: React.FC = () => {
   }, [registerProp]);
   return (
     <>
+      <HeaderFoodWrapper>
+        <h2>RESTAURANT REVIEW</h2>
+      </HeaderFoodWrapper>
       <FineGoogleMap lat={registerProp.lat} lng={registerProp.lng} />
       <FoodRegisterForm />
     </>

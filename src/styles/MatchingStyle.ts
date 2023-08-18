@@ -81,6 +81,9 @@ export const MatchingButton = styled.button`
   background: rgba(34, 170, 85, 0.98);
   color: white;
   margin: 0px 5px;
+  &:disabled {
+    background-color: rgba(151, 151, 151, 0.6);
+  }
   &:hover {
     border-color: transparent;
   }

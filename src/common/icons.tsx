@@ -3,6 +3,7 @@ import {
   AiOutlineLock,
   AiOutlineLeft,
   AiOutlineRight,
+  AiOutlinePlusCircle,
 } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { GoGlobe } from "react-icons/go";
@@ -13,6 +14,7 @@ const icons = {
   left: <AiOutlineLeft style={{ color: "rgba(34, 170, 85, 0.98)" }} />,
   right: <AiOutlineRight style={{ color: "rgba(34, 170, 85, 0.98)" }} />,
   search: <FiSearch style={{ color: "rgba(151, 151, 151, 1)" }} />,
+  plus: <AiOutlinePlusCircle style={{ color: "rgba(151, 151, 151, 1)" }} />,
 };
 
 export default icons;

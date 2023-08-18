@@ -23,15 +23,27 @@ export const HeaderFoodWrapper = styled.div`
   flex-basis: 10%;
   width: 100%;
   align-items: flex-end;
+  margin-top: 20px;
+  color: #25ab58;
   background-color: rgba(240, 248, 243, 1);
   & > h2 {
     margin: 0px;
     padding: 0px;
   }
   &.search {
-    margin-top: 20px;
     justify-content: space-around;
     align-items: center;
-    color: #25ab58;
+  }
+`;
+
+export const ReviewInputWrapper = styled.div`
+  width: 80vw;
+  height: 93px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 5px auto;
+  .tag {
+    flex-direction: row;
   }
 `;
