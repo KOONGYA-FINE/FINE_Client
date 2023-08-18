@@ -7,7 +7,11 @@ export const Container = styled.div`
   justify-content: space-between;
   width: 92vw;
   height: 92vh;
-  border: 1px solid white;
+  border-color: transparent;
+  &.food {
+    background-image: url(/Vector2.png);
+    background-repeat: no-repeat;
+  }
 `;
 
 export const Header = styled.div`
@@ -22,7 +26,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-basis: 88%;
   width: 90%;
-  border: 1px solid white;
+  border-color: transparent;
   &.matching {
     flex-direction: column;
   }
@@ -43,10 +47,10 @@ export const Article = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid white;
-  &.signup-img{
+  &.signup-img {
     flex-basis: 40%;
   }
-  &.signup-form{
+  &.signup-form {
     flex-basis: 60%;
   }
 `;

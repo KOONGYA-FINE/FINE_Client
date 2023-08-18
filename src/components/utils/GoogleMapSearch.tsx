@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { placesState } from "../../store/atom";
+import { HeaderFoodWrapper } from "../../pages/food/FoodMain";
+import { styled } from "styled-components";
+import icons from "../../common/icons";
 
 const myStyles = [
   {
@@ -293,17 +296,42 @@ const GoogleMapSearch: React.FC = () => {
           disabled={food !== "" ? false : true}
         />
       ) : ( */}
-      <input
-        id="final-input"
-        className="controls"
-        type="text"
-        placeholder="Enter a location"
-      />
+      <HeaderFoodWrapper className="search">
+        <h2>RESTAURANT REVIEW</h2>
+        <GoogleSearchWrapper>
+          {icons.search}
+          <GoogleSearchInput
+            id="final-input"
+            type="text"
+            placeholder="Enter a location"
+          />
+        </GoogleSearchWrapper>
+      </HeaderFoodWrapper>
       <div>
-        <div id="map" style={{ height: "50vh", width: "80vw" }}></div>
+        <div
+          id="map"
+          style={{ height: "50vh", width: "70vw", margin: "20px auto" }}
+        ></div>
       </div>
     </div>
   );
 };
 
 export default GoogleMapSearch;
+
+const GoogleSearchWrapper = styled.div`
+  width: 15vw;
+  height: 40px;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+`;
+
+const GoogleSearchInput = styled.input`
+  border-color: transparent;
+  width: 10vw;
+  &:focus {
+    outline: none;
+  }
+`;

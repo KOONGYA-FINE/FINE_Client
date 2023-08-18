@@ -33,15 +33,19 @@ export const MatchingWrapper = styled.div`
     height: 25%;
     background-color: green;
   }
+  &.edittitle {
+    height: 20px;
+  }
   &.editcontent {
-    height: 60%;
+    height: 40%;
     background-color: rgba(95, 0, 255, 0.1);
     flex-direction: column;
     align-items: flex-end;
   }
   &.select {
-    height: 22%;
-    background-color: rgba(1, 0, 255, 0.2);
+    height: 40%;
+    background-image: url(/interestWrapper.png);
+    background-size: cover;
     flex-wrap: wrap;
     overflow: scroll;
     scrollbar-width: none;
@@ -59,9 +63,9 @@ export const MatchingWrapperBox = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  margin: 10% auto 0px;
+  margin: 4% auto 0px;
   &.edit {
-    height: 78%;
+    height: 60vh;
   }
 `;
 
@@ -77,6 +81,9 @@ export const MatchingButton = styled.button`
   background: rgba(34, 170, 85, 0.98);
   color: white;
   margin: 0px 5px;
+  &:hover {
+    border-color: transparent;
+  }
   &.unvalid {
     background: rgba(151, 151, 151, 1);
   }
@@ -88,9 +95,6 @@ export const MatchingButton = styled.button`
   &.moving {
     background-color: transparent;
     color: rgba(34, 170, 85, 0.98);
-    &:hover {
-      border-color: transparent;
-    }
   }
 `;
 

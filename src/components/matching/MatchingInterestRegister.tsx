@@ -71,8 +71,18 @@ const MatchingInterestRegister = () => {
 export default MatchingInterestRegister;
 
 export const TestCheckButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 15%;
+  height: 30px;
+  margin: 10px 15px;
+  border-radius: 20px;
+  &:hover {
+    border-color: rgba(34, 170, 85, 0.98);
+  }
   &.checked {
-    background-color: yellowgreen;
+    background-color: rgba(34, 170, 85, 0.98);
+    color: white;
   }
 `;

@@ -6,7 +6,6 @@ import { styled } from "styled-components";
 import InfoCard from "../../components/food/InfoCard";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
-
 const FoodSearch: React.FC = () => {
   const { t } = useTranslation();
   useGetLanguage();
