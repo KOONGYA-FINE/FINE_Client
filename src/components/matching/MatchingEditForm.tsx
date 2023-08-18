@@ -51,7 +51,7 @@ const MatchingEditForm = () => {
   };
   return (
     <>
-      <MatchingWrapper className="title">
+      <MatchingWrapper className="edittitle">
         <input
           placeholder="제목을 입력하세요(10자 내외)"
           maxLength={50}

@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { deleteMatchingApi } from "../apis/matchingWriting";
 import SpecificMatchingForm from "../components/matching/SpecificMatchingForm";
 import useGetToken from "../hooks/useGetToken";
+import icons from "../common/icons";
 
 const Matching = () => {
   useGetToken();
@@ -41,23 +42,31 @@ const Matching = () => {
     <>
       <SpecificMatchingForm />
       {userInfo.user.id === Engproperties.user_id ? (
-        <CommonFlex>
-          <button onClick={() => navigate(`matching/main/${numberIdx}/edit`)}>
+        <CommonFlex className="flex-end">
+          <MatchingButton className="cancel" onClick={deleteMatching}>
+            {t(`matching.delete`)}
+          </MatchingButton>
+          <MatchingButton
+            onClick={() => navigate(`matching/main/${numberIdx}/edit`)}
+          >
             {t(`matching.edit`)}
-          </button>
-          <button onClick={deleteMatching}>{t(`matching.delete`)}</button>
+          </MatchingButton>
         </CommonFlex>
       ) : null}
-      <CommonFlex>
+      <CommonFlex className="space-between">
         <MatchingButton
+          className="moving"
           onClick={useRoutePageFunc(`matching/main/${numberIdx - 1}`)}
         >
-          {t(`signup.previous`)}
+          {icons.left}
+          {t(`matching.previous`)}
         </MatchingButton>
         <MatchingButton
+          className="moving"
           onClick={useRoutePageFunc(`matching/main/${numberIdx + 1}`)}
         >
-          {t(`signup.next`)}
+          {t(`matching.next`)}
+          {icons.right}
         </MatchingButton>
       </CommonFlex>
     </>

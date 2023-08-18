@@ -9,6 +9,10 @@ import HeaderFoodReview from "../../components/food/HeaderFoodReview";
 import NavFoodReview from "../../components/food/FooterFoodReview";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
+import { HeaderFoodWrapper } from "./FoodMain";
+import { styled } from "styled-components";
+import { CommonFlex } from "../../common/commonstyle";
+import { MatchingButton } from "../../styles/MatchingStyle";
 
 const FoodReview = () => {
   const { t } = useTranslation();
@@ -49,15 +53,39 @@ const FoodReview = () => {
   };
   return (
     <>
+      <HeaderFoodWrapper>
+        <h2>RESTAURANT REVIEW</h2>
+      </HeaderFoodWrapper>
       <HeaderFoodReview />
-      {!Number.isNaN(latitude) ? (
-        <FineGoogleMap lat={latitude} lng={longtitude} />
-      ) : null}
+      <MapWrapper>
+        <div>
+          {propInfo.user_image === null ? null : (
+            <ReviewImg src={`${propInfo.image}`} />
+          )}
+        </div>
+        {!Number.isNaN(latitude) ? (
+          <FineGoogleMap lat={latitude} lng={longtitude} />
+        ) : null}
+      </MapWrapper>
       <NavFoodReview />
-      <button onClick={onClick}>{t(`matching.edit`)}</button>
-      <button onClick={onDelete}>{t(`matching.delete`)}</button>
+      <CommonFlex style={{ justifyContent: "space-around" }}>
+        <MatchingButton onClick={onClick}>{t(`matching.edit`)}</MatchingButton>
+        <MatchingButton onClick={onDelete}>
+          {t(`matching.delete`)}
+        </MatchingButton>
+      </CommonFlex>
     </>
   );
 };
 
 export default FoodReview;
+
+const MapWrapper = styled.div`
+  display: flex;
+`;
+
+export const ReviewImg = styled.img`
+  width: 40vw;
+  height: 50vh;
+  margin: 20px auto;
+`;

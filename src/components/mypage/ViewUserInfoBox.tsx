@@ -1,5 +1,6 @@
 import React from 'react'
 import { styled } from 'styled-components';
+import {BsFillPersonCheckFill} from "react-icons/bs";
 
 // const [name, setName] = useState<string>();
 //     const [school, setSchool] = useState<string>();
@@ -33,14 +34,17 @@ export const ViewUserInfoBox : React.FunctionComponent<userInfoProps> = (props) 
     const birthStr = (props.birth).split("T");
   return (
     <UserInfoBox>
-        <UserInfoHeader />
+        <UserInfoHeader>
+            <BsFillPersonCheckFill />
+            <div>Profile Details</div>
+        </UserInfoHeader>
         <UserInfoArticle>
             <WritingBox>
-                <div className='label'>name</div>
+                <div className='label'>Name</div>
                 <div className='content'>{props.name}</div>
             </WritingBox>
             <WritingBox>
-                <div className='label'>nationality</div>
+                <div className='label'>Nationality</div>
                 <div className='content'>{props.nation}</div>
             </WritingBox>
             <WritingBox>
@@ -48,7 +52,7 @@ export const ViewUserInfoBox : React.FunctionComponent<userInfoProps> = (props) 
                 <div className='content'>{genderStr}</div>
             </WritingBox>
             <WritingBox>
-                <div className='label'>birth</div>
+                <div className='label'>Birth</div>
                 <div className='content'>{birthStr}</div>
             </WritingBox>
             <WritingBox>
@@ -63,15 +67,25 @@ export const ViewUserInfoBox : React.FunctionComponent<userInfoProps> = (props) 
 const UserInfoBox = styled.div`
     display: flex;
     flex-direction: column;
-    width : 90%;
-    height: 30vh;
-    background-color: coral;
+    width : 85%;
+    height: 35vh;
+    background-color: white;
+    margin-bottom: 4%;
+    box-shadow: 2px 4px 5px #676363;
 `
 
 const UserInfoHeader = styled.div`
     display: flex;
     height: 5vh;
-    background-color: green;
+    align-items: center;
+    background-color: white;
+    border-bottom: 1px solid black;
+    padding-left: 2%;
+    gap: 2%;
+    & > div{
+        font-weight: bold;
+        margin: 0%;
+    }
 `
 
 const UserInfoArticle = styled.div`
@@ -79,19 +93,17 @@ const UserInfoArticle = styled.div`
     flex-direction: column;
     justify-content: space-around;
     height: 25vh;
-    border: 1px solid white;
-    margin: 2% 10% 2% 10%;
+    margin: 4% 10% 4% 10%;
 `
 
 const WritingBox = styled.div`
     display: flex;
     height: 3vh;
-    border: 1px solid white;
     & > .label{
         display: flex;
         justify-content: flex-end;
         flex-basis: 20%;
-        background-color: white;
         margin-right: 10%;
+        color: #676363bc;
     }
 `

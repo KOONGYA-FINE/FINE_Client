@@ -20,7 +20,7 @@
     "confirmPassword": "Re-enter your Password",
     "confirm": "confirm",
     "previous": "Previous step",
-    "next": "next step",
+    "next": "Next step",
     "personal": "Personal information",
     "name": "Your name",
     "birth": "date of birth",
@@ -60,7 +60,9 @@
     "Gender": "Gender",
     "Filters": "Filters",
     "nationality": "Nationality",
-    "interest": "Interest"
+    "interest": "Interest",
+    "previous": "Previous",
+    "next": "Next"
   },
   "review": {
     "map_search": "Please search location first",
@@ -72,5 +74,12 @@
     "register_content": "Leave a reivew",
     "register_photo": "Image add",
     "rating_again": "must be rating again"
+  },
+  "landing": {
+    "about_mypage" : "Invite countless friends to your profile, and don't forget the clippings",
+    "about_matching" : "Find friends with similar interests in a safe environment created through school certification",
+    "about_food" : "Filter and collect only the food from the countries you want",
+    "go_matching" : "Where Like Interests Meet, Friendships Greet.",
+    "go_food" : "Food, Filter, Find: Treasures Await."
   }
 }

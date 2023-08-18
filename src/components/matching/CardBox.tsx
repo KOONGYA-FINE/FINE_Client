@@ -37,7 +37,7 @@ export const CardBox = (props:postType) => {
             </FilterBox>
         </ContentBox>
         <NameBox>
-            <div>{props.username}</div>
+            <div className='name'>{props.username}</div>
             <div>{props.school}</div>
         </NameBox>
     </ArticleCardBox>
@@ -50,8 +50,9 @@ const ArticleCardBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: yellow;
-  height: 250px;
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 270px;
 `
 
 const ContentBox = styled.div`
@@ -61,27 +62,28 @@ const ContentBox = styled.div`
     justify-content: space-between;
     width: 90%;
     flex-basis: 70%;
-    background-color: coral;
+    background-color: #d3e8db9a;
+    border-radius: 10px;
 `
 
 const InfoWithScrapbox = styled.div`
     display: flex;
     width: 90%;
     flex-basis: 25%;
-    border: 1px solid black;
+    align-items: center;
 `
 
 const PostDate = styled.div`
-    height: 70%;
-    border: 1px solid black;
-    border-radius: 5px;
+    background-color: white;
+    padding: 0 2px 0 2px;
+    border-radius: 10px;
 `
 
 const Title = styled.h3`
     display: flex;
     flex-basis: 35%;
     width: 90%;
-    border: 1px solid black;
+    text-align: start;
     align-items: flex-start;
     margin: 0px;
 `
@@ -92,16 +94,18 @@ const FilterBox = styled.div`
     overflow: hidden;
     width: 90%;
     flex-basis: 40%;
-    border: 1px solid black;
 `
 
 const Filter = styled.div`
     display: flex;
-    background-color: gray;
-    border-radius: 5px;
+    border: 1px solid #0000007e;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
     height: 30%;
     padding: 1% 4% 1% 4%;
     margin: 2%;
+    color: #0000007e;
 `
 
 const NameBox = styled.div`
@@ -109,4 +113,8 @@ const NameBox = styled.div`
     flex-direction: column;
     width: 80%;
     align-items: flex-start;
+    justify-content: center;
+    & > .name {
+        font-weight: bold;
+    }
 `

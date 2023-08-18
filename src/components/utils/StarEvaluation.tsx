@@ -6,14 +6,6 @@ import { submitPlaceRegisterAtom } from "../../store/atom";
 
 const Base = styled.section`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-`;
-
-const RatingValue = styled.span`
-  font-size: 1.2rem;
-  line-height: 100%;
 `;
 
 const RatingField = styled.fieldset`
@@ -22,13 +14,13 @@ const RatingField = styled.fieldset`
   align-items: center;
   flex-direction: row-reverse;
   border: none;
-  transform: translateY(3px);
+  transform: translate(-50px, 15px);
 
   input:checked ~ label,
   labeL:hover,
   labeL:hover ~ label {
     transition: 0.2s;
-    color: yellowgreen;
+    color: #25ab58;
   }
 `;
 
@@ -53,7 +45,6 @@ const StarEvaluation = () => {
         <StarInput onClickRating={handleClickRating} value={2} />
         <StarInput onClickRating={handleClickRating} value={1} />
       </RatingField>
-      <RatingValue>{rating}</RatingValue>
     </Base>
   );
 };

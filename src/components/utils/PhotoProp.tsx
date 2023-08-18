@@ -10,6 +10,10 @@ import {
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
+import { ReviewInputWrapper } from "../../pages/food/FoodMain";
+import { ReviewRegisterText } from "../food/FoodRegisterForm";
+import { styled } from "styled-components";
+import icons from "../../common/icons";
 
 const PhotoProp = () => {
   const { t } = useTranslation();
@@ -50,25 +54,51 @@ const PhotoProp = () => {
   }, []);
   return (
     <>
-      <button onClick={handleImageClick}>
-        {t(`review.register_photo`)}
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          id="inputImage"
-          onChange={ImgFile}
-        />
-      </button>
-      {uploadImage && (
-        <>
-          <img src={uploadImage} alt="selected" />
-          <button onClick={deleteImgFile}>{t(`matching.delete`)}</button>
-        </>
-      )}
+      <ReviewInputWrapper>
+        <ReviewRegisterText>
+          Please insert the photo of the restaurant
+        </ReviewRegisterText>
+      </ReviewInputWrapper>
+      <PhotoWrapper>
+        <PhotoAddButton onClick={handleImageClick}>
+          {icons.plus}
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            id="inputImage"
+            onChange={ImgFile}
+          />
+        </PhotoAddButton>
+        {uploadImage && (
+          <PhotoWrapper className="column">
+            <ReviewImg src={uploadImage} alt="selected" />
+            <button onClick={deleteImgFile}>{t(`matching.delete`)}</button>
+          </PhotoWrapper>
+        )}
+      </PhotoWrapper>
     </>
   );
 };
 
 export default PhotoProp;
+
+const ReviewImg = styled.img`
+  width: 237px;
+  height: 152px;
+`;
+
+const PhotoWrapper = styled.div`
+  display: flex;
+  .column {
+    flex-direction: column;
+  }
+`;
+
+const PhotoAddButton = styled.button`
+  background-color: white;
+  border-color: rgba(151, 151, 151, 1);
+  width: 237px;
+  height: 152px;
+`;

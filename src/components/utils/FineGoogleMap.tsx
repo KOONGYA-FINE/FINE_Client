@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import { styled } from "styled-components";
+import { useLocation } from "react-router-dom";
 
 // const center = {
 //   lat: 37.5649867,
@@ -23,6 +24,7 @@ const OPTIONS = {
 };
 
 function FineGoogleMap({ lat, lng }: { lat: number; lng: number }) {
+  const location = useLocation().pathname;
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_KEY as string,
@@ -45,7 +47,11 @@ function FineGoogleMap({ lat, lng }: { lat: number; lng: number }) {
   return isLoaded ? (
     <Wrapper>
       <GoogleMap
-        mapContainerClassName="map-container"
+        mapContainerClassName={
+          location.includes("edit" || "register")
+            ? "map-container"
+            : "review-container"
+        }
         center={center}
         onLoad={onLoad}
         onUnmount={onUnmount}
@@ -64,6 +70,12 @@ export default React.memo(FineGoogleMap);
 const Wrapper = styled.div`
   .map-container {
     width: 80vw;
-    height: 40vh;
+    height: 50vh;
+    margin: 20px auto;
+  }
+  .review-container {
+    width: 40vw;
+    height: 50vh;
+    margin: 20px auto;
   }
 `;

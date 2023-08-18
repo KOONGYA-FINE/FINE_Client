@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
+import { ArticleCardBox } from "./FoodCardBox";
 
 const InfoCard: React.FunctionComponent<PlaceProp> = (props) => {
   const { t } = useTranslation();
@@ -22,11 +23,10 @@ const InfoCard: React.FunctionComponent<PlaceProp> = (props) => {
   };
   return (
     <>
-      <div> {props.address}</div>
-      <div> {props.name}</div>
-      <div>{props.tag}</div>
       <CardImg src={`${props?.phtotoProp}`} />
-      <button onClick={registerRouter}>{t(`review.leave_review`)}</button>
+      <Title> {props.name}</Title>
+      <Content> {props.address}</Content>
+      <Button onClick={registerRouter}>{t(`review.leave_review`)}</Button>
     </>
   );
 };
@@ -34,6 +34,24 @@ const InfoCard: React.FunctionComponent<PlaceProp> = (props) => {
 export default InfoCard;
 
 const CardImg = styled.img`
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 35%;
+`;
+
+const Title = styled.div`
+  font-size: 11px;
+  text-align: left;
+  font-weight: 700;
+`;
+
+const Content = styled.div`
+  font-size: 8px;
+  text-align: left;
+`;
+
+const Button = styled.button`
+  border: 1px solid rgba(34, 170, 85, 0.98);
+  color: rgba(34, 170, 85, 0.98);
+  width: 150px;
+  height: 40px;
 `;

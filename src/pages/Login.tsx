@@ -9,9 +9,9 @@ const Login = () => {
     <Container>
       <HeaderCompo />
       <Wrapper>
-        <Article>여기에 메인 사진</Article>
+        <Article><img src="SignInImg.png" /></Article>
         <Article>
-          <Loginlogo src="/FineLogo.png" />
+          <Loginlogo src="/FineLogoClear.png" />
           <KatahdinFont style={{ fontSize: "30px", marginBottom: "41px" }}>
             WELCOME TO FINE!
           </KatahdinFont>
@@ -25,7 +25,6 @@ const Login = () => {
 export default Login;
 
 const Loginlogo = styled.img`
-  width: 237px;
-  height: 198px;
+  width: 30%;
   margin-bottom: 30px;
 `;

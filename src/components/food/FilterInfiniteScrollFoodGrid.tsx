@@ -112,7 +112,6 @@ const ArticleWrapper= styled.div`
   grid-auto-flow: row; */
   /* grid-column: auto / span 1;
   grid-row: auto / span 1; */
-  border: 5px solid red;
   grid-gap: 10px;
   overflow-y: scroll;
   &::-webkit-scrollbar {

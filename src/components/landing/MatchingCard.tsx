@@ -4,6 +4,7 @@ import { styled } from 'styled-components'
 import { TranslationAtom } from '../../store/atom';
 import { postType } from '../../apis/matchingGet';
 import { GetMatchingPostsForLandingApi } from '../../apis/landingapi';
+import { MachingCardBox } from './MachingCardBox';
 
 export const MatchingCard = () => {
     const currentlang = useRecoilValue(TranslationAtom);
@@ -30,14 +31,20 @@ export const MatchingCard = () => {
     <CardWrapper>
         {ENPosts&&(currentlang==="en") ? 
         ENPosts.map((post, idx:number) => 
-        (<CardBox key={idx}>
-            <h3>{post.title}</h3>
-        </CardBox>))
+        (<MachingCardBox
+            key={idx}
+            title={post.title}
+            interest={post.interest}
+            username={post.username}
+            school={post.school} />))
         :
         KOPosts.map((post, idx:number) => 
-        (<CardBox key={idx}>
-            <h3>{post.title}</h3>
-        </CardBox>))
+        (<MachingCardBox
+            key={idx}
+            title={post.title}
+            interest={post.interest}
+            username={post.username}
+            school={post.school} />))
         }
     </CardWrapper>
     </>
@@ -49,15 +56,9 @@ const CardWrapper = styled.div`
     flex-basis: 60vh;
     justify-content: flex-end;
     align-items: center;
-    gap: 2%;
-    background-color: skyblue;
-`
-
-const CardBox = styled.div`
-    display: flex;
-    flex-basis: 20%;
-    align-items: center;
-    height: 70%;
-    border: 2px solid white;
-    border-radius: 10px;
+    gap: 5px;
+    background-image: url('LandingBack.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* background-color: skyblue; */
 `

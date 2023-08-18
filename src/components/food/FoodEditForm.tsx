@@ -9,6 +9,12 @@ import {
 import { useTranslation } from "react-i18next";
 import { useGetLanguage } from "../../hooks/useGetLanguage";
 import FoodTagButton, { CheckButton } from "./FoodTagButton";
+import { ReviewInputWrapper } from "../../pages/food/FoodMain";
+import {
+  ReviewRegisterInput,
+  ReviewRegisterText,
+  ReviewRegisterTextArea,
+} from "./FoodRegisterForm";
 
 const FoodEditForm = () => {
   const { t } = useTranslation();
@@ -37,25 +43,36 @@ const FoodEditForm = () => {
   }, [prop]);
   return (
     <>
-      <div>{t(`review.register_name`)}</div>
-      <input value={propInfo.name} disabled />
-      <div>{t(`review.register_location`)}</div>
-      <input value={propInfo.address} disabled />
-      <div>{t(`review.register_tag`)}</div>
-      <>
-        {propInfo.tag === "cafe" ? (
-          <CheckButton disabled>{propInfo.tag}</CheckButton>
-        ) : (
-          <FoodTagButton />
-        )}
-      </>
-      <div>
-        {t(`review.register_rating`)}
-        {t(`review.rating_again`)}
-      </div>
-      <StarEvaluation />
-      <div>{t(`review.register_content`)}</div>
-      <textarea
+      <ReviewInputWrapper>
+        <ReviewRegisterText>{t(`review.register_name`)}</ReviewRegisterText>
+        <ReviewRegisterInput value={propInfo.name} disabled />
+      </ReviewInputWrapper>
+      <ReviewInputWrapper>
+        <ReviewRegisterText>{t(`review.register_location`)}</ReviewRegisterText>
+        <ReviewRegisterInput value={propInfo.address} disabled />
+      </ReviewInputWrapper>
+      <ReviewInputWrapper>
+        <ReviewRegisterText>{t(`review.register_tag`)}</ReviewRegisterText>
+        <div style={{ display: "flex" }}>
+          {propInfo.tag === "cafe" ? (
+            <CheckButton disabled>{propInfo.tag}</CheckButton>
+          ) : (
+            <FoodTagButton />
+          )}
+        </div>
+      </ReviewInputWrapper>
+      <ReviewInputWrapper>
+        <ReviewRegisterText>
+          {" "}
+          {t(`review.register_rating`)}
+          {t(`review.rating_again`)}
+        </ReviewRegisterText>
+        <StarEvaluation />
+      </ReviewInputWrapper>
+      <ReviewInputWrapper>
+        <ReviewRegisterText>{t(`review.register_content`)}</ReviewRegisterText>
+      </ReviewInputWrapper>
+      <ReviewRegisterTextArea
         value={text}
         onChange={displayText}
         minLength={5}
