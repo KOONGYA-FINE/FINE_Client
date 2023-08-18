@@ -81,7 +81,7 @@ const ProfileBox = styled.div`
   }
 `;
 
-const InterestButton = styled.div`
+export const InterestButton = styled.div`
   border-radius: 20px;
   background-color: rgba(206, 233, 216, 0.37);
   width: 15%;

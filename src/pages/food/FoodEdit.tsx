@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import FineGoogleMap from "../../components/utils/FineGoogleMap";
 import FoodEditForm from "../../components/food/FoodEditForm";
 import FoodEditButton from "../../components/food/FoodEditButton";
+import { HeaderFoodWrapper } from "./FoodMain";
 
 const FoodEdit = () => {
   useGetReviewProps();
@@ -24,6 +25,9 @@ const FoodEdit = () => {
   }, []);
   return (
     <>
+      <HeaderFoodWrapper className="register">
+        <h2>RESTAURANT REVIEW</h2>
+      </HeaderFoodWrapper>
       {!Number.isNaN(latitude) ? (
         <FineGoogleMap lat={latitude} lng={longtitude} />
       ) : null}

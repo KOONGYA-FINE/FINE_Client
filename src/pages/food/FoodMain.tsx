@@ -34,6 +34,10 @@ export const HeaderFoodWrapper = styled.div`
     justify-content: space-around;
     align-items: center;
   }
+  &.register {
+    margin-top: 0px;
+    flex-basis: 5%;
+  }
 `;
 
 export const ReviewInputWrapper = styled.div`

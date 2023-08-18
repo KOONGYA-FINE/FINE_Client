@@ -8,7 +8,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { putFoodRegisterApi } from "../../apis/foodapi";
 import PhotoProp from "../utils/PhotoProp";
-import { CheckButton } from "./FoodTagButton";
+import { MatchingButton } from "../../styles/MatchingStyle";
 
 const FoodEditButton = () => {
   const { idx } = useParams();
@@ -67,14 +67,15 @@ const FoodEditButton = () => {
   return (
     <>
       <PhotoProp />
-      <CheckButton
+      <MatchingButton
+        style={{ margin: "auto" }}
         disabled={
           submitProp.rating !== 0 && submitProp.tag !== "" ? false : true
         }
         onClick={submitEditFoodRegister}
       >
         Register
-      </CheckButton>
+      </MatchingButton>
     </>
   );
 };

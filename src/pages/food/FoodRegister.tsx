@@ -21,7 +21,7 @@ const FoodRegister: React.FC = () => {
   }, [registerProp]);
   return (
     <>
-      <HeaderFoodWrapper>
+      <HeaderFoodWrapper className="register">
         <h2>RESTAURANT REVIEW</h2>
       </HeaderFoodWrapper>
       <FineGoogleMap lat={registerProp.lat} lng={registerProp.lng} />
